@@ -18,4 +18,9 @@ class PersonnageController
 
         require 'views/PersonnageDetail.php';
     }
+
+    public function nouveau()
+    {
+        require 'views/PersonnageCreation.php';
+    }
 }

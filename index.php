@@ -78,8 +78,9 @@ $router->addRoute('index', 'AccueilController@index'); // Pour la racine
 $router->addRoute('personnages', 'PersonnageController@index'); //Pour afficher tout les personnages du compte
 $router->addRoute('personnages/{id}', 'PersonnageController@show'); // Pour afficher les détail d'un personnage par ID
 $router->addRoute('creation_compte', 'CreationCompteController@index');
-$router->addRoute('connexion', 'ConnexionController@index');
 $router->addRoute('traitement_creation_compte', 'CreationCompteController@verification');
+$router->addRoute('connexion', 'ConnexionController@index');
+$router->addRoute('traitement_connexion', 'ConnexionController@verification');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

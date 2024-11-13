@@ -18,6 +18,8 @@
         <title>Création de compte</title>
     </head>
     <body>
+        <h1>Création de compte</h1>
+
         <form action="traitement_creation_compte" method="POST">
             <label for="nom">Votre nom</label>
             <br>
@@ -52,7 +54,7 @@
             <input type="password" name="password" size="30" placeholder="Saisissez votre mot de passe">
             <br>
             <br>
-            <button type="submit">Envoyer</button>
+            <button type="submit">Valider</button>
 
             <?php
                 // affichage des erreurs
@@ -68,5 +70,9 @@
                 $_SESSION['account_creation_error'] = null;
             ?>
         </form>
+
+        <br>
+        <br>
+        <button><a href="connexion">Page connexion</a></button>
     </body>
 </html>

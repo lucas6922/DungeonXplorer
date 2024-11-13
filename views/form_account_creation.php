@@ -60,6 +60,12 @@
                 if (isset($_SESSION['account_creation_error']) && !empty($_SESSION['account_creation_error'])) {
                     echo $_SESSION['account_creation_error'];
                 }
+
+                $_SESSION['nom'] = null;
+                $_SESSION['prenom'] = null;
+                $_SESSION['pseudo'] = null;
+                $_SESSION['email'] = null;
+                $_SESSION['account_creation_error'] = null;
             ?>
         </form>
     </body>

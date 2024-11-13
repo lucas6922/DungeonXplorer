@@ -13,6 +13,8 @@
 		$prenom = trim(strip_tags($_POST['prenom']));
 		$pseudo = trim(strip_tags($_POST['pseudo']));
 		$email = trim(strip_tags($_POST['email']));
+
+        // CHIFFRER LE MOT DE PASSE (bcrypt)
 		$password = trim(strip_tags($_POST['password'])); // retirer le strip_tags pour le mdp ?
 		
 		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {

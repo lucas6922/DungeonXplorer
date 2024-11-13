@@ -20,13 +20,9 @@
 
 			try {
 				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
-                // echo 'Compte créé !';
-                
-                // sleep(5);
+
                 header('Location: index.php');
 			} catch (Exception $e) {
-				// echo "Une erreur est survenue lors de l'insertion : ", $e->getMessage();
-                // sleep(5);
                 $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
                 header('Location: form_account_creation.php');
 			}

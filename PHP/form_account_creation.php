@@ -23,7 +23,7 @@
             <br>
             <?php
                 echo '<input type="text" name="nom" size="17" placeholder="Saisissez votre nom" value="' . $nom . '">';
-                ?>
+            ?>
             <br>
             <br>
             <label for="prenom">Votre prénom</label>
@@ -37,14 +37,14 @@
             <br>
             <?php
                 echo '<input type="text" name="pseudo" size="17" placeholder="Saisissez votre pseudo" value="' . $pseudo . '">';
-                ?>
+            ?>
             <br>
             <br>
             <label for="email">Votre email</label>
             <br>
             <?php
                 echo '<input type="text" name="email" size="30" placeholder="Saisissez votre adresse email" value="' . $email . '">';
-                ?>
+            ?>
             <br>
             <br>
             <label for="password">Votre mot de passe</label>

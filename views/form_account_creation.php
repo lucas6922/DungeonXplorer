@@ -18,7 +18,7 @@
         <title>Création de compte</title>
     </head>
     <body>
-        <form action="create_account.php" method="POST">
+        <form action="traitement_creation_compte" method="POST">
             <label for="nom">Votre nom</label>
             <br>
             <?php

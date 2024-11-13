@@ -21,18 +21,18 @@
 			try {
 				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
 
-                header('Location: index.php');
+                header('Location: index');
 			} catch (Exception $e) {
                 $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
-                header('Location: form_account_creation.php');
+                header('Location: creation_compte');
 			}
 		} else {
             $_SESSION['account_creation_error'] = "Les caractères < et > ne sont pas autorisés";
-            header('Location: form_account_creation.php');
+            header('Location: creation_compte');
         }
 	} else {
         $_SESSION['account_creation_error'] = "Vous n'avez pas indiqué toutes vos informations";
-        header('Location: form_account_creation.php');
+        header('Location: creation_compte');
     }
 
     

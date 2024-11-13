@@ -2,33 +2,40 @@
     // create_account.php
     // traitement de la requête du formulaire pour créer le compte
 
-    // faire les redirections en javascript
+    session_start();
 
-    if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['password']) &&
-        !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+    $_SESSION = $_POST;
+
+    if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) &&
+        !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])) {
         
 		$nom = trim(strip_tags($_POST['nom']));
 		$prenom = trim(strip_tags($_POST['prenom']));
+		$pseudo = trim(strip_tags($_POST['pseudo']));
 		$email = trim(strip_tags($_POST['email']));
-		$password = trim(strip_tags($_POST['password']));
+		$password = trim(strip_tags($_POST['password'])); // retirer le strip_tags pour le mdp ?
 		
-		if (!empty($nom) && !empty($prenom) && !empty($email) && !empty($password)) {
+		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {
 			// Ajout du compte à la db
 
 			try {
-				// $connexion->exec("insert into accounts values (null, '$nom', '$prenom', '$email', '$password')");
-                echo 'Compte créé !';
-
+				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
+                // echo 'Compte créé !';
+                
                 // sleep(5);
-                // header('Location: index.php');
+                header('Location: index.php');
 			} catch (Exception $e) {
-				echo "Une erreur est survenue lors de l'insertion : ", $e->getMessage();
+				// echo "Une erreur est survenue lors de l'insertion : ", $e->getMessage();
                 // sleep(5);
+                $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
+                header('Location: form_account_creation.php');
 			}
 		} else {
+            $_SESSION['account_creation_error'] = "Les caractères < et > ne sont pas autorisés";
             header('Location: form_account_creation.php');
         }
 	} else {
+        $_SESSION['account_creation_error'] = "Vous n'avez pas indiqué toutes vos informations";
         header('Location: form_account_creation.php');
     }
 

@@ -16,6 +16,6 @@ class PersonnageController
         $personnageModel = new PersonnageModel;
         $task = $personnageModel->getPersonnage($id);
 
-        require 'views/Personnage.php';
+        require 'views/PersonnageDetail.php';
     }
 }

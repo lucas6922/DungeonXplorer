@@ -8,7 +8,6 @@
 
         foreach ($directories as $directory) {
             $filePath = $directory . $class . '.php';
-            echo $filePath;
             if (file_exists($filePath)) {
                 require_once $filePath;
                 return;

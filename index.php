@@ -70,7 +70,7 @@ class Router
 }
 
 // Instanciation du routeur
-$router = new Router('MVC');
+$router = new Router('DungeonXplorer');
 
 // Ajout des routes
 $router->addRoute('', 'AccueilController@index'); // Pour la racine

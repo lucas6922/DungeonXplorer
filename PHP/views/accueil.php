@@ -7,5 +7,7 @@
     </head>
     <body>
         <h1> Bienvenue sur le site du gestionnaire de tâches</h1>
+        <button>Connexion</button>
+        <button>Créer un nouveau personnage</button>
     </body>
 </html>

@@ -15,12 +15,22 @@
 		$email = trim(strip_tags($_POST['email']));
 
         // CHIFFRER LE MOT DE PASSE (bcrypt)
-		$password = trim(strip_tags($_POST['password'])); // retirer le strip_tags pour le mdp ?
+		$password = trim($_POST['password']);
 		
 		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {
-			// Ajout du compte à la db
-
 			try {
+                // Vérifier que le compte n'est pas déjà présent dans la db
+                /*
+                $select = $connexion->query("select * from accounts where password = $password and (email = $email or pseudo = $pseudo)");
+
+                while ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
+                    $_SESSION['account_creation_error'] = "Ce compte existe déjà";
+                    header('Location: creation_compte');
+                }
+                */
+                
+
+			    // Ajout du compte à la db
 				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
 
                 header('Location: index');

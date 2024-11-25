@@ -1,6 +1,6 @@
 <?php
     // create_account.php
-    // traitement de la requête du formulaire pour créer le compte
+    // traitement de la requête du formulaire pour se connecter à un compte déjà existant
 
     session_start();
 
@@ -8,38 +8,43 @@
 
     $_SESSION['password'] = '';
 
-    /*
-    if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) &&
-        !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+    if (isset($_POST['pseudoOuEmail']) && isset($_POST['password']) &&
+        !empty($_POST['pseudoOuEmail']) && !empty($_POST['password'])) {
         
-		$nom = trim(strip_tags($_POST['nom']));
-		$prenom = trim(strip_tags($_POST['prenom']));
-		$pseudo = trim(strip_tags($_POST['pseudo']));
-		$email = trim(strip_tags($_POST['email']));
+		$pseudoOuEmail = trim(strip_tags($_POST['pseudoOuEmail']));
 
         // CHIFFRER LE MOT DE PASSE (bcrypt)
-		$password = trim(strip_tags($_POST['password'])); // retirer le strip_tags pour le mdp ?
+        // (pour le comparer avec le mot de passe chiffré dans la base)
+		$password = trim($_POST['password']);
 		
-		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {
-			// Ajout du compte à la db
-
+		if (!empty($pseudoOuEmail) && !empty($password)) {
 			try {
-				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
+                // Vérifier que la paire (email, password) OU (pseudo, password)
+                // est présente dans la base de données
+                /*
+                $select = $connexion->query("select * from accounts where password = $password and (email = $pseudoOuEmail or pseudo = $pseudoOuEmail)");
 
+                if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
+                    $_SESSION['user_id'] = $enregistrement['id'];
+                    header('Location: index');
+                } else {
+                    $_SESSION['connexion_error'] = "Ce compte n'existe pas";
+                    header('Location: connexion');
+                }
+                */
                 header('Location: index');
 			} catch (Exception $e) {
-                $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
-                header('Location: creation_compte');
+                $_SESSION['connexion_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
+                header('Location: connexion');
 			}
 		} else {
-            $_SESSION['account_creation_error'] = "Les caractères < et > ne sont pas autorisés";
-            header('Location: creation_compte');
+            $_SESSION['connexion_error'] = "Les caractères < et > ne sont pas autorisés pour l'email";
+            header('Location: connexion');
         }
 	} else {
-        $_SESSION['account_creation_error'] = "Vous n'avez pas indiqué toutes vos informations";
-        header('Location: creation_compte');
+        $_SESSION['connexion_error'] = "Vous n'avez pas indiqué toutes vos informations";
+        header('Location: connexion');
     }
-    */
 
     
 ?>

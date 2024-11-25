@@ -21,18 +21,22 @@
 			try {
                 // Vérifier que la paire (email, password) OU (pseudo, password)
                 // est présente dans la base de données
+                
                 /*
-                $select = $connexion->query("select * from accounts where password = $password and (email = $pseudoOuEmail or pseudo = $pseudoOuEmail)");
+                $select = $connexion->query("select * from accounts where email = $pseudoOuEmail or pseudo = $pseudoOuEmail");
 
-                if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
-                    $_SESSION['user_id'] = $enregistrement['id'];
-                    header('Location: index');
-                } else {
-                    $_SESSION['connexion_error'] = "Ce compte n'existe pas";
-                    header('Location: connexion');
+                while ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
+                    if (password_verify($password, $enregistrement['password'])) {
+                        // Le compte existe
+
+                        $_SESSION['user_id'] = $enregistrement['id'];
+                        header('Location: index');
+                    }
                 }
                 */
-                header('Location: index');
+
+                $_SESSION['connexion_error'] = "Ce compte n'existe pas";
+                header('Location: connexion');
 			} catch (Exception $e) {
                 $_SESSION['connexion_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
                 header('Location: connexion');

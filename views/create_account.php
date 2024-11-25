@@ -6,6 +6,8 @@
 
     $_SESSION = $_POST;
 
+    $_SESSION['password'] = '';
+
     if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['pseudo']) && isset($_POST['email']) && isset($_POST['password']) &&
         !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])) {
         
@@ -20,18 +22,27 @@
 		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {
 			try {
                 // Vérifier que le compte n'est pas déjà présent dans la db
+                
                 /*
-                $select = $connexion->query("select * from accounts where password = $password and (email = $email or pseudo = $pseudo)");
+                $select = $connexion->query("select * from accounts where email = $email");
 
-                while ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
-                    $_SESSION['account_creation_error'] = "Ce compte existe déjà";
+                if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
+                    $_SESSION['account_creation_error'] = "Un compte existe déjà avec cette adresse email";
+                    header('Location: creation_compte');
+                }
+                
+                $select = $connexion->query("select * from accounts where pseudo = $pseudo");
+
+                if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
+                    $_SESSION['account_creation_error'] = "Un compte existe déjà avec ce pseudo";
                     header('Location: creation_compte');
                 }
                 */
-                
+
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
 
 			    // Ajout du compte à la db
-				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$password')");
+				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$hashed')");
 
                 header('Location: index');
 			} catch (Exception $e) {

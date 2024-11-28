@@ -4,6 +4,7 @@
 
     $name = isset($_SESSION['name']) && !empty($_SESSION['name']) ? $_SESSION['name'] : '';
     $image = isset($_SESSION['image']) && !empty($_SESSION['image']) ? $_SESSION['image'] : '';
+    $classe = isset($_SESSION['classe']) && !empty($_SESSION['classe']) ? $_SESSION['classe'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -19,22 +20,25 @@
             <label for="name">Nom du personnage :</label>
             <br>
             <?php
-                echo '<input type="text" name="name" size="17" placeholder="Saisissez le nom" value="' . $nom . '">';
+                echo '<input type="text" name="name" size="17" placeholder="Saisissez le nom" value="' . $name . '">';
             ?>
             <br>
             <br>
-            <label for="prenom">Choisir une image :</label>
+            <label for="image">Choisir une image :</label>
             <br>
-            <?php
-                echo '<input type="text" name="prenom" size="17" placeholder="Saisissez votre prénom" value="' . $prenom . '">';
-            ?>
+            <input type="radio" name="classe" class= "imageNouveauPersonnage" id="guerrier"> <img src="Images/Berserker.jpg" alt="guerrier">
+            <input type="radio" name="classe" class= "imageNouveauPersonnage" id="magicienne"> <img src="Images/Magician01.jpg" alt="magicienne">
+            <input type="radio" name="classe" class= "imageNouveauPersonnage" id="magicien"> <img src="Images/Magician02.jpg" alt="magicien">
+            <input type="radio" name="classe" class= "imageNouveauPersonnage" id="voleur"> <img src="Images/Thief.jpg" alt="voleur">
             <br>
             <br>
-            <label for="prenom">Choisir une classe :</label>
+            <label for="classe">Choisir une classe :</label>
             <br>
-            <?php
-                echo '<input type="text" name="prenom" size="17" placeholder="Saisissez votre prénom" value="' . $prenom . '">';
-            ?>
+
+            <?php foreach ($nom as $classes): ?>
+                <input type="radio" name="classe" id="<?php echo $nom; ?>"> <label for="<?php echo $nom; ?>"><?php echo $nom; ?></label><br>
+            <?php endforeach; ?>
+
             <br>
             <br>
             <button type="submit">Envoyer</button>

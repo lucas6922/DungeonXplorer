@@ -13,7 +13,11 @@ function makeStruct(keys) {
   }
 
 let combattant = new makeStruct(
-    "nom, id_classe, pvMax, pv, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts"
+    "nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts"
+)
+
+let potion = new makeStruct(
+    "nom, id_potion, val" //id_potion = 0 pour potion de vie, 1 pour potion de mana
 )
 
 
@@ -57,15 +61,45 @@ function soigner(combattant, valSoin){
     }
 }
 
-function attaquer(attaquant, cible){
-    console.log(attaquant);
-    let degats = tirerDe(6) + attaquant.force + attaquant.arme_principale; //TODO Gérer arme secondaire
-    let defense = 0;
-    //TODO
+function regenererMana(combattant, valReg){
+    if (valReg <= 0){
+        return;
+    }
+    if (combattant.mana + valReg >= combattant.manaMax){
+        combattant.mana = combattant.manaMax; 
+    }
+    else{
+        combattant.mana += valReg;
+    }
 }
 
-let  michel = new combattant('Michel', 0, 100, 100, 0, 6, 5, 2, 0, 0, 0, []);
-let  darkMichel = new combattant('DarkMichel', 0, 80, 80, 0, 4, 3, 0, 0, 0, 0, []);
-console.log(darkMichel.initiative);
-attaquer(darkMichel, michel);
-console.log(darkMichel.pv);
+function attaquer(attaquant, cible){
+    let degats = tirerDe(6) + attaquant.force + attaquant.arme_principale; //TODO Gérer arme secondaire
+    let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;//TODO Gere en fonction de la classe
+    prendreDegats(cible, degats - defense);
+    
+}
+
+function attaquerMagique(attaquant, cible, manaSort){
+    let degats = tirerDe(6) + tirerDe(6) + manaSort;
+    let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;//TODO Gere mana insuffisant
+    attaquant.mana -= manaSort;
+    prendreDegats(cible, degats - defense);
+}
+
+function utiliserPotion(cible, idPotion, val){
+    if (idPotion == 0){
+        soigner(cible, val);
+    }
+    else if (idPotion == 1){
+        regenererMana(cible, val);
+    }
+}
+
+//nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts
+let  michel = new combattant('Michel', 0, 100, 100, 40, 40, 6, 5, 10, 0, 0, 0, []);
+let  darkMichel = new combattant('DarkMichel', 0, 80, 80, 60, 60, 50, 3, 0, 0, 0, 0, []);
+attaquerMagique(darkMichel, michel, 20);
+console.log(michel.pv);
+utiliserPotion(michel, 0, 10);
+console.log(michel.pv);

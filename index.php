@@ -5,6 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'autoload.php';
+require_once 'database/connexion_db.php';
+$connexion = connect_db();
 
 class Router
 {
@@ -85,3 +87,5 @@ $router->addRoute('chapitre/{id}', 'ChapterController@show');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
+
+$connexion = null;

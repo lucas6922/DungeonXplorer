@@ -2,7 +2,11 @@
     // create_account.php
     // traitement de la requête du formulaire pour créer le compte
 
+    require_once 'database/connexion_db.php';
+
     session_start();
+
+    $connexion = connect_db();
 
     $_SESSION = $_POST;
 
@@ -15,35 +19,35 @@
 		$prenom = trim(strip_tags($_POST['prenom']));
 		$pseudo = trim(strip_tags($_POST['pseudo']));
 		$email = trim(strip_tags($_POST['email']));
-
-        // CHIFFRER LE MOT DE PASSE (bcrypt)
 		$password = trim($_POST['password']);
 		
 		if (!empty($nom) && !empty($prenom) && !empty($pseudo) && !empty($email) && !empty($password)) {
 			try {
                 // Vérifier que le compte n'est pas déjà présent dans la db
                 
-                /*
-                $select = $connexion->query("select * from accounts where email = $email");
+                $select = $connexion->query("select * from PLAYER where pla_mail = '$email'");
 
                 if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
                     $_SESSION['account_creation_error'] = "Un compte existe déjà avec cette adresse email";
                     header('Location: creation_compte');
                 }
                 
-                $select = $connexion->query("select * from accounts where pseudo = $pseudo");
+                $select = $connexion->query("select * from PLAYER where pla_pseudo = '$pseudo'");
 
                 if ($enregistrement = $select->fetch(PDO::FETCH_OBJ)) {
                     $_SESSION['account_creation_error'] = "Un compte existe déjà avec ce pseudo";
                     header('Location: creation_compte');
                 }
-                */
 
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-			    // Ajout du compte à la db
-				// $connexion->exec("insert into accounts values (null, '$nom', '$pseudo', '$prenom', '$email', '$hashed')");
+                $select = $connexion->query("select max(pla_id) as maxi from PLAYER");
+                $enregistrement = $select->fetch(PDO::FETCH_OBJ);
+                $id = $enregistrement->maxi + 1;
 
+			    // Ajout du compte à la db
+				$connexion->exec("insert into PLAYER values ('$id', '$prenom', '$nom', '$email', '$pseudo', '$hashed')");
+                
                 header('Location: index');
 			} catch (Exception $e) {
                 $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
@@ -58,5 +62,5 @@
         header('Location: creation_compte');
     }
 
-    
+    $connexion = null;
 ?>

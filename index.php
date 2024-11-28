@@ -81,6 +81,7 @@ $router->addRoute('creation_compte', 'CreationCompteController@index');
 $router->addRoute('traitement_creation_compte', 'CreationCompteController@verification');
 $router->addRoute('connexion', 'ConnexionController@index');
 $router->addRoute('traitement_connexion', 'ConnexionController@verification');
+$router->addRoute('chapitre/{id}', 'ChapterController@show');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

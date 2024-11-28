@@ -20,6 +20,10 @@ let potion = new makeStruct(
     "nom, id_potion, val" //id_potion = 0 pour potion de vie, 1 pour potion de mana
 )
 
+let boutonAttaquer = document.getElementById("attaquer");
+let boutonPotion = document.getElementById("potion");
+let consoleCombat = document.getElementById("console");
+
 
 
 
@@ -42,7 +46,8 @@ function prendreDegats(combattant, degats){
         return;
     }
     if (combattant.pv - degats <= 0){
-        combattant.pv = 0; 
+        combattant.pv = 0;
+        finDeCombat(combattant);
     }
     else{
         combattant.pv -= degats;
@@ -96,10 +101,36 @@ function utiliserPotion(cible, idPotion, val){
     }
 }
 
+function finDeCombat(combattant){
+    consoleCombat.innerHTML += "Fini !<br>" + combattant.nom + " a perdu<br>";
+    boutonAttaquerClone = boutonAttaquer.cloneNode(true);
+    boutonAttaquer.parentNode.replaceChild(boutonAttaquerClone, boutonAttaquer);
+}
+
+
+function tour(heros, ennemi){
+    boutonAttaquer.addEventListener('click', () => {
+        let j1 = ennemi;
+        let j2 = heros;
+        if (calculInitiative(heros, ennemi) == heros){
+            j1 = heros;
+            j2 = ennemi;
+        }
+        attaquer(j1, j2);
+        consoleCombat.innerHTML += (j1.nom + " attaque " + j2.nom + " !<br>" +"PV " + j2.nom + " : " + j2.pv + "<br>");
+        attaquer(j2, j1);
+        consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>" + "PV " + j1.nom + " : " + j1.pv + "<br>");
+    })
+}
+
+
+
+function charger(){
+    let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);
+    let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd
+    tour(michel, darkMichel);
+}
+
 //nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts
-let  michel = new combattant('Michel', 0, 100, 100, 40, 40, 6, 5, 10, 0, 0, 0, []);
-let  darkMichel = new combattant('DarkMichel', 0, 80, 80, 60, 60, 50, 3, 0, 0, 0, 0, []);
-attaquerMagique(darkMichel, michel, 20);
-console.log(michel.pv);
-utiliserPotion(michel, 0, 10);
-console.log(michel.pv);
+
+charger();

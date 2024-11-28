@@ -84,5 +84,3 @@ $router->addRoute('traitement_connexion', 'ConnexionController@verification');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
-
-/* ouais pas mal ouais */

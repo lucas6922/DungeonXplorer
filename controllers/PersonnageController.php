@@ -18,4 +18,11 @@ class PersonnageController
 
         require 'views/PersonnageDetail.php';
     }
+
+    public function nouveau()
+    {
+        $classeModel = new ClasseModel;
+        $classes = $classeModel->getAllClass();
+        require 'views/PersonnageCreation.php';
+    }
 }

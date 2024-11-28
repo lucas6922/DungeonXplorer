@@ -80,7 +80,7 @@ $router->addRoute('personnages/{id}', 'PersonnageController@show'); // Pour affi
 $router->addRoute('creation_compte', 'CreationCompteController@index'); //Pour cree un compte
 $router->addRoute('connexion', 'ConnexionController@index'); //se connecter à un compte déjà existant
 $router->addRoute('traitement_creation_compte', 'CreationCompteController@verification'); //vérification des informations
-$router->addRoute('nouveau_personnage', 'PersonnageController@nouveau');
+$router->addRoute('creation_personnage', 'PersonnageController@nouveau');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

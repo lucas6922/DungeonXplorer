@@ -116,10 +116,16 @@ function tour(heros, ennemi){
             j1 = heros;
             j2 = ennemi;
         }
+        consoleCombat.innerHTML += (j1.nom + " attaque " + j2.nom + " !<br>");
         attaquer(j1, j2);
-        consoleCombat.innerHTML += (j1.nom + " attaque " + j2.nom + " !<br>" +"PV " + j2.nom + " : " + j2.pv + "<br>");
-        attaquer(j2, j1);
-        consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>" + "PV " + j1.nom + " : " + j1.pv + "<br>");
+        if(j2.pv > 0){
+            consoleCombat.innerHTML += ("PV " + j2.nom + " : " + j2.pv + "<br>");
+            consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>");
+            attaquer(j2, j1);
+            if(j1.pv > 0){
+                consoleCombat.innerHTML += ("PV " + j1.nom + " : " + j1.pv + "<br>");
+            }
+        }
     })
 }
 

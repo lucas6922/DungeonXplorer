@@ -7,9 +7,10 @@
     </head>
     <body>
     <h1>Combat</h1>
-    <div id = "console"> </div>
-    <button id = "attaquer">Attaquer</button>
+    <button id = "attaqueP">Attaque physique</button>
+    <button id = "attaqueM">Attaque magique</button>
     <button id = "potion">Boire une potion</button>
+    <div id = "console"> </div>
     <script src="JS/systemeCombat.js"></script>
     </body>
 </html>

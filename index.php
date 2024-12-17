@@ -76,7 +76,6 @@ $router = new Router('DungeonXplorer');
 
 // Ajout des routes
 $router->addRoute('', 'AccueilController@index'); // Pour la racine
-$router->addRoute('index', 'AccueilController@index'); // Pour la racine
 $router->addRoute('personnages', 'PersonnageController@index'); //Pour afficher tout les personnages du compte
 $router->addRoute('personnages/{id}', 'PersonnageController@show'); // Pour afficher les détail d'un personnage par ID
 $router->addRoute('creation_compte', 'CreationCompteController@index');

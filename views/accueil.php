@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -7,9 +11,21 @@
     </head>
     <body>
         <h1> Bienvenue sur le site DungeonXplorer</h1>
-        <button><a href="connexion">Connexion</a></button>
-        <button><a href="nouveau_personnage">Créer un nouveau personnage</a></button>
+        <?php
+            if (!isset($_SESSION['pla_id']) || empty($_SESSION['pla_id'])) {
+                echo '<button><a href="connexion">Connexion</a></button>
+                      <button><a href="creation_compte">Créer un compte</a></button>';
+            } else {
+                echo '<button><a href="deconnexion">Déconnexion</a></button>';
+            }
+        ?>
+        <button><a href="">Créer un nouveau personnage</a></button>
         <button><a href="personnages">Mes personnages</a></button>
         <button><a href="">Accéder à l'aventure</a></button>
+        <?php
+            if (isset($_SESSION['pla_id']) && !empty($_SESSION['pla_id'])) {
+                echo '<button><a href="infos_compte">Informations du compte</a></button>';
+            }
+        ?>
     </body>
 </html>

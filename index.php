@@ -5,6 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require 'autoload.php';
+require_once 'database/connexion_db.php';
+$connexion = connect_db();
 
 class Router
 {
@@ -74,10 +76,15 @@ $router = new Router('DungeonXplorer');
 
 // Ajout des routes
 $router->addRoute('', 'AccueilController@index'); // Pour la racine
-$router->addRoute('index', 'AccueilController@index'); // Pour la racine
 $router->addRoute('personnages', 'PersonnageController@index'); //Pour afficher tout les personnages du compte
 $router->addRoute('personnages/{id}', 'PersonnageController@show'); // Pour afficher les détail d'un personnage par ID
-$router->addRoute('traitement_connexion', 'ConnexionController@verification');
+$router->addRoute('creation_compte', 'CompteController@form_create');
+$router->addRoute('traitement_creation_compte', 'CompteController@create');
+$router->addRoute('connexion', 'CompteController@form_login');
+$router->addRoute('traitement_connexion', 'CompteController@login');
+$router->addRoute('deconnexion', 'CompteController@logout');
+$router->addRoute('infos_compte', 'CompteController@infos');
+$router->addRoute('supprimer_compte', 'CompteController@delete');
 $router->addRoute('chapitre/{id}', 'ChapterController@show');
 $router->addRoute('creation_compte', 'CreationCompteController@index'); //Pour cree un compte
 $router->addRoute('connexion', 'ConnexionController@index'); //se connecter à un compte déjà existant
@@ -86,3 +93,5 @@ $router->addRoute('creation_personnage', 'PersonnageController@nouveau');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
+
+$connexion = null;

@@ -1,5 +1,5 @@
 <?php
-    // Connexion.php
+    // form_connexion.php
     // formulaire de connexion à un compte existant
 
     session_start();

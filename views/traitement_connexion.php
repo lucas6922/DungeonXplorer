@@ -1,5 +1,5 @@
 <?php
-    // create_account.php
+    // traitement_connexion.php
     // traitement de la requête du formulaire pour se connecter à un compte déjà existant
 
     require_once 'database/connexion_db.php';
@@ -28,7 +28,11 @@
 
                 if ($enregistrement && password_verify($password, $enregistrement->pla_passwd)) {
                     // Le compte existe
-                    $_SESSION['user_id'] = $enregistrement->pla_id;
+                    $_SESSION['pla_id'] = $enregistrement->pla_id;
+                    $_SESSION['pla_firstname'] = $enregistrement->pla_firstname;
+                    $_SESSION['pla_surname'] = $enregistrement->pla_surname;
+                    $_SESSION['pla_mail'] = $enregistrement->pla_mail;
+                    $_SESSION['pla_pseudo'] = $enregistrement->pla_pseudo;
                     header('Location: ./');
                 } else {
                     $_SESSION['connexion_error'] = "Ce compte n'existe pas";

@@ -90,6 +90,7 @@ $router->addRoute('creation_compte', 'CreationCompteController@index'); //Pour c
 $router->addRoute('connexion', 'ConnexionController@index'); //se connecter à un compte déjà existant
 $router->addRoute('traitement_creation_compte', 'CreationCompteController@verification'); //vérification des informations
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');
+$router->addRoute('fenetreCombat', 'fenetreCombatController@index');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

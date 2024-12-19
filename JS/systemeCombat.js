@@ -17,7 +17,7 @@ let combattant = new makeStruct(
 )
 
 let potion = new makeStruct(
-    "nom, id_potion, val" //id_potion = 0 pour potion de vie, 1 pour potion de mana
+    "id_potion, nom, val" //id_potion = 0 pour potion de vie, 1 pour potion de mana
 )
 
 let sort = new makeStruct(
@@ -180,26 +180,19 @@ function tour(heros, ennemi){
         }
         nTour++;
     })
-    boutonAttaqueMagique.addEventListener('click', () => { //TODO verifier dans bdd si sort
-        let j1 = ennemi;
-        let j2 = heros;
-        if (calculInitiative(heros, ennemi) == heros){
-            j1 = heros;
-            j2 = ennemi;
-        }
+    /*boutonAttaqueMagique.addEventListener('click', () => { //TODO verifier dans bdd si sort
         heros.liste_sorts.forEach((i) => {
-            consoleCombat.innerHTML += ("Sort n°" + i + "<br>");
-            //consoleCombat.innerHTML += ("Sort n°" + i + " Nom :" + ... + " Puissance :" + ... + "<br>"); TODO quand on aura le lien avec la bdd
+            consoleCombat.innerHTML += ("Sort n°" + i.id_sort + "<br>");
         })
         consoleCombat.innerHTML += ("<br>");
         nTour++;
-    })
+    })*/
 }
 
 
 
 function charger(){
-    let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [1,6,5]);
+    let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)]);
     let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd
     tour(michel, darkMichel);
 }

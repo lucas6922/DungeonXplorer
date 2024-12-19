@@ -10,6 +10,7 @@
     <button id = "attaqueP">Attaque physique</button>
     <button id = "attaqueM">Attaque magique</button>
     <button id = "potion">Boire une potion</button>
+    <div id = "sorts" ></div>
     <div id = "console"> </div>
     <script src="JS/systemeCombat.js"></script>
     </body>

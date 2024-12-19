@@ -21,7 +21,7 @@
         ?>
         <button><a href="">Créer un nouveau personnage</a></button>
         <button><a href="personnages">Mes personnages</a></button>
-        <button><a href="">Accéder à l'aventure</a></button>
+        <button><a href="chapitre">Accéder à l'aventure</a></button>
         <?php
             if (isset($_SESSION['pla_id']) && !empty($_SESSION['pla_id'])) {
                 echo '<button><a href="infos_compte">Informations du compte</a></button>';

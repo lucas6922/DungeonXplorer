@@ -3,43 +3,28 @@
 // controllers/ChapterController.php
 
 require_once 'models/Chapter.php';
+require_once 'database/connexion_db.php';
 
 class ChapterController
 {
-    private $chapters = [];
+    private $chapter = null;
 
     public function __construct()
     {
-        // Exemple de chapitres avec des images
-        $this->chapters[] = new Chapter(
-            1,
-            "La Forêt Enchantée",
-            "Vous vous trouvez dans une forêt sombre et enchantée. Deux chemins se présentent à vous.",
-            "../Images/BrambleTrails02.jpg", // Chemin vers l'image
-            [
-                ["text" => "Aller à gauche", "chapter" => 2],
-                ["text" => "Aller à droite", "chapter" => 3]
-            ]
-        );
-
-        $this->chapters[] = new Chapter(
-            2,
-            "Le Lac Mystérieux",
-            "Vous arrivez à un lac aux eaux limpides. Une créature vous observe.",
-            "../Images/Lac.jpg", // Chemin vers l'image
-            [
-                ["text" => "Nager dans le lac", "chapter" => 4],
-                ["text" => "Faire demi-tour", "chapter" => 1]
-            ]
-        );
-
+        $conn = connect_db();
+        $sql = "select * from CHAPTER where CHA_ID = 1;";
+        $cur = $conn->prepare($sql);
+        $res = $cur->execute();
+        $tab = $cur->fetchAll();
+        //print_r($tab);
+        $this->chapter = new Chapter($tab[0]['CHA_ID'], $tab[0]['CHA_NAME'], $tab[0]['CHA_CONTENT'], $tab[0]['CHA_IMAGE'], [1,2]);
     }
 
-    public function show($id)
+    public function show()
     {
-        $chapter = $this->getChapter($id);
+        $chapter = $this->getChapter();
 
-        if ($chapter) {
+        if ($chapter != null) {
             include 'views/chapitre.php'; // Charge la vue pour le chapitre
         } else {
             // Si le chapitre n'existe pas, redirige vers un chapitre par défaut ou affiche une erreur
@@ -48,13 +33,8 @@ class ChapterController
         }
     }
 
-    public function getChapter($id)
+    public function getChapter()
     {
-        foreach ($this->chapters as $chapter) {
-            if ($chapter->getId() == $id) {
-                return $chapter;
-            }
-        }
-        return null; // Chapitre non trouvé
+        return $this->chapter; 
     }
 }

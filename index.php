@@ -86,9 +86,6 @@ $router->addRoute('deconnexion', 'CompteController@logout');
 $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
 $router->addRoute('chapitre/{id}', 'ChapterController@show');
-$router->addRoute('creation_compte', 'CreationCompteController@index'); //Pour cree un compte
-$router->addRoute('connexion', 'ConnexionController@index'); //se connecter à un compte déjà existant
-$router->addRoute('traitement_creation_compte', 'CreationCompteController@verification'); //vérification des informations
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');
 $router->addRoute('fenetreCombat', 'fenetreCombatController@index');
 */
@@ -102,7 +99,9 @@ $router->addRoute('traitement_connexion', 'CompteController@login');
 $router->addRoute('deconnexion', 'CompteController@logout');
 $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
-$router->addRoute('chapitre/{id}', 'ChapterController@show');
+$router->addRoute('chapitre', 'ChapterController@show');
+$router->addRoute('creation_personnage', 'PersonnageController@nouveau');
+
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
 

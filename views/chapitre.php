@@ -11,13 +11,13 @@
 
     <h2>Choisissez votre chemin:</h2>
     <ul>
-        <?php foreach ($chapter->getChoices() as $choice): ?>
+         <?php foreach ($chapter->getChoices() as $choice): ?>
             <li>
                 <a href="<?php echo $choice['chapter']; ?>">
                     <?php echo $choice['text']; ?>
                 </a>
             </li>
-        <?php endforeach; ?>
+        <?php endforeach; ?> 
     </ul>
 </body>
 </html>

@@ -78,14 +78,17 @@ $router = new Router('DungeonXplorer');
 $router->addRoute('', 'AccueilController@index');
 $router->addRoute('/', 'AccueilController@index');
 
-$router->addRoute('personnages', 'PersonnageController@index'); //Pour afficher tout les personnages du compte
+//route pour la vue de cration d'un compte
 $router->addRoute('creation_compte', 'CompteController@form_create');
+//traitement du formulaire de la creatio nd'un compte
 $router->addRoute('traitement_creation_compte', 'CompteController@create');
+
 $router->addRoute('connexion', 'CompteController@form_login');
 $router->addRoute('traitement_connexion', 'CompteController@login');
 $router->addRoute('deconnexion', 'CompteController@logout');
 $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
+//vue d'un chapitre
 $router->addRoute('chapitre', 'ChapterController@show');
 //routes pour la création d'un perso
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');

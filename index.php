@@ -74,9 +74,11 @@ class Router
 // Instanciation du routeur
 $router = new Router('DungeonXplorer');
 
-$router->addRoute('', 'AccueilController@index'); // Pour la racine
+// Pour la racine
+$router->addRoute('', 'AccueilController@index');
+$router->addRoute('/', 'AccueilController@index');
+
 $router->addRoute('personnages', 'PersonnageController@index'); //Pour afficher tout les personnages du compte
-$router->addRoute('personnages/{id}', 'PersonnageController@show'); // Pour afficher les détail d'un personnage par ID
 $router->addRoute('creation_compte', 'CompteController@form_create');
 $router->addRoute('traitement_creation_compte', 'CompteController@create');
 $router->addRoute('connexion', 'CompteController@form_login');

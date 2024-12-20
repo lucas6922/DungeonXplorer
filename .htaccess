@@ -1,3 +1,10 @@
 RewriteEngine On
 RewriteBase /DungeonXplorer/
 RewriteRule ^((?!(Images|CSS|favicon)).)*$ index.php [QSA,L]
+
+# Si le fichier ou le dossier demandé existe, on le laisse tel quel
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon, redirige vers index.php
+RewriteRule ^ index.php [QSA,L]

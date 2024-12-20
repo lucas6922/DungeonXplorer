@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); 
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,7 +13,7 @@
     </head>
     <body>
         <header>
-            <h1><a href="index.php" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
+            <h1><a href="./" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
             <nav>
                 <?php if (!isset($_SESSION['pla_id']) || empty($_SESSION['pla_id'])): ?>
                     <a href="connexion">Connexion</a>

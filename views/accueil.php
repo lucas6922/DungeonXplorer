@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'includes/header.php'; ?>
 
 <h2>Bienvenue sur DungeonXplorer !</h2>
 
@@ -8,4 +8,4 @@
     <button><a href="chapitre">Accéder à l'aventure</a></button>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

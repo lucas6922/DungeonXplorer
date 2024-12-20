@@ -24,8 +24,10 @@ class PersonnageController
     }
 
     public function creer(){
-        session_start();
-        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();  
+        }
+                
         $nom = $_POST['nom'] ?? null;
         $classe_id = $_POST['classe'] ?? null;
         $biographie = $_POST['biographie'] ?? null;
@@ -38,11 +40,15 @@ class PersonnageController
         $hero->setJoueurId($joueur_id);
         $hero->save();
 
+
+        $this->afficherPersonnages();
     }
 
     public function afficherPersonnages() {
-        session_start();
-
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         $playerId = $_SESSION['pla_id'] ?? null;
 
         if ($playerId) {

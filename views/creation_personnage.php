@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-// Exemple de vérification d'utilisateur connecté (optionnel)
 if (!isset($_SESSION['pla_id'])) {
-    // Redirige l'utilisateur si non connecté
     header('Location: connexion');
     exit();
 }

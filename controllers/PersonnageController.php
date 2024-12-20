@@ -47,8 +47,13 @@ class PersonnageController
 
         if ($playerId) {
             $heros = new Hero();
-            $heros->getAllHeros($playerId);
-            echo $playerId;
+            $res = $heros->getAllHeros($playerId);
+            //echo $playerId;
+            /*
+            echo '<pre>';
+            print_r($res);
+            echo '</pre>';
+            */
             require 'views/personnages.php';
         } else {
             echo "Vous devez être connecté pour voir vos personnages.";

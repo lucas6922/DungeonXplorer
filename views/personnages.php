@@ -5,15 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Personnages</title>
     </head>
-    <?php if (!empty($heros)): ?>
-        <pre>
-        <?php ($heros) ?>
-        </pre>
+    <body>
+    <?php if (!empty($res)): ?>
         <ul>
-            <?php foreach ($heros as $hero): ?>
+            <?php foreach ($res as $hero): ?>
                 <li>
                     <strong>Nom :</strong> <?= htmlspecialchars($hero['HER_NAME']) ?><br>
-                    <strong>Classe :</strong> <?= htmlspecialchars($hero['CLA_ID']) ?><br>
+                    <strong>Classe :</strong> <?= htmlspecialchars($hero['CLA_NAME']) ?><br>
                     <strong>Biographie :</strong> <?= htmlspecialchars($hero['HER_BIOGRAPHY']) ?><br>
                     <strong>Image :</strong> 
                     <?php if (!empty($hero['HER_IMAGE'])): ?>
@@ -27,4 +25,6 @@
     <?php else: ?>
         <p>Vous n'avez aucun personnage pour le moment.</p>
     <?php endif; ?>
+
+    </body>
 </html>

@@ -48,12 +48,14 @@ class Hero{
 
     public function getAllHeros($pla_id){
         $conn = connect_db();
-        $rqp = $conn->prepare('SELECT * FROM HERO WHERE PLA_ID = ?');
+        $rqp = $conn->prepare('SELECT * FROM HERO JOIN CLASS USING(CLA_ID) WHERE PLA_ID = ?');
         $rqp->execute([$pla_id]);
         $res =  $rqp->fetchAll(PDO::FETCH_ASSOC);
+        /*
         echo '<pre>';
-        print_r($res); // Affiche la structure du tableau associatif
+        print_r($res);
         echo '</pre>';
+        */
 
         return $res;
     }

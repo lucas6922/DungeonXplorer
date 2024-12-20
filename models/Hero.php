@@ -50,6 +50,12 @@ class Hero{
         $conn = connect_db();
         $rqp = $conn->prepare('SELECT * FROM HERO WHERE PLA_ID = ?');
         $rqp->execute([$pla_id]);
-        return $rqp->fetchAll(PDO::FETCH_ASSOC);
+        $res =  $rqp->fetchAll(PDO::FETCH_ASSOC);
+        echo '<pre>';
+        print_r($res); // Affiche la structure du tableau associatif
+        echo '</pre>';
+
+        return $res;
     }
+
 }

@@ -39,4 +39,19 @@ class PersonnageController
         $hero->save();
 
     }
+
+    public function afficherPersonnages() {
+        session_start();
+
+        $playerId = $_SESSION['pla_id'] ?? null;
+
+        if ($playerId) {
+            $heros = new Hero();
+            $heros->getAllHeros($playerId);
+            echo $playerId;
+            require 'views/personnages.php';
+        } else {
+            echo "Vous devez être connecté pour voir vos personnages.";
+        }
+    }
 }

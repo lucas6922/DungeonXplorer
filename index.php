@@ -85,8 +85,13 @@ $router->addRoute('deconnexion', 'CompteController@logout');
 $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
 $router->addRoute('chapitre', 'ChapterController@show');
+//routes pour la création d'un perso
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');
 $router->addRoute('traitement_creation_personnage', 'PersonnageController@creer');
+
+//routes pour l'affichage des perso associé au joueur co
+$router->addRoute('personnages', 'PersonnageController@afficherPersonnages');
+
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

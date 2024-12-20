@@ -45,4 +45,11 @@ class Hero{
             $classe['CLA_INITIATIVE']
         ]);
     }
+
+    public function getAllHeros($pla_id){
+        $conn = connect_db();
+        $rqp = $conn->prepare('SELECT * FROM HERO WHERE PLA_ID = ?');
+        $rqp->execute([$pla_id]);
+        return $rqp->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

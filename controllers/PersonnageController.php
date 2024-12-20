@@ -19,10 +19,24 @@ class PersonnageController
         require 'views/PersonnageDetail.php';
     }
 
-    public function nouveau()
-    {
-        $classeModel = new ClasseModel;
-        $classes = $classeModel->getAllClass();
-        require 'views/PersonnageCreation.php';
+    public function nouveau(){
+        require 'views/creation_personnage.php';
+    }
+
+    public function creer(){
+        session_start();
+        
+        $nom = $_POST['nom'] ?? null;
+        $classe_id = $_POST['classe'] ?? null;
+        $biographie = $_POST['biographie'] ?? null;
+        $joueur_id = $_SESSION['pla_id'] ?? null;
+
+        $hero = new Hero();
+        $hero->setNom($nom);
+        $hero->setClasseId($classe_id);
+        $hero->setBiographie($biographie);
+        $hero->setJoueurId($joueur_id);
+        $hero->save();
+
     }
 }

@@ -19,7 +19,7 @@
                 echo '<button><a href="deconnexion">Déconnexion</a></button>';
             }
         ?>
-        <button><a href="">Créer un nouveau personnage</a></button>
+        <button><a href="creation_personnage">Créer un nouveau personnage</a></button>
         <button><a href="personnages">Mes personnages</a></button>
         <button><a href="chapitre">Accéder à l'aventure</a></button>
         <?php

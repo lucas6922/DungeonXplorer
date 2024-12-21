@@ -83,10 +83,16 @@ class CompteController
 
                 session_regenerate_id(true);
 
-                $_SESSION['user_id'] = $id;
-                $_SESSION['user_email'] = $email;
-                $_SESSION['user_pseudo'] = $pseudo;
-                $_SESSION['user_pseudo'] = $pseudo;
+                $_SESSION['pla_id'] = $id;
+                $_SESSION['pla_firstname'] = $prenom;
+                $_SESSION['pla_surname'] = $nom;
+                $_SESSION['pla_mail'] = $email;
+                $_SESSION['pla_pseudo'] = $pseudo;
+
+                echo "<pre>";
+                print_r($_SESSION);
+                echo "</pre>";
+
                 header('Location: ./');
                 exit();
             } catch (Exception $e) {
@@ -119,7 +125,16 @@ class CompteController
 
     public function logout()
     {
-        require_once 'views/deconnexion.php';
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION['pla_id'] = '';
+        $_SESSION['pla_firstname'] = '';
+        $_SESSION['pla_surname'] = '';
+        $_SESSION['pla_mail'] = '';
+        $_SESSION['pla_pseudo'] = '';
+
+        header('Location: ./');
     }
 
     public function infos()

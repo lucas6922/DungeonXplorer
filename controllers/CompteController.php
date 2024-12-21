@@ -192,11 +192,41 @@ class CompteController
 
     public function infos()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $prenom = isset($_SESSION['pla_firstname']) && !empty($_SESSION['pla_firstname']) ? $_SESSION['pla_firstname'] : '';
+        $nom = isset($_SESSION['pla_surname']) && !empty($_SESSION['pla_surname']) ? $_SESSION['pla_surname'] : '';
+        $pseudo = isset($_SESSION['pla_pseudo']) && !empty($_SESSION['pla_pseudo']) ? $_SESSION['pla_pseudo'] : '';
+        $email = isset($_SESSION['pla_mail']) && !empty($_SESSION['pla_mail']) ? $_SESSION['pla_mail'] : '';
+
         require_once 'views/infos_compte.php';
     }
 
     public function delete()
     {
-        require_once 'views/supprimer_compte.php';
+        require_once 'database/connexion_db.php';
+
+        session_start();
+
+        $_SESSION['pla_firstname'] = '';
+        $_SESSION['pla_surname'] = '';
+        $_SESSION['pla_mail'] = '';
+        $_SESSION['pla_pseudo'] = '';
+
+        if (isset($_SESSION['pla_id']) && !empty($_SESSION['pla_id'])) {
+            $pla_id = $_SESSION['pla_id'];
+
+            $connexion = connect_db();
+            $connexion->exec("delete from PLAYER where pla_id = $pla_id");
+
+            $_SESSION['pla_id'] = '';
+            $connexion = null;
+            header('Location: ./');
+        } else {
+            $_SESSION['pla_id'] = '';
+            header('Location: ./');
+        }
     }
 }

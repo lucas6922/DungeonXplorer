@@ -3,6 +3,7 @@ class PersonnageController
 {
     public function nouveau()
     {
+        $classes = Classe::getAll();
         require 'views/creation_personnage.php';
     }
 

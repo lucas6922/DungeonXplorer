@@ -11,9 +11,9 @@ include 'includes/auth.php';
     <input type="text" id="nom" name="nom" required><br>
 
     <label for="classe">Classe :</label>
-    <select id="classe" name="classe" required>
+    <select id="classe" name="classe">
         <?php
-        $classes = Classe::getAll();
+        print_r($classes);
         foreach ($classes as $classe):
         ?>
             <option value="<?= htmlspecialchars($classe['CLA_ID']) ?>">

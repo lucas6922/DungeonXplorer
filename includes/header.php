@@ -11,6 +11,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DungeonXplorer</title>
     <link rel="stylesheet" href="CSS/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="JS/notif_erreur.js"></script>
+
 </head>
 
 <body>

@@ -33,10 +33,15 @@
 </form>
 
 <?php
-if (isset($_SESSION['account_creation_error']) || !empty($_SESSION['account_creation_error'])) {
-    echo '<p style="color:red;">' . htmlspecialchars($_SESSION['account_creation_error']) . '</p>';
+if (isset($_SESSION['account_creation_error']) || !empty($_SESSION['account_creation_error'])) :
+?>
+
+    <script>
+        afficherErreur("<?= htmlspecialchars($_SESSION['account_creation_error'], ENT_QUOTES) ?>");
+    </script>
+<?php
     unset($_SESSION['account_creation_error']);
-}
+endif;
 ?>
 
 <?php include 'includes/footer.php'; ?>

@@ -1,7 +1,4 @@
-<?php
-include 'includes/header.php'
-?>
-
+<?php include 'includes/header.php' ?>
 <h1>Connexion</h1>
 
 <form action="traitement_connexion" method="POST">
@@ -17,14 +14,19 @@ include 'includes/header.php'
 
     <button type="submit">Se connecter</button>
 
-    <?php if (!empty($_SESSION['connexion_error'])) : ?>
-        <p style="color:red;"><?= htmlspecialchars($_SESSION['connexion_error']) ?></p>
-    <?php endif; ?>
+
 </form>
-
-<br>
-<br>
-
 <?php
-include 'includes/footer.php'
+//si erreur stocké dans session
+if (isset($_SESSION['connexion_error']) || !empty($_SESSION['connexion_error'])) :
+    print_r($_SESSION['connexion_error']);
 ?>
+    <script>
+        afficherErreur("<?= $_SESSION['connexion_error'] ?>");
+    </script>
+<?php
+    unset($_SESSION['connexion_error']);
+endif;
+?>
+
+<?php include 'includes/footer.php' ?>

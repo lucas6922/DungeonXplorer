@@ -44,7 +44,7 @@ include 'includes/header.php';
     </div>
 
 
-    <button type="submit">Créer</button>
+    <button type="submit" class="form-btn">Créer</button>
 </form>
 
 <?php include 'includes/footer.php'; ?>

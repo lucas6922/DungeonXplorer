@@ -77,14 +77,15 @@ header h1 a:hover {
     color: #f1d24f; 
 }
 
+/*------------------------------------------------------------------------------------------*/
 /* Style pour la barre de navigation */
 nav {
     margin-top: 20px;
 }
 
 nav a {
-    font-family: 'Merriweather', serif; /* Police classique et élégante */
-    color: #b5b5b5; /* Couleur grise douce */
+    font-family: 'Georgia', serif; 
+    color: #b5b5b5; 
     font-size: 1.1em;
     text-decoration: none;
     padding: 10px 20px;
@@ -93,21 +94,20 @@ nav a {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Style au survol des liens dans la navigation */
 nav a:hover {
-    background-color: #444; /* Fond gris foncé pour le survol */
-    color: #f1f1f1; /* Texte clair au survol */
+    background-color: #444; 
+    color: #f1f1f1; 
 }
 
-/* Style au lien actif (par exemple, quand un utilisateur est connecté) */
+
 nav a.active {
-    background-color: #2a2a2a; /* Un fond encore plus sombre pour l'état actif */
-    color: #f1d24f; /* Couleur or pour l'état actif */
+    background-color: #2a2a2a; 
+    color: #f1d24f; 
 }
 
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2em; /* Ajuste la taille du titre pour les petits écrans */
+        font-size: 2em; 
     }
 
     nav {
@@ -122,17 +122,35 @@ nav a.active {
 
 
 /*------------------------------------------------------------------------------------------*/
+
+/* Style pour le footer */
+footer {
+    background-color: #1a1a1a; 
+    color: #b5b5b5;
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Merriweather', serif; 
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5); 
+}
+
+footer p {
+    font-size: 1em;
+    margin: 0;
+    color: #ccc; 
+}
+
+/*------------------------------------------------------------------------------------------*/
 /* 
-style général, appliqué à toutes les pages
+style général, toutes les pages
 */
 html, body {
     height: 100%;
 }
 
 body {
-    font-family: 'Georgia', serif;
+    font-family: 'Georgia', serif; 
     color: #f1f1f1; 
-    background-color: #2a2a2a; 
+    background-color: #1a1a1a; 
 
     margin: 0;
     padding: 0;
@@ -142,62 +160,80 @@ body {
 
 main {
     flex: 1; 
-    padding: 20px;
+    padding: 30px 20px;
+    background-color: #2a2a2a; 
+    border-top: 1px solid #444; 
+    border-bottom: 1px solid #444;
+}
+
+h1, h2 {
+    color: #f1d24f; 
+    font-family: 'Georgia', serif; 
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
 
 h2 {
-    color: #333;
+    color: #b5b5b5; 
+    font-size: 1.8em;
+    margin-bottom: 15px;
 }
 
 .button-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 20px;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .button-accueil button {
-    background-color: #007bff;
-    color: white;
+    background-color: #f1d24f; 
+    color: #333;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
 .button-accueil button:hover {
-    background-color: #0056b3;
+    background-color: #d1b133; 
+    transform: translateY(-2px); 
 }
 
 .button-accueil button a {
     text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    margin-top: auto; 
-}
-
-
-.titre-DungeonXplorer {
-    text-decoration: none;
     color: inherit;
 }
 
-.titre-DungeonXplorer:hover {
-    text-decoration: underline; 
+
+
+/*------------------------------------------------------------------------------------------*/
+/*style pour le footer*/
+footer {
+    background-color: #1a1a1a; 
+    color: #b5b5b5; 
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    border-top: 1px solid #444; 
 }
 
-h1{
-    text-align: center;
+footer p {
+    font-size: 1.1em;
+    color: #ccc; 
+    margin: 0;
 }
-/*------------------------------------------------------------------------------------------*/
+
 
 /*------------------------------------------------------------------------------------------*/
 /*css pour les cartes des infos perso*/
@@ -303,7 +339,9 @@ label {
     font-weight: bold; 
 }
 
-input[type="text"], 
+input[type="text"],
+input[type="password"],
+input[type="email"],
 select, 
 textarea {
     width: 100%;
@@ -311,10 +349,11 @@ textarea {
     font-size: 1em;
     border-radius: 6px;
     border: 1px solid #555; 
-    margin-bottom: 15px;
     background-color: #333; 
-    color: #f1f1f1; 
-    /*font-family: 'Georgia', serif;*/
+    color: #f1f1f1;
+    margin-bottom: 6%; 
+    margin-top: 2%; 
+    box-sizing: border-box;
 }
 
 textarea {
@@ -334,7 +373,6 @@ textarea {
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
     width: 100%;
-    /*font-family: 'Georgia', serif;*/
     text-transform: uppercase; 
     letter-spacing: 1px; 
 }
@@ -349,15 +387,17 @@ textarea {
 }
 
 
-
-
 /*------------------------------------------------------------------------------------------*/
 /*style pour le carousel
 issue de W3School*/
 
 
 * {box-sizing: border-box}
-.mySlides {display: none}
+.mySlides {
+    display: none;
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
 img {vertical-align: middle;}
 
 /* Slideshow container */

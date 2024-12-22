@@ -6,10 +6,10 @@ include 'includes/header.php';
 <h1>Créer un personnage</h1>
 <form action="traitement_creation_personnage" method="POST" enctype="multipart/form-data">
 
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" required><br>
+    <label for="nom" class="form-txt">Nom :</label>
+    <input type="text" id="nom" name="nom" required>
 
-    <label for="classe">Classe :</label>
+    <label for="classe" class="form-txt">Classe :</label>
     <select id="classe" name="classe">
         <?php
         foreach ($classes as $classe):
@@ -18,12 +18,12 @@ include 'includes/header.php';
                 <?= htmlspecialchars($classe['CLA_NAME']) ?>
             </option>
         <?php endforeach; ?>
-    </select><br>
+    </select>
 
-    <label for="biographie">Biographie :</label>
-    <textarea id="biographie" name="biographie"></textarea><br>
+    <label for="biographie" class="form-txt">Biographie :</label>
+    <textarea id="biographie" name="biographie"></textarea>
 
-    <label for="image">Image :</label>
+    <label for="image" class="form-txt">Image :</label>
     <input type="hidden" id="image" name="image">
 
     <!-- carousel issue de W3School -->

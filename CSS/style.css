@@ -234,6 +234,53 @@ footer p {
     margin: 0;
 }
 
+/*------------------------------------------------------------------------------------------*/
+/*style pour la page de suppresion de compte*/
+.info-compte {
+    text-align: center;  
+    font-size: 1.2em; 
+    color: #f1f1f1; 
+}
+
+.info-compte p {
+    margin: 10px 0;  
+    font-size: 1.2em;
+    color: #f1f1f1;
+    margin-bottom: 10px;
+}
+
+/*supp le style des autres formulaire*/
+#form-info-compte {
+    padding: 0;
+    box-shadow: none; 
+    border: none;
+    text-align: center;  
+}
+
+/*btn supp du compte*/
+.btn-supp {
+    background-color: #c9302c;
+    color: white;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/*survol btn supp compte*/
+.btn-supp:hover {
+    background-color: #ac2925;
+}
+
+
+
+
+a {
+    color: inherit; /* Retirer la couleur de lien par défaut */
+    text-decoration: none;
+}
 
 /*------------------------------------------------------------------------------------------*/
 /*css pour les cartes des infos perso*/

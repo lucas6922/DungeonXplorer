@@ -4,17 +4,87 @@ require_once 'database/connexion_db.php';
 
 
 class Hero{
+    private $her_id;
     private $cla_id;
     private $pla_id;
     private $her_name;
     private $her_image;
     private $her_biography;
+    private $her_pv;
+    private $her_mana;
+    private $her_strength;
+    private $her_initiative;
+    private $her_armor;
+    private $her_prim_weapon;
+    private $her_sec_weapon;
+    private $her_shield;
+    private $her_spell_list;
+    private $her_xp;
+    private $her_current_level;
 
     public function setClasseId($classe_id) { $this->cla_id = $classe_id; }
     public function setJoueurId($joueur_id) { $this->pla_id = $joueur_id; }
     public function setNom($nom) { $this->her_name = $nom; }
     public function setImage($image) { $this->her_image = $image; }
     public function setBiographie($biographie) { $this->her_biography = $biographie; }
+
+    public function __construct($her_id, $cla_id, $pla_id, $her_name, $her_image, $her_biography, $her_pv, $her_mana, $her_strength, $her_initiative, $her_armor, $her_prim_weapon, $her_sec_weapon, $her_shield, $her_spell_list, $her_xp, $her_current_level)
+    {
+        $this->her_id = $her_id;
+        $this->cla_id = $cla_id;
+        $this->pla_id = $pla_id;
+        $this->her_name = $her_name;
+        $this->her_image = $her_image;
+        $this->her_biography = $her_biography;
+        $this->her_pv = $her_pv;
+        $this->her_mana = $her_mana;
+        $this->her_strength = $her_strength;
+        $this->her_initiative = $her_initiative;
+        $this->her_armor = $her_armor;
+        $this->her_prim_weapon = $her_prim_weapon;
+        $this->her_sec_weapon = $her_sec_weapon;
+        $this->her_shield = $her_shield;
+        $this->her_spell_list = $her_spell_list;
+        $this->her_xp = $her_xp;
+        $this->her_current_level = $her_current_level;
+    }
+
+    public function getName(){
+        return $this->her_name;
+    }
+    public function getClaId(){
+        return $this->cla_id;
+    }
+    public function getId(){
+        return $this->her_id;
+    }
+    public function getPV(){
+        return $this->her_pv;
+    }
+    public function getMana(){
+        return $this->her_mana;
+    }
+    public function getStrength(){
+        return $this->her_strength;
+    }
+    public function getInitiative(){
+        return $this->her_initiative;
+    }
+    public function getArmor(){
+        return $this->her_armor;
+    }
+    public function getPrimWeapon(){
+        return $this->her_prim_weapon;
+    }
+    public function getSecWeapon(){
+        return $this->her_sec_weapon;
+    }
+    public function getShield(){
+        return $this->her_shield;
+    }
+    public function getSpellList(){
+        return $this->her_spell_list;
+    }
 
     public function save()
     {

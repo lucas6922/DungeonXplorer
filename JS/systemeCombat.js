@@ -1,4 +1,4 @@
-/*Credit to https://dev.to/joelbonetr/structs-in-javascript-1p9l */
+/*Credit to https://dev.to/joelbonetr/structs-in-javascript-1p9l for the makeStruct function*/
 
 function makeStruct(keys) {
     if (!keys) return null;
@@ -247,9 +247,11 @@ function actualiseAffichagePV(combattant, estHeros){
 
 
 function charger(){
+    consoleCombat.innerHTML += personnage[0];
+    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [] );
     let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)]);
     let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd
-    tour(michel, darkMichel);
+    tour(heros, darkMichel);
 }
 
 //nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts

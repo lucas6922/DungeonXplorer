@@ -16,6 +16,21 @@
     <div id = "sorts" ></div>
     <div id = "console"> </div>
     <?php include 'includes/footer.php'; ?>
+
+    <!--passe les données du héros au js.-->
+    <script> let personnage = [<?php echo json_encode($hero->getName()); ?>,
+    <?php echo json_encode($hero->getClaId());?>,
+    <?php echo json_encode($hero->getPV()); ?>,
+    <?php echo json_encode($hero->getMana()); ?>,
+    <?php echo json_encode($hero->getStrength()); ?>,
+    <?php echo json_encode($hero->getInitiative()); ?>,
+    <?php echo json_encode($hero->getArmor()); ?>,
+    <?php echo json_encode($hero->getPrimWeapon()); ?>,
+    <?php echo json_encode($hero->getSecWeapon()); ?>,
+    <?php echo json_encode($hero->getShield()); ?>,
+    <?php echo json_encode($hero->getSpellList()); ?>];
+    </script>
+
     <script src="JS/systemeCombat.js"></script>
     </body>
 </html>

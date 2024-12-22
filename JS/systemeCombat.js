@@ -94,10 +94,16 @@ function attaquerPhysique(attaquant, cible){
 }
 
 function attaquerMagique(attaquant, cible, manaSort){
-    let degats = tirerDe(6) + tirerDe(6) + manaSort;
-    let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;//TODO Gere mana insuffisant
-    attaquant.mana -= manaSort;
-    prendreDegats(cible, degats - defense);
+    if (manaSort > attaquant.mana){
+        consoleCombat.innerHTML += attaquant.nom + " n'avait pas assez de mana !<br>";
+    }
+    else{
+        let degats = tirerDe(6) + tirerDe(6) + manaSort;
+        let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;//TODO Gere mana insuffisant
+        attaquant.mana -= manaSort;
+        prendreDegats(cible, degats - defense);
+    }
+    
 }
 
 function boirePotion(cible, idPotion, val){//TODO supprimer une potion de l'inventaire
@@ -210,19 +216,24 @@ function tour(heros, ennemi){
 
                     consoleCombat.innerHTML += (heros.nom + " fait le sort " + i.nom + " !<br>");
                     attaquerMagique(heros, ennemi, valSort)
-                    consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
-        
-                    consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>");
-                    attaquerPhysique(j2, j1);
-                    consoleCombat.innerHTML += ("PV " + j1.nom + " : " + j1.pv + "<br><br>");
+                    if (j2.pv > 0){
+                        consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
+                        consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>");
+                        attaquerPhysique(j2, j1);
+                        if (j1.pv > 0){
+                            consoleCombat.innerHTML += ("PV " + j1.nom + " : " + j1.pv + "<br><br>");
+                        }
+                    }
                 }
                 else{
                     consoleCombat.innerHTML += (j1.nom + " attaque " + j2.nom + " !<br>");
                     attaquerPhysique(j1, j2);
-                    consoleCombat.innerHTML += ("PV " + j2.nom + " : " + j2.pv + "<br><br>");
-                    consoleCombat.innerHTML += (heros.nom + " fait le sort " + i.nom + " !<br>");
-                    attaquerMagique(heros, ennemi, valSort)
-                    consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
+                    if(j2.pv > 0){
+                        consoleCombat.innerHTML += ("PV " + j2.nom + " : " + j2.pv + "<br><br>");
+                        consoleCombat.innerHTML += (heros.nom + " fait le sort " + i.nom + " !<br>");
+                        attaquerMagique(heros, ennemi, valSort)
+                        consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
+                    }
                 }
                 actualiseAffichagePV(ennemi, 0);
                 actualiseAffichagePV(heros, 1);
@@ -237,10 +248,10 @@ function tour(heros, ennemi){
 
 function actualiseAffichagePV(combattant, estHeros){
     if(estHeros){
-        herosDiv.innerHTML = combattant.nom + " PV : " + combattant.pv + "/" + combattant.pvMax;
+        herosDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
     }
     else{
-        ennemiDiv.innerHTML = combattant.nom + " PV : " + combattant.pv + "/" + combattant.pvMax;
+        ennemiDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax;
     }
 }
 
@@ -248,7 +259,7 @@ function actualiseAffichagePV(combattant, estHeros){
 
 function charger(){
     consoleCombat.innerHTML += personnage[0];
-    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [] );
+    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)] );
     let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)]);
     let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd
     tour(heros, darkMichel);

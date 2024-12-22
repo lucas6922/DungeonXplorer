@@ -23,16 +23,17 @@ include 'includes/header.php';
     <label for="biographie">Biographie :</label>
     <textarea id="biographie" name="biographie"></textarea><br>
 
+    <label for="image">Image :</label>
+    <input type="hidden" id="image" name="image">
+
     <!-- carousel issue de W3School -->
     <div class="slideshow-container">
         <?php
-        $totalImages = count($images);
 
         foreach ($images as $index => $image) {
             $imageIndex = $index + 1;
         ?>
             <div class="mySlides fade">
-                <div class="numbertext"><?= $imageIndex ?> / <?= $totalImages ?></div>
                 <img src="<?= $dir . '/' . $image ?>" style="width:100%">
             </div>
         <?php

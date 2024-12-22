@@ -14,6 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="JS/notif_erreur.js"></script>
+    <script src="JS/carousel.js"></script>
 </head>
 
 <body>

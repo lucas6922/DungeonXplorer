@@ -12,7 +12,6 @@ include 'includes/header.php';
     <label for="classe">Classe :</label>
     <select id="classe" name="classe">
         <?php
-        print_r($classes);
         foreach ($classes as $classe):
         ?>
             <option value="<?= htmlspecialchars($classe['CLA_ID']) ?>">
@@ -23,6 +22,26 @@ include 'includes/header.php';
 
     <label for="biographie">Biographie :</label>
     <textarea id="biographie" name="biographie"></textarea><br>
+
+    <!-- carousel issue de W3School -->
+    <div class="slideshow-container">
+        <?php
+        $totalImages = count($images);
+
+        foreach ($images as $index => $image) {
+            $imageIndex = $index + 1;
+        ?>
+            <div class="mySlides fade">
+                <div class="numbertext"><?= $imageIndex ?> / <?= $totalImages ?></div>
+                <img src="<?= $dir . '/' . $image ?>" style="width:100%">
+            </div>
+        <?php
+        }
+        ?>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+
 
     <button type="submit">Créer</button>
 </form>

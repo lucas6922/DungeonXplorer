@@ -10,6 +10,26 @@ class PersonnageController
         //si connecté affiche formulaire création perso
         if ($playerId) {
             $classes = Classe::getAll();
+
+            //répertoire contenant les images
+            $dir = "Images/perso_pp";
+
+            //récupérer tous les fichiers du répertoire
+            $files = scandir($dir);
+
+            //extensions images
+            $image_extensions = array('jpg', 'jpeg', 'png');
+
+            //filtrer les fichiers récup que ceux qui sont des images
+            $images = array();
+            foreach ($files as $file) {
+                if ($file != 'no_pp.jpeg') {
+                    if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), $image_extensions)) {
+                        $images[] = $file;
+                    }
+                }
+            }
+
             require 'views/creation_personnage.php';
         } else { //sinon redirige vers une page un le message d'erreur et btn pour se co
             //print_r($playerId);

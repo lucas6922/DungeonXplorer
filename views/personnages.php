@@ -8,7 +8,7 @@
             <div class="flip-card">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
-                        <img src="Images/perso_pp/Berserker.jpg" alt="Avatar">
+                        <img src=<?= $hero['HER_IMAGE'] ?> alt="Avatar">
                         <h1><?= $hero['HER_NAME'] ?></h1>
                     </div>
                     <div class="flip-card-back">

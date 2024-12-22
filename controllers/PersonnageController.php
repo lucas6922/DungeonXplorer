@@ -3,8 +3,15 @@ class PersonnageController
 {
     public function nouveau()
     {
-        $classes = Classe::getAll();
-        require 'views/creation_personnage.php';
+        $playerId = $_SESSION['pla_id'] ?? null;
+
+        //si connecté affiche formulaire création perso
+        if ($playerId) {
+            $classes = Classe::getAll();
+            require 'views/creation_personnage.php';
+        } else { //sinon redirige vers une page un le message d'erreur et btn pour se co
+            $this->afficherErreurAuth("Vous devez être connecté pour creer un personnage.");
+        }
     }
 
     public function creer()
@@ -47,8 +54,13 @@ class PersonnageController
             echo '</pre>';
             */
             require 'views/personnages.php';
-        } else {
-            echo "Vous devez être connecté pour voir vos personnages.";
+        } else { //sinon redirige vers une page un le message d'erreur et btn pour se co
+            $this->afficherErreurAuth("Vous devez être connecté pour voir vos personnages.");
         }
+    }
+
+    private function afficherErreurAuth($message)
+    {
+        require 'views/auth_error.php';
     }
 }

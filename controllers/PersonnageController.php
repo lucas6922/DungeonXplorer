@@ -3,13 +3,16 @@ class PersonnageController
 {
     public function nouveau()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $playerId = $_SESSION['pla_id'] ?? null;
-
         //si connecté affiche formulaire création perso
         if ($playerId) {
             $classes = Classe::getAll();
             require 'views/creation_personnage.php';
         } else { //sinon redirige vers une page un le message d'erreur et btn pour se co
+            //print_r($playerId);
             $this->afficherErreurAuth("Vous devez être connecté pour creer un personnage.");
         }
     }

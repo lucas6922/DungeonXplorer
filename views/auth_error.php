@@ -1,6 +1,8 @@
 <?php include 'includes/header.php'; ?>
 
-<p><?= htmlspecialchars($message) ?></p>
+<p><?= $message ?></p>
+
+<?= print_r($_SESSION); ?>
 
 <button><a href="connexion">Se connecter</a></button>
 

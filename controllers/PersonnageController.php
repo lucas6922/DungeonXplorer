@@ -23,10 +23,8 @@ class PersonnageController
             //filtrer les fichiers récup que ceux qui sont des images
             $images = array();
             foreach ($files as $file) {
-                if ($file != 'no_pp.jpeg') {
-                    if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), $image_extensions)) {
-                        $images[] = $file;
-                    }
+                if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), $image_extensions)) {
+                    $images[] = $file;
                 }
             }
 
@@ -47,16 +45,26 @@ class PersonnageController
         $classe_id = $_POST['classe'] ?? null;
         $biographie = $_POST['biographie'] ?? null;
         $joueur_id = $_SESSION['pla_id'] ?? null;
+        $image = $_POST['image'] ?? null;
+
+        if ($image) {
+            $image = 'Images/perso_pp/' . $image;
+        } else {
+            $image = 'Images/perso_pp/no_pp.jpg';
+        }
 
         $hero = new Hero();
         $hero->setNom($nom);
         $hero->setClasseId($classe_id);
         $hero->setBiographie($biographie);
         $hero->setJoueurId($joueur_id);
+        $hero->setImage($image);
+
         $hero->save();
 
 
         $this->afficherPersonnages();
+        exit;
     }
 
     public function afficherPersonnages()

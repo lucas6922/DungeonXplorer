@@ -180,13 +180,47 @@ function tour(heros, ennemi){
         }
         nTour++;
     })
-    /*boutonAttaqueMagique.addEventListener('click', () => { //TODO verifier dans bdd si sort
+    boutonAttaqueMagique.addEventListener('click', () => {
+        let boutonsSorts = document.getElementById("sorts");
         heros.liste_sorts.forEach((i) => {
-            consoleCombat.innerHTML += ("Sort n°" + i.id_sort + "<br>");
+            let sort = document.createElement("BUTTON");
+            sort.appendChild(document.createTextNode(i.nom + " (mana : " + i.val + ")"));
+
+
+            sort.addEventListener('click', () => {
+                let j1 = ennemi;
+                let j2 = heros;
+                if (calculInitiative(heros, ennemi) == heros){
+                    j1 = heros;
+                    j2 = ennemi;
+                }
+                let valSort =  i.val;
+                consoleCombat.innerHTML += ("-----------------------Tour n°" + nTour + "-----------------------<br>");
+                if (j1 == heros){
+
+                    consoleCombat.innerHTML += (heros.nom + " fait le sort " + i.nom + " !<br>");
+                    attaquerMagique(heros, ennemi, valSort)
+                    consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
+        
+                    consoleCombat.innerHTML += (j2.nom + " attaque " + j1.nom + " !<br>");
+                    attaquerPhysique(j2, j1);
+                    consoleCombat.innerHTML += ("PV " + j1.nom + " : " + j1.pv + "<br><br>");
+                }
+                else{
+                    consoleCombat.innerHTML += (j1.nom + " attaque " + j2.nom + " !<br>");
+                    attaquerPhysique(j1, j2);
+                    consoleCombat.innerHTML += ("PV " + j2.nom + " : " + j2.pv + "<br><br>");
+                    consoleCombat.innerHTML += (heros.nom + " fait le sort " + i.nom + " !<br>");
+                    attaquerMagique(heros, ennemi, valSort)
+                    consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
+                }
+                nTour++;
+            })
+
+
+            boutonsSorts.appendChild(sort);
         })
-        consoleCombat.innerHTML += ("<br>");
-        nTour++;
-    })*/
+    })
 }
 
 

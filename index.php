@@ -97,6 +97,8 @@ $router->addRoute('traitement_creation_personnage', 'PersonnageController@creer'
 //routes pour l'affichage des perso associé au joueur co
 $router->addRoute('personnages', 'PersonnageController@afficherPersonnages');
 
+//route pour le combat
+$router->addRoute('combat', 'fenetreCombatController@combat');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

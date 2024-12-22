@@ -1,7 +1,7 @@
 <?php
     class fenetreCombatController {
 
-        public function index() {
+        public function combat() {
             require_once 'views/fenetreCombat.php';
         }
     }

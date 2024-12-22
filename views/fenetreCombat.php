@@ -6,12 +6,16 @@
         <title>Combat</title>
     </head>
     <body>
+    <?php include 'includes/header.php'; ?>
     <h1>Combat</h1>
+    <div id = "heros"></div>
+    <div id ="ennemi"></div>
     <button id = "attaqueP">Attaque physique</button>
     <button id = "attaqueM">Attaque magique</button>
     <button id = "potion">Boire une potion</button>
     <div id = "sorts" ></div>
     <div id = "console"> </div>
+    <?php include 'includes/footer.php'; ?>
     <script src="JS/systemeCombat.js"></script>
     </body>
 </html>

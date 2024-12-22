@@ -28,6 +28,8 @@ let boutonAttaquePhysique = document.getElementById("attaqueP");
 let boutonAttaqueMagique = document.getElementById("attaqueM");
 let boutonPotion = document.getElementById("potion");
 let consoleCombat = document.getElementById("console");
+let herosDiv = document.getElementById("heros");
+let ennemiDiv = document.getElementById("ennemi");
 let nTour = 1;
 
 
@@ -122,10 +124,13 @@ function finDeCombat(combattant){
 
 
 function tour(heros, ennemi){
+    
     consoleCombat.innerHTML += ("<br>---------------------------------------------------------<br><br>");
     consoleCombat.innerHTML += ("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + heros.nom   + " vs " + ennemi.nom + "<br><br>");
     consoleCombat.innerHTML += (heros.nom   + " : PV " + heros.pv + "<br>");
     consoleCombat.innerHTML += (ennemi.nom   + " : PV " + ennemi.pv + "<br><br>");
+    actualiseAffichagePV(ennemi, 0);
+    actualiseAffichagePV(heros, 1);
  
     boutonAttaquePhysique.addEventListener('click', () => {
         let j1 = ennemi;
@@ -145,6 +150,8 @@ function tour(heros, ennemi){
                 consoleCombat.innerHTML += ("PV " + j1.nom + " : " + j1.pv + "<br><br>");
             }
         }
+        actualiseAffichagePV(ennemi, 0);
+        actualiseAffichagePV(heros, 1);
         nTour++;
     })
     boutonPotion.addEventListener('click', () => { //TODO verifier dans bdd si potion
@@ -178,10 +185,13 @@ function tour(heros, ennemi){
                 consoleCombat.innerHTML += ("PV " + heros.nom + " : " + heros.pv + "<br><br>");
             }
         }
+        actualiseAffichagePV(ennemi, 0);
+        actualiseAffichagePV(heros, 1);
         nTour++;
     })
     boutonAttaqueMagique.addEventListener('click', () => {
         let boutonsSorts = document.getElementById("sorts");
+        boutonsSorts.innerHTML = "Sorts :<br>"
         heros.liste_sorts.forEach((i) => {
             let sort = document.createElement("BUTTON");
             sort.appendChild(document.createTextNode(i.nom + " (mana : " + i.val + ")"));
@@ -214,6 +224,8 @@ function tour(heros, ennemi){
                     attaquerMagique(heros, ennemi, valSort)
                     consoleCombat.innerHTML += ("PV " + ennemi.nom + " : " + ennemi.pv + "<br><br>");
                 }
+                actualiseAffichagePV(ennemi, 0);
+                actualiseAffichagePV(heros, 1);
                 nTour++;
             })
 
@@ -221,6 +233,15 @@ function tour(heros, ennemi){
             boutonsSorts.appendChild(sort);
         })
     })
+}
+
+function actualiseAffichagePV(combattant, estHeros){
+    if(estHeros){
+        herosDiv.innerHTML = combattant.nom + " PV : " + combattant.pv + "/" + combattant.pvMax;
+    }
+    else{
+        ennemiDiv.innerHTML = combattant.nom + " PV : " + combattant.pv + "/" + combattant.pvMax;
+    }
 }
 
 

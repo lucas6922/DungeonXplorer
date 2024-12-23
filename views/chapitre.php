@@ -14,9 +14,10 @@
         */
     ?>
         <li>
-            <a href="chapitre/<?php echo $nextChapId; ?>">
+            <a href="<?php echo $baseUrl; ?>/chapitre/<?php echo $nextChapId; ?>">
                 <?php echo $liContent; ?>
             </a>
+
         </li>
     <?php endforeach; ?>
 </ul>

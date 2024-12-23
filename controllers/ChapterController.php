@@ -49,7 +49,7 @@ class ChapterController
 
     public function show($id)
     {
-        print_r($id);
+        //print_r($id);
         $this->chargeChap($id);
 
         if ($this->chapter !== null) {

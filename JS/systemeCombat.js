@@ -248,17 +248,16 @@ function tour(heros, ennemi){
 
 function actualiseAffichagePV(combattant, estHeros){
     if(estHeros){
-        herosDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
+        herosDiv.innerHTML = combattant.nom + " :<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
     }
     else{
-        ennemiDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax;
+        ennemiDiv.innerHTML = combattant.nom + " :<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
     }
 }
 
 
 
 function charger(){
-    consoleCombat.innerHTML += personnage[0];
     let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)] );
     let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elexir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)]);
     let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd

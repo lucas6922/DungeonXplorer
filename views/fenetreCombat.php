@@ -8,18 +8,6 @@
 </head>
 
 <body>
-    <?php include 'includes/header.php'; ?>
-    <h1>Combat</h1>
-    <div id="heros"></div>
-    <div id="ennemi"></div>
-    <button id="attaqueP">Attaque physique</button>
-    <button id="attaqueM">Attaque magique</button>
-    <button id="potion">Boire une potion</button>
-    <div id="sorts"></div>
-    <div id="console"> </div>
-    <?php include 'includes/footer.php'; ?>
-
-    <!--passe les données du héros au js.-->
     <script>
         let personnage = [<?php echo json_encode($hero->getName()); ?>,
             <?php echo json_encode($hero->getClaId()); ?>,
@@ -34,6 +22,20 @@
             <?php echo json_encode($hero->getSpellList()); ?>
         ];
     </script>
+    <?php include 'includes/header.php'; ?>
+    <h1>Combat</h1>
+    <div id="heros"></div>
+    <div id="ennemi"></div>
+    <button id="attaqueP">Attaque physique</button>
+    <button id="attaqueM">Attaque magique</button>
+    <button id="potion">Boire une potion</button>
+    <div id="sorts"></div>
+    <div id="console"> </div>
+    <script src="<?php echo $baseUrl; ?>/JS/systemeCombat.js"></script>
+    <?php include 'includes/footer.php'; ?>
+
+    <!--passe les données du héros au js.-->
+    
 
 </body>
 

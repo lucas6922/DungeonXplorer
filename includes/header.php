@@ -29,7 +29,7 @@ $baseUrl = '/DungeonXplorer';
         <h1><a href="<?php echo $baseUrl; ?>/" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
         <nav>
             <!--  si connecte en tant qu'admin affiche btn pannel admin  -->
-            <?php if ($_SESSION['is_admin'] == 1): ?>
+            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
                 <a href="<?php echo $baseUrl; ?>/pannel_admin/pannel_admin_accueil">Pannel Admin</a>
             <?php endif; ?>
             <!--  si deco affiche btn connexion et creatoin compte  -->

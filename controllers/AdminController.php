@@ -42,10 +42,10 @@ class AdminController
             }
 
             require_once 'views/pannel_admin/joueurs.php';
-            $connexion = null;
         } else {
             echo "erreur lors de la suppression, aucun id recu";
         }
+        $connexion = null;
     }
     public function sajoutCompteAdmin()
     {
@@ -55,7 +55,15 @@ class AdminController
 
     public function gererChapitres()
     {
+        $connexion = connect_db();
+
+        $select = $connexion->query("SELECT * FROM CHAPTER");
+        $chapitres = $select->fetchAll(PDO::FETCH_ASSOC);
+        if (!$chapitres) {
+            $chapitres = [];  //si aucun joueur trouvé
+        }
         require_once 'views/pannel_admin/chapitres.php';
+        $connexion = null;
     }
 
     public function gererMonstres()

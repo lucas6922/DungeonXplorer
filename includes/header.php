@@ -20,7 +20,7 @@ $baseUrl = '/DungeonXplorer';
 
 <body>
     <header>
-        <h1><a href="./" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
+        <h1><a href="<?php echo $baseUrl; ?>/" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
         <nav>
             <?php if (!isset($_SESSION['pla_id']) || empty($_SESSION['pla_id'])): ?>
                 <a href="<?php echo $baseUrl; ?>/connexion">Connexion</a>

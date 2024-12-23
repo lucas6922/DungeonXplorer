@@ -31,3 +31,28 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+/*css pour le tableau des joueurs*/
+table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+  
+th,
+td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+}
+
+#form-supp-compte-panadm{
+    padding: 0;
+    box-shadow: none; 
+    border: none;
+    text-align: center;  
+    margin: auto;
+}
+  
+  
+  

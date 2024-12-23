@@ -14,7 +14,7 @@
         */
     ?>
         <li>
-            <a href="<?php echo $baseUrl; ?>/chapitre/<?php echo $nextChapId; ?>">
+            <a href="<?php echo $baseUrl; ?>/chapitre/">
                 <?php echo $liContent; ?>
             </a>
 

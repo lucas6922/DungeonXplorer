@@ -89,10 +89,11 @@ class CompteController
                 $_SESSION['pla_mail'] = $email;
                 $_SESSION['pla_pseudo'] = $pseudo;
 
+                /*
                 echo "<pre>";
                 print_r($_SESSION);
                 echo "</pre>";
-
+                */
                 header('Location: ./');
                 exit();
             } catch (Exception $e) {
@@ -147,15 +148,22 @@ class CompteController
 
                     $select = $connexion->query("select pla_id, pla_firstname, pla_surname, pla_mail, pla_pseudo, pla_passwd from PLAYER where pla_mail = '$pseudoOuEmail' or pla_pseudo = '$pseudoOuEmail'");
                     $enregistrement = $select->fetch(PDO::FETCH_OBJ);
-
-                    if ($enregistrement && password_verify($password, $enregistrement->pla_passwd)) {
+                    print_r($select);
+                    print_r($enregistrement);
+                    if ($enregistrement) {
                         // Le compte existe
-                        $_SESSION['pla_id'] = $enregistrement->pla_id;
-                        $_SESSION['pla_firstname'] = $enregistrement->pla_firstname;
-                        $_SESSION['pla_surname'] = $enregistrement->pla_surname;
-                        $_SESSION['pla_mail'] = $enregistrement->pla_mail;
-                        $_SESSION['pla_pseudo'] = $enregistrement->pla_pseudo;
-                        header('Location: ./');
+                        if (password_verify($password, $enregistrement->pla_passwd)) {
+
+                            $_SESSION['pla_id'] = $enregistrement->pla_id;
+                            $_SESSION['pla_firstname'] = $enregistrement->pla_firstname;
+                            $_SESSION['pla_surname'] = $enregistrement->pla_surname;
+                            $_SESSION['pla_mail'] = $enregistrement->pla_mail;
+                            $_SESSION['pla_pseudo'] = $enregistrement->pla_pseudo;
+                            header('Location: ./');
+                        } else {
+                            $_SESSION['connexion_error'] = "Mot de passe incorrect";
+                            header('Location: connexion');
+                        }
                     } else {
                         $_SESSION['connexion_error'] = "Ce compte n'existe pas";
                         header('Location: connexion');

@@ -19,7 +19,7 @@
 <?php
 //si erreur stocké dans session
 if (isset($_SESSION['connexion_error']) || !empty($_SESSION['connexion_error'])) :
-    print_r($_SESSION['connexion_error']);
+    //print_r($_SESSION['connexion_error']);
 ?>
     <script>
         afficherErreur("<?= $_SESSION['connexion_error'] ?>");

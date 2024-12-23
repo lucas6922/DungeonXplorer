@@ -114,6 +114,12 @@ $router->addRoute('combat', 'fenetreCombatController@combat');
 
 //route pour acceder au pannel admin
 $router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPannelAdmin');
+$router->addRoute('pannel_admin/joueurs', 'AdminController@gererJoueurs');
+$router->addRoute('pannel_admin/chapitres', 'AdminController@gererChapitres');
+$router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
+$router->addRoute('pannel_admin/tresors', 'AdminController@gererTresors');
+$router->addRoute('pannel_admin/images', 'AdminController@gererImages');
+
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

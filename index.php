@@ -120,6 +120,8 @@ $router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
 $router->addRoute('pannel_admin/tresors', 'AdminController@gererTresors');
 $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
+//route pour le formulaire de suppresion d'un joueur
+$router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : jeu. 19 déc. 2024 à 09:28
--- Version du serveur : 10.11.6-MariaDB-0+deb12u1
--- Version de PHP : 8.2.24
+-- Hôte : localhost
+-- Généré le : lun. 23 déc. 2024 à 14:40
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `dx08_bd`
 --
-CREATE DATABASE IF NOT EXISTS `dx08_bd` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `dx08_bd`;
 
 -- --------------------------------------------------------
 
@@ -192,6 +190,25 @@ CREATE TABLE `HERO` (
   `HER_CURRENT_LEVEL` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `HERO`
+--
+
+INSERT INTO `HERO` (`HER_ID`, `CLA_ID`, `PLA_ID`, `HER_NAME`, `HER_IMAGE`, `HER_BIOGRAPHY`, `HER_PV`, `HER_MANA`, `HER_STRENGTH`, `HER_INITIATIVE`, `HER_ARMOR`, `HER_PRIM_WEAPON`, `HER_SEC_WEAPON`, `HER_SHIELD`, `HER_SPELL_LIST`, `HER_XP`, `HER_CURRENT_LEVEL`) VALUES
+(2, 0, 2, 's', NULL, '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(8, 0, 2, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(9, 0, 2, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(11, 2, 2, 'fez', NULL, '', 25, 15, 7, 10, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(12, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(13, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(14, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(15, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(16, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(17, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(18, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(19, 0, 2, 'e', 'Images/perso_pp/OldMan02.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(20, 0, 2, 'lemons', 'Images/perso_pp/Magician01.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -281,30 +298,31 @@ INSERT INTO `LEVEL` (`LEV_ID`, `CLA_ID`, `LEV_NUM`, `LEV_REQUIRED_XP`, `LEV_PV_B
 
 CREATE TABLE `LINK` (
   `CHA_ID` int(2) NOT NULL,
-  `CHA_ID_1` int(2) NOT NULL
+  `CHA_ID_1` int(2) NOT NULL,
+  `LIN_CONTENT` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `LINK`
 --
 
-INSERT INTO `LINK` (`CHA_ID`, `CHA_ID_1`) VALUES
-(1, 2),
-(2, 3),
-(2, 4),
-(3, 5),
-(3, 6),
-(4, 8),
-(4, 10),
-(5, 7),
-(6, 7),
-(6, 10),
-(7, 8),
-(7, 9),
-(8, 9),
-(8, 11),
-(10, 1),
-(11, 10);
+INSERT INTO `LINK` (`CHA_ID`, `CHA_ID_1`, `LIN_CONTENT`) VALUES
+(1, 2, 'Si vous acceptez l\'aventure, rendez vous au chapitre 2.'),
+(2, 3, 'Si vous empruntez le chemin sinueux, rendez-vous au chapitre 3.'),
+(2, 4, 'Si vous choisissez le sentier couvert de ronces, rendez-vous au chapitre 4.\r\n'),
+(3, 5, 'Si vous choisissez de rester prudent, rendez-vous au chapitre 5.'),
+(3, 6, 'Si vous décidez d’ignorer les bruits et de poursuivre votre route, rendez-vous au chapitre 6.'),
+(4, 8, 'Après avoir vaincu le sanglier, vous pourrez vous rendre au chapitre 8.'),
+(4, 10, ' Sinon rendez-vous au chapitre 10.'),
+(5, 7, 'Après l\'avoir écouté, vous pouvez continuer vers chapitre 7.'),
+(6, 7, 'Si vous survivez au loup, rendez-vous au chapitre 7.'),
+(6, 10, 'Si le loup vous terrasse, allez au chapitre 10.'),
+(7, 8, 'Si vous décidez de prendre le sentier couvert de mousse, rendez-vous au chapitre 8.'),
+(7, 9, 'Si vous choisissez de suivre le chemin tortueux à travers les racines, allez au chapitre 9.'),
+(8, 9, 'Si vous ignorez cette curiosité et poursuivez votre route, allez au chapitre 9.'),
+(8, 11, 'Si vous touchez la pierre gravée, allez au chapitre 11.'),
+(10, 1, 'Si vous souhaitez reprendre l’aventure depuis le début, rendez-vous de nouveau au chapitre 1.'),
+(11, 10, 'Rendez-vous sans perdre de temps au chapitre 10.');
 
 -- --------------------------------------------------------
 
@@ -407,7 +425,13 @@ CREATE TABLE `PLAYER` (
 --
 
 INSERT INTO `PLAYER` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA_PSEUDO`, `PLA_PASSWD`) VALUES
-(2, 'moi', 'moi', 'moi@mail.com', 'moi', '$2y$10$27lcdTFM2mr3OY4FmHSQDuVrqnfNmvlucQQcx16PheT3TyeuA41.a');
+(2, 'moi', 'moi', 'moi@mail.com', 'moi', '$2y$10$27lcdTFM2mr3OY4FmHSQDuVrqnfNmvlucQQcx16PheT3TyeuA41.a'),
+(3, 'zsq', 'zs', 'ezs@s.c', 'ends', '$2y$10$EQWDxv8VhfZmpHVEDxhkQuaK.GODtDOHlqzHTAJ7WZ/ljf2APBMWi'),
+(4, 'ds', 'ze', 'ds@mail.com', 'sd', '$2y$10$4NQhmV7CTqEgNq1PxOZesuOaD8Dr0I4J/emqJw4I3A6dyXWsKEKEy'),
+(5, 'qs', 'dz', 'lu@lkn.com', 'q', '$2y$10$PVsXBUFcQWallDcTFkRD/ed00/bU/guFYqmh96Ssx5iVm242hTVX6'),
+(6, 'qs', 'za', 'dqs@m.c', 'qd', '$2y$10$lJEyNisVtMQ/fG9gqA3hdO5ZhAaH5yRlUzCeXoekXWuokmmptEfC2'),
+(7, 'ds', 'ez', 'ds@s.c', 'ds', '$2y$10$LAvwIk1mPMRzGJdxqMfgf.6KSEhN1my26pTy35FK3mO45AgzMSU5C'),
+(8, 'fezcds', 'redczs', 'edcs@m.c', 'efdc', '$2y$10$Y65TzKojCkxva3U8Chl5s.qzZvz2/hHxoch50mLamueDpPgSE.7uO');
 
 -- --------------------------------------------------------
 
@@ -559,7 +583,7 @@ ALTER TABLE `CHAPTER`
 -- AUTO_INCREMENT pour la table `HERO`
 --
 ALTER TABLE `HERO`
-  MODIFY `HER_ID` int(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `HER_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `LEVEL`
@@ -642,11 +666,6 @@ ALTER TABLE `MONSTER`
 ALTER TABLE `QUEST`
   ADD CONSTRAINT `FK_QUEST_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `CHAPTER` (`CHA_ID`),
   ADD CONSTRAINT `FK_QUEST_HERO` FOREIGN KEY (`HER_ID`) REFERENCES `HERO` (`HER_ID`);
---
--- Base de données : `test`
---
-CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `test`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -25,7 +25,7 @@ class ChapterController
         */
         $next = array();
         foreach ($tab as $next_chap) {
-            $next[] = $next_chap['CHA_ID_1'];
+            $next[$next_chap['CHA_ID_1']] = $next_chap['LIN_CONTENT'];
         }
 
         /*

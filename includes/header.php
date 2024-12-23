@@ -13,6 +13,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="CSS/reset.css">
     <link rel="stylesheet" href="CSS/general.css">
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/carousel.css">
+    <link rel="stylesheet" href="CSS/formulaire.css">
+    <link rel="stylesheet" href="CSS/hero_card.css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="JS/notif_erreur.js"></script>

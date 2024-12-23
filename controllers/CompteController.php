@@ -214,6 +214,8 @@ class CompteController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $_SESSION['is_admin'] = '';
         $_SESSION['pla_id'] = '';
         $_SESSION['pla_firstname'] = '';
         $_SESSION['pla_surname'] = '';

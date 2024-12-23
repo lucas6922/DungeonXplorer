@@ -47,6 +47,10 @@ class AdminController
             echo "erreur lors de la suppression, aucun id recu";
         }
     }
+    public function sajoutCompteAdmin()
+    {
+        require_once 'views/pannel_admin/cration_compte_admin.php';
+    }
 
 
     public function gererChapitres()

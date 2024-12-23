@@ -2,17 +2,16 @@
 class CompteController
 {
 
+    private $baseUrl = '/DungeonXplorer';
+
     public function form_create()
     {
         require_once 'views/creation_compte.php';
     }
 
-    public function create()
+    public function create($id)
     {
-        echo "ok";
-        echo "<pre>";
-        print_r($_POST);
-        echo "<pre>";
+        $isAdmin = (bool)$id;
 
         $connexion = connect_db();
         //verifie que tout est bien set
@@ -30,8 +29,13 @@ class CompteController
             //valide l'adresse mail
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['account_creation_error'] = "Cette adresse email n'est pas correcte";
-                header('Location: creation_compte');
-                exit();
+                if ($isAdmin) {
+                    header(sprintf("Location: %s/pannel_admin/creation_compte_admin", $this->baseUrl));
+                    exit();
+                } else {
+                    header(sprintf("Location: %s/creation_compte", $this->baseUrl));
+                    exit();
+                }
             }
 
             try {
@@ -40,8 +44,13 @@ class CompteController
                 $rqp->execute(['email' => $email]);
                 if ($rqp->fetch()) {
                     $_SESSION['account_creation_error'] = "Un compte existe déjà avec cette adresse email";
-                    header('Location: creation_compte');
-                    exit();
+                    if ($isAdmin) {
+                        header(sprintf("Location: %s/pannel_admin/creation_compte_admin", $this->baseUrl));
+                        exit();
+                    } else {
+                        header(sprintf("Location: %s/creation_compte", $this->baseUrl));
+                        exit();
+                    }
                 }
 
                 //vérifie unicite  pseudo
@@ -49,8 +58,13 @@ class CompteController
                 $rqp->execute(['pseudo' => $pseudo]);
                 if ($rqp->fetch()) {
                     $_SESSION['account_creation_error'] = "Un compte existe déjà avec ce pseudo";
-                    header('Location: creation_compte');
-                    exit();
+                    if ($isAdmin) {
+                        header(sprintf("Location: %s/pannel_admin/creation_compte_admin", $this->baseUrl));
+                        exit();
+                    } else {
+                        header(sprintf("Location: %s/creation_compte", $this->baseUrl));
+                        exit();
+                    };
                 }
 
                 //hahsh mdp
@@ -65,14 +79,15 @@ class CompteController
                 //insert le joueur
                 $rqp = $connexion->prepare("
                     INSERT INTO PLAYER (pla_id, PLA_FIRSTNAME, PLA_SURNAME, pla_mail, pla_pseudo, pla_passwd, isadmin)
-                    VALUES (:id, :prenom, :nom, :email, :pseudo, :password, 1)");
+                    VALUES (:id, :prenom, :nom, :email, :pseudo, :password, :isadmin)");
                 $rqp->execute([
                     'id' => $id,
                     'prenom' => $prenom,
                     'nom' => $nom,
                     'email' => $email,
                     'pseudo' => $pseudo,
-                    'password' => $hashed
+                    'password' => $hashed,
+                    'isadmin' => $isAdmin
                 ]);
 
                 //redirection vers la page d'accueil en etant connecte si creation compte réussi
@@ -83,29 +98,40 @@ class CompteController
 
                 session_regenerate_id(true);
 
-                $_SESSION['is_admin'] = 0;
+                $_SESSION['is_admin'] = $isAdmin;
                 $_SESSION['pla_id'] = $id;
                 $_SESSION['pla_firstname'] = $prenom;
                 $_SESSION['pla_surname'] = $nom;
                 $_SESSION['pla_mail'] = $email;
                 $_SESSION['pla_pseudo'] = $pseudo;
 
-                /*
-                echo "<pre>";
-                print_r($_SESSION);
-                echo "</pre>";
-                */
-                header('Location: ./');
-                exit();
+
+                if ($isAdmin) {
+                    header(sprintf("Location: %s/pannel_admin/joueurs", $this->baseUrl));
+                    exit();
+                } else {
+                    header(sprintf("Location: %s/", $this->baseUrl));
+                    exit();
+                }
             } catch (Exception $e) {
                 $_SESSION['account_creation_error'] = "Une erreur est survenue lors de la création du compte : " . $e->getMessage();
-                header('Location: creation_compte');
-                exit();
+                if ($isAdmin) {
+                    header(sprintf("Location: %s/pannel_admin/creation_compte_admin", $this->baseUrl));
+                    exit();
+                } else {
+                    header(sprintf("Location: %s/creation_compte", $this->baseUrl));
+                    exit();
+                }
             }
         } else {
             $_SESSION['account_creation_error'] = "Vous n'avez pas indiqué toutes vos informations";
-            header('Location: creation_compte');
-            exit();
+            if ($isAdmin) {
+                header(sprintf("Location: %s/pannel_admin/creation_compte_admin", $this->baseUrl));
+                exit();
+            } else {
+                header(sprintf("Location: %s/creation_compte", $this->baseUrl));
+                exit();
+            }
         }
 
         $connexion = null;

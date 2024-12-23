@@ -6,4 +6,29 @@ class AdminController
     {
         require_once 'views/pannel_admin/pannel_admin_accueil.php';
     }
+
+    public function gererJoueurs()
+    {
+        require_once 'views/pannel_admin/joueurs.php';
+    }
+
+    public function gererChapitres()
+    {
+        require_once 'views/pannel_admin/chapitres.php';
+    }
+
+    public function gererMonstres()
+    {
+        require_once 'views/pannel_admin/monstres.php';
+    }
+
+    public function gererTresors()
+    {
+        require_once 'views/pannel_admin/tresors.php';
+    }
+
+    public function gererImages()
+    {
+        require_once 'views/pannel_admin/images.php';
+    }
 }

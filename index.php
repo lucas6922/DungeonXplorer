@@ -30,23 +30,23 @@ class Router
             $url = substr($url, strlen($this->prefix) + 1);
         }
 
-        // Enlève les barres obliques en trop
+        // Nettoie l'URL
         $url = trim($url, '/');
 
-        // Vérification de la correspondance de l'URL à une route définie
+        // Vérification des routes
         foreach ($this->routes as $route => $controllerMethod) {
-            // Vérifie si l'URL correspond à une route avec des paramètres
             $routeParts = explode('/', $route);
             $urlParts = explode('/', $url);
 
-            // Si le nombre de segments correspond
+            // Vérifie si le nombre de segments correspond
             if (count($routeParts) === count($urlParts)) {
-                // Vérification de chaque segment
                 $params = [];
                 $isMatch = true;
+
+                // Parcours chaque segment
                 foreach ($routeParts as $index => $part) {
                     if (preg_match('/^{\w+}$/', $part)) {
-                        // Capture les paramètres
+                        // Capture les segments dynamiques (comme {id})
                         $params[] = $urlParts[$index];
                     } elseif ($part !== $urlParts[$index]) {
                         $isMatch = false;
@@ -55,18 +55,26 @@ class Router
                 }
 
                 if ($isMatch) {
-                    // Extraction du nom du contrôleur et de la méthode
+                    // Instancie le contrôleur et appelle la méthode
                     list($controllerName, $methodName) = explode('@', $controllerMethod);
 
-                    // Instanciation du contrôleur et appel de la méthode avec les paramètres
-                    $controller = new $controllerName();
-                    call_user_func_array([$controller, $methodName], $params);
-                    return;
+                    if (class_exists($controllerName)) {
+                        $controller = new $controllerName();
+
+                        if (method_exists($controller, $methodName)) {
+                            call_user_func_array([$controller, $methodName], $params);
+                            return;
+                        } else {
+                            throw new Exception("Méthode $methodName introuvable dans le contrôleur $controllerName.");
+                        }
+                    } else {
+                        throw new Exception("Contrôleur $controllerName introuvable.");
+                    }
                 }
             }
         }
 
-        // Si aucune route n'a été trouvée, gérer l'erreur 404
+        // Si aucune route ne correspond, afficher une page 404
         require_once 'views/404.php';
     }
 }
@@ -89,7 +97,8 @@ $router->addRoute('deconnexion', 'CompteController@logout');
 $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
 //vue d'un chapitre
-$router->addRoute('chapitre', 'ChapterController@show');
+$router->addRoute('chapitre/{id}', 'ChapterController@show');
+//$router->addRoute('chapitre', 'ChapterController@show');
 //routes pour la création d'un perso
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');
 $router->addRoute('traitement_creation_personnage', 'PersonnageController@creer');
@@ -99,6 +108,8 @@ $router->addRoute('personnages', 'PersonnageController@afficherPersonnages');
 
 //route pour le combat
 $router->addRoute('combat', 'fenetreCombatController@combat');
+
+
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

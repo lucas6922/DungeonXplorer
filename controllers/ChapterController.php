@@ -47,10 +47,10 @@ class ChapterController
         }
     }
 
-    public function show()
+    public function show($id)
     {
-        $chapId = isset($_GET['cha_id']) ? (int)$_GET['cha_id'] : 1;
-        $this->chargeChap($chapId);
+        print_r($id);
+        $this->chargeChap($id);
 
         if ($this->chapter !== null) {
             $chapter = $this->getChapter();

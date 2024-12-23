@@ -4,14 +4,33 @@
     
     class fenetreCombatController {
         private $hero = null;
-        public function __construct(){
+
+        public function chargeHeros($herId){
 
             $conn = connect_db();
-            $sql = "select * from HERO where HER_ID = 1;";
+            $sql = "select * from HERO where HER_ID = :herId;";
             $cur = $conn->prepare($sql);
-            $res = $cur->execute();
+            $cur->execute([':herId' => $herId]);
             $tab = $cur->fetchAll();
-            $this->hero = new Hero($tab[0]['HER_ID'], $tab[0]['CLA_ID'], $tab[0]['PLA_ID'], $tab[0]['HER_NAME'], $tab[0]['HER_IMAGE'], $tab[0]['HER_BIOGRAPHY'], $tab[0]['HER_PV'], $tab[0]['HER_MANA'], $tab[0]['HER_STRENGTH'], $tab[0]['HER_INITIATIVE'], $tab[0]['HER_ARMOR'], $tab[0]['HER_PRIM_WEAPON'], $tab[0]['HER_SEC_WEAPON'], $tab[0]['HER_SHIELD'], $tab[0]['HER_SPELL_LIST'], $tab[0]['HER_XP'], $tab[0]['HER_CURRENT_LEVEL']);
+            $this->hero = new Hero();
+            $this->hero->setId($tab[0]['HER_ID']);
+            $this->hero->setClaId($tab[0]['CLA_ID']);
+            $this->hero->setJoueurID($tab[0]['PLA_ID']);
+            $this->hero->setNom($tab[0]['HER_NAME']);
+            $this->hero->setImage($tab[0]['HER_IMAGE']);
+            $this->hero->setBiographie($tab[0]['HER_BIOGRAPHY']);
+            $this->hero->setPV($tab[0]['HER_PV']);
+            $this->hero->setMana($tab[0]['HER_MANA']);
+            $this->hero->setStrength($tab[0]['HER_STRENGTH']);
+            $this->hero->setInitiative($tab[0]['HER_INITIATIVE']);
+            $this->hero->setArmor($tab[0]['HER_ARMOR']);
+            $this->hero->setPrimWeapon($tab[0]['HER_PRIM_WEAPON']);
+            $this->hero->setSecWeapon($tab[0]['HER_SEC_WEAPON']);
+            $this->hero->setShield($tab[0]['HER_SHIELD']);
+            $this->hero->setSpellList($tab[0]['HER_SPELL_LIST']);
+            $this->hero->setXP($tab[0]['HER_XP']);
+            $this->hero->setCurrentLevel($tab[0]['HER_CURRENT_LEVEL']);
+
         }
 
         public function getHero()
@@ -20,7 +39,8 @@
         }
         
 
-        public function combat() {
+        public function combat($herId) {
+            $this->chargeHeros($herId);
             $hero = $this->getHero();
             if ($hero != null) {
                 include 'views/fenetreCombat.php'; // Charge la vue pour le hero

@@ -112,7 +112,7 @@ $router->addRoute('combat', 'fenetreCombatController@combat');
 
 
 //route pour acceder au pannel admin
-$router->addRoute('pannel_admin/pannel_admin_accueil', 'CompteController@showPannelAdmin');
+$router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPannelAdmin');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

@@ -6,13 +6,15 @@
 
 <h2>Choisissez votre chemin:</h2>
 <ul>
-    <?php foreach ($chapter->getChoices() as $choice): ?>
+    <?php foreach ($next as $next_chap):
+        print_r($next_chap); ?>
+        <!--
         <li>
             <a href="<?php echo $choice['chapter']; ?>">
                 <?php echo $choice['text']; ?>
             </a>
-        </li>
-    <?php endforeach; ?> 
+        </li>-->
+    <?php endforeach; ?>
 </ul>
 
 <?php include 'includes/footer.php'; ?>

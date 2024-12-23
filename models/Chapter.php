@@ -7,16 +7,16 @@ class Chapter
     private $id;
     private $title;
     private $description;
-    private $image; 
-    private $choices;
+    private $image;
+    private $next;
 
-    public function __construct($id, $title, $description, $image, $choices)
+    public function __construct($id, $title, $description, $image, $next)
     {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
-        $this->image = $image; 
-        $this->choices = $choices;
+        $this->image = $image;
+        $this->next = $next;
     }
 
     public function getId()
@@ -36,11 +36,12 @@ class Chapter
 
     public function getImage()
     {
-        return $this->image; 
+        return $this->image;
     }
 
-    public function getChoices()
+
+    public function getNext()
     {
-        return $this->choices;
+        return $this->next;
     }
 }

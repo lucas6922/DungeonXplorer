@@ -6,13 +6,13 @@ require_once 'models/Chapter.php';
 require_once 'database/connexion_db.php';
 session_start();
 
+
 class ChapterController
 {
     private $chapter = null;
 
 
     public function chargeChap($chapId){
-        
         $conn = connect_db();
 
         $sql = "SELECT * FROM CHAPTER cha 
@@ -53,7 +53,6 @@ class ChapterController
         //print_r($id);
         if(isset($_SESSION['pla_id'])){
             $conn = connect_db();
-
             $play = $_SESSION['pla_id'];
 
             $sql1 = "SELECT cha_id FROM hero her 
@@ -85,6 +84,15 @@ class ChapterController
     {
         //print_r($id);
         $this->chargeChap($id);
+        $conn = connect_db();
+        $play = $_SESSION['pla_id'];
+
+        $sql = "UPDATE hero SET cha_id = :newId
+        WHERE pla_id = :play";
+        print($sql);
+
+        $cur = $conn->prepare($sql);
+        $cur->execute([':newId' => $id, ':play' => $play]);
 
         if ($this->chapter !== null) {
             $chapter = $this->getChapter();

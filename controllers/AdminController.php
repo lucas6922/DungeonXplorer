@@ -18,6 +18,21 @@ class AdminController
         require_once 'views/pannel_admin/joueurs.php';
     }
 
+    public function supprimerJoueur()
+    {
+        $connexion = connect_db();
+
+        if (isset($_POST['pla_id'])) {
+            $pla_id = $_POST['pla_id'];
+
+            $rqp = $connexion->prepare("DELETE FROM PLAYER WHERE PLA_ID = ?");
+            $rqp->execute([$pla_id]);
+
+            header('Location: pannel_admin/joueurs');
+        }
+    }
+
+
     public function gererChapitres()
     {
         require_once 'views/pannel_admin/chapitres.php';

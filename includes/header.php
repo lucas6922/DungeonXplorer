@@ -22,6 +22,7 @@ $baseUrl = '/DungeonXplorer';
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo $baseUrl; ?>/JS/notif_erreur.js"></script>
     <script src="<?php echo $baseUrl; ?>/JS/carousel.js"></script>
+    <script src="<?php echo $baseUrl; ?>/JS/systemeCombat.js"></script>
 </head>
 
 <body>

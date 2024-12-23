@@ -27,10 +27,16 @@ $baseUrl = '/DungeonXplorer';
     <header>
         <h1><a href="<?php echo $baseUrl; ?>/" class="titre-DungeonXplorer">DungeonXplorer</a></h1>
         <nav>
+            <!--  si connecte en tant qu'admin affiche btn pannel admin  -->
+            <?php if ($_SESSION['is_admin'] == 1): ?>
+                <a href="<?php echo $baseUrl; ?>/pannel_admin/pannel_admin_accueil">Pannel Admin</a>
+            <?php endif; ?>
+            <!--  si deco affiche btn connexion et creatoin compte  -->
             <?php if (!isset($_SESSION['pla_id']) || empty($_SESSION['pla_id'])): ?>
                 <a href="<?php echo $baseUrl; ?>/connexion">Connexion</a>
                 <a href="<?php echo $baseUrl; ?>/creation_compte">Créer un compte</a>
             <?php else: ?>
+                <!--  sinon btn deconnexin et info compte  -->
                 <a href="<?php echo $baseUrl; ?>/deconnexion">Déconnexion</a>
                 <a href="<?php echo $baseUrl; ?>/infos_compte">Informations du compte</a>
             <?php endif; ?>

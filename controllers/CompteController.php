@@ -64,8 +64,8 @@ class CompteController
 
                 //insert le joueur
                 $rqp = $connexion->prepare("
-                    INSERT INTO PLAYER (pla_id, PLA_FIRSTNAME, PLA_SURNAME, pla_mail, pla_pseudo, pla_passwd)
-                    VALUES (:id, :prenom, :nom, :email, :pseudo, :password)");
+                    INSERT INTO PLAYER (pla_id, PLA_FIRSTNAME, PLA_SURNAME, pla_mail, pla_pseudo, pla_passwd, isadmin)
+                    VALUES (:id, :prenom, :nom, :email, :pseudo, :password, 1)");
                 $rqp->execute([
                     'id' => $id,
                     'prenom' => $prenom,

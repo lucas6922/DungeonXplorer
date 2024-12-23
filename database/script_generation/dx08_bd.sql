@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le : lun. 23 déc. 2024 à 14:40
--- Version du serveur : 10.4.28-MariaDB
--- Version de PHP : 8.0.28
+-- Host: localhost:3306
+-- Generation Time: Dec 23, 2024 at 02:09 PM
+-- Server version: 8.0.36
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,28 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `dx08_bd`
+-- Database: `dx08`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `CHAPTER`
+-- Table structure for table `chapter`
 --
 
-CREATE TABLE `CHAPTER` (
-  `CHA_ID` int(2) NOT NULL,
-  `LOO_ID` int(2) DEFAULT NULL,
-  `CHA_NAME` varchar(128) NOT NULL,
-  `CHA_CONTENT` text NOT NULL,
-  `CHA_IMAGE` varchar(255) DEFAULT NULL
+CREATE TABLE `chapter` (
+  `CHA_ID` int NOT NULL,
+  `LOO_ID` int DEFAULT NULL,
+  `CHA_NAME` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
+  `CHA_CONTENT` text COLLATE utf8mb4_general_ci NOT NULL,
+  `CHA_IMAGE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `CHAPTER`
+-- Dumping data for table `chapter`
 --
 
-INSERT INTO `CHAPTER` (`CHA_ID`, `LOO_ID`, `CHA_NAME`, `CHA_CONTENT`, `CHA_IMAGE`) VALUES
+INSERT INTO `chapter` (`CHA_ID`, `LOO_ID`, `CHA_NAME`, `CHA_CONTENT`, `CHA_IMAGE`) VALUES
 (1, 1, 'Introduction', 'Le ciel est lourd ce soir sur le village du Val Perdu, dissimulé entre les montagnes. La petite taverne, dernier refuge avant l’immense forêt, est étrangement calme quand le bourgmestre s’approche de vous. Homme d’apparence usée par les années et les soucis, il vous adresse un regard désespéré. « Ma fille… elle a disparu dans la forêt. Personne n’a osé la chercher… sauf vous, peut- être ? On raconte qu’un sorcier vit dans un château en ruines, caché au cœur des bois. Depuis des mois, des jeunes filles disparaissent… J’ai besoin de vous pour la retrouver. » Vous sentez le poids de la mission qui s’annonce, et un frisson parcourt votre échine. Bientôt, la forêt s’ouvre devant vous, sombre et menaçante. La quête commence.', ''),
 (2, 2, 'L’orée de la forêt', 'Vous franchissez la lisière des arbres, la pénombre de la forêt avalant le sentier devant vous. Un vent froid glisse entre les troncs, et le bruissement des feuilles ressemble à un murmure menaçant. Deux chemins s’offrent à vous : l’un sinueux, bordé de vieux arbres noueux ; l’autre droit mais envahi par des ronces épaisses.', ''),
 (3, 3, 'L’arbre aux corbeaux', 'Votre choix vous mène devant un vieux chêne aux branches tordues, grouillant de corbeaux noirs qui vous observent en silence. À vos pieds, des traces de pas légers, probablement récents, mènent plus loin dans les bois. Soudain, un bruit de pas feutrés se fait entendre. Vous ressentez la présence d’un prédateur.', ''),
@@ -55,26 +55,26 @@ INSERT INTO `CHAPTER` (`CHA_ID`, `LOO_ID`, `CHA_NAME`, `CHA_CONTENT`, `CHA_IMAGE
 -- --------------------------------------------------------
 
 --
--- Structure de la table `CLASS`
+-- Table structure for table `class`
 --
 
-CREATE TABLE `CLASS` (
-  `CLA_ID` int(2) NOT NULL,
-  `CLA_NAME` varchar(50) NOT NULL,
-  `CLA_DESCRIPTION` char(255) DEFAULT NULL,
-  `CLA_BASE_PV` int(2) NOT NULL,
-  `CLA_BASE_MANA` int(2) NOT NULL,
-  `CLA_STRENGTH` int(2) NOT NULL,
-  `CLA_INITIATIVE` int(2) NOT NULL,
-  `CLA_MAX_ITEMS` int(2) NOT NULL,
-  `CLA_POID_MAX` int(3) DEFAULT NULL
+CREATE TABLE `class` (
+  `CLA_ID` int NOT NULL,
+  `CLA_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `CLA_DESCRIPTION` char(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CLA_BASE_PV` int NOT NULL,
+  `CLA_BASE_MANA` int NOT NULL,
+  `CLA_STRENGTH` int NOT NULL,
+  `CLA_INITIATIVE` int NOT NULL,
+  `CLA_MAX_ITEMS` int NOT NULL,
+  `CLA_POID_MAX` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `CLASS`
+-- Dumping data for table `class`
 --
 
-INSERT INTO `CLASS` (`CLA_ID`, `CLA_NAME`, `CLA_DESCRIPTION`, `CLA_BASE_PV`, `CLA_BASE_MANA`, `CLA_STRENGTH`, `CLA_INITIATIVE`, `CLA_MAX_ITEMS`, `CLA_POID_MAX`) VALUES
+INSERT INTO `class` (`CLA_ID`, `CLA_NAME`, `CLA_DESCRIPTION`, `CLA_BASE_PV`, `CLA_BASE_MANA`, `CLA_STRENGTH`, `CLA_INITIATIVE`, `CLA_MAX_ITEMS`, `CLA_POID_MAX`) VALUES
 (0, 'Magicien', '', 25, 25, 3, 5, 10, 5),
 (1, 'Guerrier', '', 30, 0, 15, 3, 10, 17),
 (2, 'Voleur', '', 25, 15, 7, 10, 7, 9);
@@ -82,20 +82,20 @@ INSERT INTO `CLASS` (`CLA_ID`, `CLA_NAME`, `CLA_DESCRIPTION`, `CLA_BASE_PV`, `CL
 -- --------------------------------------------------------
 
 --
--- Structure de la table `CONTAINS`
+-- Table structure for table `contains`
 --
 
-CREATE TABLE `CONTAINS` (
-  `LOO_ID` int(2) NOT NULL,
-  `ITE_ID` int(2) NOT NULL,
-  `CON_QTE` int(2) DEFAULT NULL
+CREATE TABLE `contains` (
+  `LOO_ID` int NOT NULL,
+  `ITE_ID` int NOT NULL,
+  `CON_QTE` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `CONTAINS`
+-- Dumping data for table `contains`
 --
 
-INSERT INTO `CONTAINS` (`LOO_ID`, `ITE_ID`, `CON_QTE`) VALUES
+INSERT INTO `contains` (`LOO_ID`, `ITE_ID`, `CON_QTE`) VALUES
 (1, 1, 1),
 (1, 2, 1),
 (2, 1, 1),
@@ -148,99 +148,100 @@ INSERT INTO `CONTAINS` (`LOO_ID`, `ITE_ID`, `CON_QTE`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ENCOUNTER`
+-- Table structure for table `encounter`
 --
 
-CREATE TABLE `ENCOUNTER` (
-  `CHA_ID` int(2) NOT NULL,
-  `MON_ID` int(2) NOT NULL
+CREATE TABLE `encounter` (
+  `CHA_ID` int NOT NULL,
+  `MON_ID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `ENCOUNTER`
+-- Dumping data for table `encounter`
 --
 
-INSERT INTO `ENCOUNTER` (`CHA_ID`, `MON_ID`) VALUES
+INSERT INTO `encounter` (`CHA_ID`, `MON_ID`) VALUES
 (4, 1),
 (6, 4);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `HERO`
+-- Table structure for table `hero`
 --
 
-CREATE TABLE `HERO` (
-  `HER_ID` int(2) NOT NULL,
-  `CLA_ID` int(2) NOT NULL,
-  `PLA_ID` int(2) NOT NULL,
-  `HER_NAME` varchar(50) NOT NULL,
-  `HER_IMAGE` varchar(255) DEFAULT NULL,
-  `HER_BIOGRAPHY` char(255) DEFAULT NULL,
-  `HER_PV` int(2) NOT NULL,
-  `HER_MANA` int(2) NOT NULL,
-  `HER_STRENGTH` int(2) NOT NULL,
-  `HER_INITIATIVE` int(2) NOT NULL,
-  `HER_ARMOR` varchar(50) DEFAULT NULL,
-  `HER_PRIM_WEAPON` varchar(50) DEFAULT NULL,
-  `HER_SEC_WEAPON` varchar(50) DEFAULT NULL,
-  `HER_SHIELD` varchar(50) DEFAULT NULL,
-  `HER_SPELL_LIST` varchar(128) DEFAULT NULL,
-  `HER_XP` int(2) NOT NULL,
-  `HER_CURRENT_LEVEL` int(2) NOT NULL
+CREATE TABLE `hero` (
+  `HER_ID` int NOT NULL,
+  `CLA_ID` int NOT NULL,
+  `PLA_ID` int NOT NULL,
+  `CHA_ID` int DEFAULT NULL,
+  `HER_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `HER_IMAGE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_BIOGRAPHY` char(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_PV` int NOT NULL,
+  `HER_MANA` int NOT NULL,
+  `HER_STRENGTH` int NOT NULL,
+  `HER_INITIATIVE` int NOT NULL,
+  `HER_ARMOR` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_PRIM_WEAPON` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SEC_WEAPON` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SHIELD` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SPELL_LIST` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_XP` int NOT NULL,
+  `HER_CURRENT_LEVEL` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `HERO`
+-- Dumping data for table `hero`
 --
 
-INSERT INTO `HERO` (`HER_ID`, `CLA_ID`, `PLA_ID`, `HER_NAME`, `HER_IMAGE`, `HER_BIOGRAPHY`, `HER_PV`, `HER_MANA`, `HER_STRENGTH`, `HER_INITIATIVE`, `HER_ARMOR`, `HER_PRIM_WEAPON`, `HER_SEC_WEAPON`, `HER_SHIELD`, `HER_SPELL_LIST`, `HER_XP`, `HER_CURRENT_LEVEL`) VALUES
-(2, 0, 2, 's', NULL, '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(8, 0, 2, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(9, 0, 2, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(11, 2, 2, 'fez', NULL, '', 25, 15, 7, 10, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(12, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(13, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(14, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(15, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(16, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(17, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(18, 1, 2, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(19, 0, 2, 'e', 'Images/perso_pp/OldMan02.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
-(20, 0, 2, 'lemons', 'Images/perso_pp/Magician01.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1);
+INSERT INTO `hero` (`HER_ID`, `CLA_ID`, `PLA_ID`, `CHA_ID`, `HER_NAME`, `HER_IMAGE`, `HER_BIOGRAPHY`, `HER_PV`, `HER_MANA`, `HER_STRENGTH`, `HER_INITIATIVE`, `HER_ARMOR`, `HER_PRIM_WEAPON`, `HER_SEC_WEAPON`, `HER_SHIELD`, `HER_SPELL_LIST`, `HER_XP`, `HER_CURRENT_LEVEL`) VALUES
+(2, 0, 2, NULL, 's', NULL, '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(8, 0, 2, NULL, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(9, 0, 2, NULL, 'test1983', NULL, 'eh frère marche', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(11, 2, 2, NULL, 'fez', NULL, '', 25, 15, 7, 10, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(12, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(13, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(14, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(15, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(16, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(17, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(18, 1, 2, NULL, 'dhdhdhdhd', NULL, '', 30, 0, 15, 3, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(19, 0, 2, NULL, 'e', 'Images/perso_pp/OldMan02.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1),
+(20, 0, 2, NULL, 'lemons', 'Images/perso_pp/Magician01.jpg', '', 25, 25, 3, 5, NULL, NULL, NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `INVENTORY`
+-- Table structure for table `inventory`
 --
 
-CREATE TABLE `INVENTORY` (
-  `ITE_ID` int(2) NOT NULL,
-  `HER_ID` int(2) NOT NULL,
-  `INV_QTE` char(32) DEFAULT NULL
+CREATE TABLE `inventory` (
+  `ITE_ID` int NOT NULL,
+  `HER_ID` int NOT NULL,
+  `INV_QTE` char(32) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ITEMS`
+-- Table structure for table `items`
 --
 
-CREATE TABLE `ITEMS` (
-  `ITE_ID` int(2) NOT NULL,
-  `TYP_ID` int(11) NOT NULL,
-  `ITE_NAME` varchar(50) NOT NULL,
-  `ITE_DESCRIPTION` text DEFAULT NULL,
-  `ITE_POIDS` int(2) DEFAULT NULL,
-  `ITE_VALUE` int(2) DEFAULT NULL
+CREATE TABLE `items` (
+  `ITE_ID` int NOT NULL,
+  `TYP_ID` int NOT NULL,
+  `ITE_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `ITE_DESCRIPTION` text COLLATE utf8mb4_general_ci,
+  `ITE_POIDS` int DEFAULT NULL,
+  `ITE_VALUE` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `ITEMS`
+-- Dumping data for table `items`
 --
 
-INSERT INTO `ITEMS` (`ITE_ID`, `TYP_ID`, `ITE_NAME`, `ITE_DESCRIPTION`, `ITE_POIDS`, `ITE_VALUE`) VALUES
+INSERT INTO `items` (`ITE_ID`, `TYP_ID`, `ITE_NAME`, `ITE_DESCRIPTION`, `ITE_POIDS`, `ITE_VALUE`) VALUES
 (1, 3, 'Potion de vie', 'Restaure 50 points de vie', 2, 20),
 (2, 1, 'Épée rouillée', 'Une épée usée, inflige des dégâts bas', 8, 8),
 (3, 0, 'Sort de feu', 'Permet de lancer une boule de feu', 0, 20),
@@ -260,26 +261,26 @@ INSERT INTO `ITEMS` (`ITE_ID`, `TYP_ID`, `ITE_NAME`, `ITE_DESCRIPTION`, `ITE_POI
 -- --------------------------------------------------------
 
 --
--- Structure de la table `LEVEL`
+-- Table structure for table `level`
 --
 
-CREATE TABLE `LEVEL` (
-  `LEV_ID` int(2) NOT NULL,
-  `CLA_ID` int(2) NOT NULL,
-  `LEV_NUM` int(2) NOT NULL,
-  `LEV_REQUIRED_XP` int(2) NOT NULL,
-  `LEV_PV_BONUS` int(2) NOT NULL,
-  `LEV_MANA_BONUS` int(2) NOT NULL,
-  `LEV_STRENGTH_BONUS` int(2) NOT NULL,
-  `LEV_INITIATIVE_BONUS` int(2) NOT NULL,
-  `LEV_POID_BONUS` int(2) DEFAULT NULL
+CREATE TABLE `level` (
+  `LEV_ID` int NOT NULL,
+  `CLA_ID` int NOT NULL,
+  `LEV_NUM` int NOT NULL,
+  `LEV_REQUIRED_XP` int NOT NULL,
+  `LEV_PV_BONUS` int NOT NULL,
+  `LEV_MANA_BONUS` int NOT NULL,
+  `LEV_STRENGTH_BONUS` int NOT NULL,
+  `LEV_INITIATIVE_BONUS` int NOT NULL,
+  `LEV_POID_BONUS` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `LEVEL`
+-- Dumping data for table `level`
 --
 
-INSERT INTO `LEVEL` (`LEV_ID`, `CLA_ID`, `LEV_NUM`, `LEV_REQUIRED_XP`, `LEV_PV_BONUS`, `LEV_MANA_BONUS`, `LEV_STRENGTH_BONUS`, `LEV_INITIATIVE_BONUS`, `LEV_POID_BONUS`) VALUES
+INSERT INTO `level` (`LEV_ID`, `CLA_ID`, `LEV_NUM`, `LEV_REQUIRED_XP`, `LEV_PV_BONUS`, `LEV_MANA_BONUS`, `LEV_STRENGTH_BONUS`, `LEV_INITIATIVE_BONUS`, `LEV_POID_BONUS`) VALUES
 (1, 0, 1, 100, 7, 4, 1, 1, 1),
 (2, 0, 2, 300, 7, 7, 2, 3, 2),
 (3, 0, 3, 600, 8, 12, 4, 5, 4),
@@ -293,20 +294,20 @@ INSERT INTO `LEVEL` (`LEV_ID`, `CLA_ID`, `LEV_NUM`, `LEV_REQUIRED_XP`, `LEV_PV_B
 -- --------------------------------------------------------
 
 --
--- Structure de la table `LINK`
+-- Table structure for table `link`
 --
 
-CREATE TABLE `LINK` (
-  `CHA_ID` int(2) NOT NULL,
-  `CHA_ID_1` int(2) NOT NULL,
-  `LIN_CONTENT` varchar(128) NOT NULL
+CREATE TABLE `link` (
+  `CHA_ID` int NOT NULL,
+  `CHA_ID_1` int NOT NULL,
+  `LIN_CONTENT` varchar(128) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `LINK`
+-- Dumping data for table `link`
 --
 
-INSERT INTO `LINK` (`CHA_ID`, `CHA_ID_1`, `LIN_CONTENT`) VALUES
+INSERT INTO `link` (`CHA_ID`, `CHA_ID_1`, `LIN_CONTENT`) VALUES
 (1, 2, 'Si vous acceptez l\'aventure, rendez vous au chapitre 2.'),
 (2, 3, 'Si vous empruntez le chemin sinueux, rendez-vous au chapitre 3.'),
 (2, 4, 'Si vous choisissez le sentier couvert de ronces, rendez-vous au chapitre 4.\r\n'),
@@ -327,20 +328,20 @@ INSERT INTO `LINK` (`CHA_ID`, `CHA_ID_1`, `LIN_CONTENT`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `LOOT`
+-- Table structure for table `loot`
 --
 
-CREATE TABLE `LOOT` (
-  `LOO_ID` int(2) NOT NULL,
-  `LOO_NAME` varchar(50) NOT NULL,
-  `LOO_QUANTITY` int(2) NOT NULL
+CREATE TABLE `loot` (
+  `LOO_ID` int NOT NULL,
+  `LOO_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `LOO_QUANTITY` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `LOOT`
+-- Dumping data for table `loot`
 --
 
-INSERT INTO `LOOT` (`LOO_ID`, `LOO_NAME`, `LOO_QUANTITY`) VALUES
+INSERT INTO `loot` (`LOO_ID`, `LOO_NAME`, `LOO_QUANTITY`) VALUES
 (1, 'Loot de départ', 1),
 (2, 'Butin de l’éclaireur', 1),
 (3, 'Trésor du corbeau noir', 1),
@@ -369,26 +370,26 @@ INSERT INTO `LOOT` (`LOO_ID`, `LOO_NAME`, `LOO_QUANTITY`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `MONSTER`
+-- Table structure for table `monster`
 --
 
-CREATE TABLE `MONSTER` (
-  `MON_ID` int(2) NOT NULL,
-  `LOO_ID` int(2) NOT NULL,
-  `MON_NAME` varchar(50) NOT NULL,
-  `MON_PV` int(3) NOT NULL,
-  `MON_MANA` int(3) DEFAULT NULL,
-  `MON_INITIATIVE` int(3) NOT NULL,
-  `MON_STRENGTH` int(3) NOT NULL,
-  `MON_ATTACK` char(32) DEFAULT NULL,
-  `MON_XP` int(3) NOT NULL
+CREATE TABLE `monster` (
+  `MON_ID` int NOT NULL,
+  `LOO_ID` int NOT NULL,
+  `MON_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `MON_PV` int NOT NULL,
+  `MON_MANA` int DEFAULT NULL,
+  `MON_INITIATIVE` int NOT NULL,
+  `MON_STRENGTH` int NOT NULL,
+  `MON_ATTACK` char(32) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `MON_XP` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `MONSTER`
+-- Dumping data for table `monster`
 --
 
-INSERT INTO `MONSTER` (`MON_ID`, `LOO_ID`, `MON_NAME`, `MON_PV`, `MON_MANA`, `MON_INITIATIVE`, `MON_STRENGTH`, `MON_ATTACK`, `MON_XP`) VALUES
+INSERT INTO `monster` (`MON_ID`, `LOO_ID`, `MON_NAME`, `MON_PV`, `MON_MANA`, `MON_INITIATIVE`, `MON_STRENGTH`, `MON_ATTACK`, `MON_XP`) VALUES
 (1, 10, 'Sanglier enragé', 20, 0, 5, 3, 'Morsure rapide', 30),
 (2, 11, 'Chauve-souris géante', 25, 10, 7, 4, 'Griffe empoisonnée', 35),
 (3, 12, 'Gobelin faible', 30, 5, 6, 5, 'Coup de gourdin', 40),
@@ -408,23 +409,23 @@ INSERT INTO `MONSTER` (`MON_ID`, `LOO_ID`, `MON_NAME`, `MON_PV`, `MON_MANA`, `MO
 -- --------------------------------------------------------
 
 --
--- Structure de la table `PLAYER`
+-- Table structure for table `player`
 --
 
-CREATE TABLE `PLAYER` (
-  `PLA_ID` int(2) NOT NULL,
-  `PLA_FIRSTNAME` char(32) NOT NULL,
-  `PLA_SURNAME` char(32) NOT NULL,
-  `PLA_MAIL` char(32) NOT NULL,
-  `PLA_PSEUDO` char(32) NOT NULL,
-  `PLA_PASSWD` varchar(256) NOT NULL
+CREATE TABLE `player` (
+  `PLA_ID` int NOT NULL,
+  `PLA_FIRSTNAME` char(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_SURNAME` char(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_MAIL` char(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_PSEUDO` char(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_PASSWD` varchar(256) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `PLAYER`
+-- Dumping data for table `player`
 --
 
-INSERT INTO `PLAYER` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA_PSEUDO`, `PLA_PASSWD`) VALUES
+INSERT INTO `player` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA_PSEUDO`, `PLA_PASSWD`) VALUES
 (2, 'moi', 'moi', 'moi@mail.com', 'moi', '$2y$10$27lcdTFM2mr3OY4FmHSQDuVrqnfNmvlucQQcx16PheT3TyeuA41.a'),
 (3, 'zsq', 'zs', 'ezs@s.c', 'ends', '$2y$10$EQWDxv8VhfZmpHVEDxhkQuaK.GODtDOHlqzHTAJ7WZ/ljf2APBMWi'),
 (4, 'ds', 'ze', 'ds@mail.com', 'sd', '$2y$10$4NQhmV7CTqEgNq1PxOZesuOaD8Dr0I4J/emqJw4I3A6dyXWsKEKEy'),
@@ -436,236 +437,212 @@ INSERT INTO `PLAYER` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA
 -- --------------------------------------------------------
 
 --
--- Structure de la table `QUEST`
+-- Table structure for table `type_item`
 --
 
-CREATE TABLE `QUEST` (
-  `CHA_ID` int(2) NOT NULL,
-  `HER_ID` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `TYPE_ITEM`
---
-
-CREATE TABLE `TYPE_ITEM` (
-  `TYP_ID` int(11) NOT NULL,
-  `TYP_LIBELLE` varchar(64) NOT NULL
+CREATE TABLE `type_item` (
+  `TYP_ID` int NOT NULL,
+  `TYP_LIBELLE` varchar(64) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Déchargement des données de la table `TYPE_ITEM`
+-- Dumping data for table `type_item`
 --
 
-INSERT INTO `TYPE_ITEM` (`TYP_ID`, `TYP_LIBELLE`) VALUES
+INSERT INTO `type_item` (`TYP_ID`, `TYP_LIBELLE`) VALUES
 (0, 'sort'),
 (1, 'arme'),
 (2, 'autre'),
 (3, 'potion');
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `CHAPTER`
+-- Indexes for table `chapter`
 --
-ALTER TABLE `CHAPTER`
+ALTER TABLE `chapter`
   ADD PRIMARY KEY (`CHA_ID`),
   ADD KEY `I_FK_CHAPTER_LOOT` (`LOO_ID`);
 
 --
--- Index pour la table `CLASS`
+-- Indexes for table `class`
 --
-ALTER TABLE `CLASS`
+ALTER TABLE `class`
   ADD PRIMARY KEY (`CLA_ID`);
 
 --
--- Index pour la table `CONTAINS`
+-- Indexes for table `contains`
 --
-ALTER TABLE `CONTAINS`
+ALTER TABLE `contains`
   ADD PRIMARY KEY (`LOO_ID`,`ITE_ID`),
   ADD KEY `I_FK_CONTAINS_LOOT` (`LOO_ID`),
   ADD KEY `I_FK_CONTAINS_ITEMS` (`ITE_ID`);
 
 --
--- Index pour la table `ENCOUNTER`
+-- Indexes for table `encounter`
 --
-ALTER TABLE `ENCOUNTER`
+ALTER TABLE `encounter`
   ADD PRIMARY KEY (`CHA_ID`,`MON_ID`),
   ADD KEY `I_FK_ENCOUNTER_CHAPTER` (`CHA_ID`),
   ADD KEY `I_FK_ENCOUNTER_MONSTER` (`MON_ID`);
 
 --
--- Index pour la table `HERO`
+-- Indexes for table `hero`
 --
-ALTER TABLE `HERO`
+ALTER TABLE `hero`
   ADD PRIMARY KEY (`HER_ID`),
   ADD KEY `I_FK_HERO_CLASS` (`CLA_ID`),
-  ADD KEY `I_FK_HERO_PLAYER` (`PLA_ID`);
+  ADD KEY `I_FK_HERO_PLAYER` (`PLA_ID`),
+  ADD KEY `fk_hero_chapter` (`CHA_ID`);
 
 --
--- Index pour la table `INVENTORY`
+-- Indexes for table `inventory`
 --
-ALTER TABLE `INVENTORY`
+ALTER TABLE `inventory`
   ADD PRIMARY KEY (`ITE_ID`,`HER_ID`),
   ADD KEY `I_FK_INVENTORY_ITEMS` (`ITE_ID`),
   ADD KEY `I_FK_INVENTORY_HERO` (`HER_ID`);
 
 --
--- Index pour la table `ITEMS`
+-- Indexes for table `items`
 --
-ALTER TABLE `ITEMS`
+ALTER TABLE `items`
   ADD PRIMARY KEY (`ITE_ID`),
   ADD KEY `fk_TYPE_ITEM` (`TYP_ID`);
 
 --
--- Index pour la table `LEVEL`
+-- Indexes for table `level`
 --
-ALTER TABLE `LEVEL`
+ALTER TABLE `level`
   ADD PRIMARY KEY (`LEV_ID`),
   ADD KEY `I_FK_LEVEL_CLASS` (`CLA_ID`);
 
 --
--- Index pour la table `LINK`
+-- Indexes for table `link`
 --
-ALTER TABLE `LINK`
+ALTER TABLE `link`
   ADD PRIMARY KEY (`CHA_ID`,`CHA_ID_1`),
   ADD KEY `I_FK_LINK_CHAPTER` (`CHA_ID`),
   ADD KEY `I_FK_LINK_CHAPTER1` (`CHA_ID_1`);
 
 --
--- Index pour la table `LOOT`
+-- Indexes for table `loot`
 --
-ALTER TABLE `LOOT`
+ALTER TABLE `loot`
   ADD PRIMARY KEY (`LOO_ID`);
 
 --
--- Index pour la table `MONSTER`
+-- Indexes for table `monster`
 --
-ALTER TABLE `MONSTER`
+ALTER TABLE `monster`
   ADD PRIMARY KEY (`MON_ID`),
   ADD KEY `I_FK_MONSTER_LOOT` (`LOO_ID`);
 
 --
--- Index pour la table `PLAYER`
+-- Indexes for table `player`
 --
-ALTER TABLE `PLAYER`
+ALTER TABLE `player`
   ADD PRIMARY KEY (`PLA_ID`);
 
 --
--- Index pour la table `QUEST`
+-- Indexes for table `type_item`
 --
-ALTER TABLE `QUEST`
-  ADD PRIMARY KEY (`CHA_ID`,`HER_ID`),
-  ADD KEY `I_FK_QUEST_CHAPTER` (`CHA_ID`),
-  ADD KEY `I_FK_QUEST_HERO` (`HER_ID`);
-
---
--- Index pour la table `TYPE_ITEM`
---
-ALTER TABLE `TYPE_ITEM`
+ALTER TABLE `type_item`
   ADD PRIMARY KEY (`TYP_ID`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `CHAPTER`
+-- AUTO_INCREMENT for table `chapter`
 --
-ALTER TABLE `CHAPTER`
-  MODIFY `CHA_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `chapter`
+  MODIFY `CHA_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT pour la table `HERO`
+-- AUTO_INCREMENT for table `hero`
 --
-ALTER TABLE `HERO`
-  MODIFY `HER_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `hero`
+  MODIFY `HER_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT pour la table `LEVEL`
+-- AUTO_INCREMENT for table `level`
 --
-ALTER TABLE `LEVEL`
-  MODIFY `LEV_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `level`
+  MODIFY `LEV_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT pour la table `LOOT`
+-- AUTO_INCREMENT for table `loot`
 --
-ALTER TABLE `LOOT`
-  MODIFY `LOO_ID` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+ALTER TABLE `loot`
+  MODIFY `LOO_ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `CHAPTER`
+-- Constraints for table `chapter`
 --
-ALTER TABLE `CHAPTER`
-  ADD CONSTRAINT `FK_CHAPTER_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `LOOT` (`LOO_ID`);
+ALTER TABLE `chapter`
+  ADD CONSTRAINT `FK_CHAPTER_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `loot` (`LOO_ID`);
 
 --
--- Contraintes pour la table `CONTAINS`
+-- Constraints for table `contains`
 --
-ALTER TABLE `CONTAINS`
-  ADD CONSTRAINT `FK_CONTAINS_ITEMS` FOREIGN KEY (`ITE_ID`) REFERENCES `ITEMS` (`ITE_ID`),
-  ADD CONSTRAINT `FK_CONTAINS_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `LOOT` (`LOO_ID`);
+ALTER TABLE `contains`
+  ADD CONSTRAINT `FK_CONTAINS_ITEMS` FOREIGN KEY (`ITE_ID`) REFERENCES `items` (`ITE_ID`),
+  ADD CONSTRAINT `FK_CONTAINS_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `loot` (`LOO_ID`);
 
 --
--- Contraintes pour la table `ENCOUNTER`
+-- Constraints for table `encounter`
 --
-ALTER TABLE `ENCOUNTER`
-  ADD CONSTRAINT `FK_ENCOUNTER_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `CHAPTER` (`CHA_ID`),
-  ADD CONSTRAINT `FK_ENCOUNTER_MONSTER` FOREIGN KEY (`MON_ID`) REFERENCES `MONSTER` (`MON_ID`);
+ALTER TABLE `encounter`
+  ADD CONSTRAINT `FK_ENCOUNTER_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `chapter` (`CHA_ID`),
+  ADD CONSTRAINT `FK_ENCOUNTER_MONSTER` FOREIGN KEY (`MON_ID`) REFERENCES `monster` (`MON_ID`);
 
 --
--- Contraintes pour la table `HERO`
+-- Constraints for table `hero`
 --
-ALTER TABLE `HERO`
-  ADD CONSTRAINT `FK_HERO_CLASS` FOREIGN KEY (`CLA_ID`) REFERENCES `CLASS` (`CLA_ID`),
-  ADD CONSTRAINT `FK_HERO_PLAYER` FOREIGN KEY (`PLA_ID`) REFERENCES `PLAYER` (`PLA_ID`);
+ALTER TABLE `hero`
+  ADD CONSTRAINT `fk_hero_chapter` FOREIGN KEY (`CHA_ID`) REFERENCES `chapter` (`CHA_ID`),
+  ADD CONSTRAINT `FK_HERO_CLASS` FOREIGN KEY (`CLA_ID`) REFERENCES `class` (`CLA_ID`),
+  ADD CONSTRAINT `FK_HERO_PLAYER` FOREIGN KEY (`PLA_ID`) REFERENCES `player` (`PLA_ID`);
 
 --
--- Contraintes pour la table `INVENTORY`
+-- Constraints for table `inventory`
 --
-ALTER TABLE `INVENTORY`
-  ADD CONSTRAINT `FK_INVENTORY_HERO` FOREIGN KEY (`HER_ID`) REFERENCES `HERO` (`HER_ID`),
-  ADD CONSTRAINT `FK_INVENTORY_ITEMS` FOREIGN KEY (`ITE_ID`) REFERENCES `ITEMS` (`ITE_ID`);
+ALTER TABLE `inventory`
+  ADD CONSTRAINT `FK_INVENTORY_HERO` FOREIGN KEY (`HER_ID`) REFERENCES `hero` (`HER_ID`),
+  ADD CONSTRAINT `FK_INVENTORY_ITEMS` FOREIGN KEY (`ITE_ID`) REFERENCES `items` (`ITE_ID`);
 
 --
--- Contraintes pour la table `ITEMS`
+-- Constraints for table `items`
 --
-ALTER TABLE `ITEMS`
-  ADD CONSTRAINT `fk_TYPE_ITEM` FOREIGN KEY (`TYP_ID`) REFERENCES `TYPE_ITEM` (`TYP_ID`);
+ALTER TABLE `items`
+  ADD CONSTRAINT `fk_TYPE_ITEM` FOREIGN KEY (`TYP_ID`) REFERENCES `type_item` (`TYP_ID`);
 
 --
--- Contraintes pour la table `LEVEL`
+-- Constraints for table `level`
 --
-ALTER TABLE `LEVEL`
-  ADD CONSTRAINT `FK_LEVEL_CLASS` FOREIGN KEY (`CLA_ID`) REFERENCES `CLASS` (`CLA_ID`);
+ALTER TABLE `level`
+  ADD CONSTRAINT `FK_LEVEL_CLASS` FOREIGN KEY (`CLA_ID`) REFERENCES `class` (`CLA_ID`);
 
 --
--- Contraintes pour la table `LINK`
+-- Constraints for table `link`
 --
-ALTER TABLE `LINK`
-  ADD CONSTRAINT `FK_LINK_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `CHAPTER` (`CHA_ID`),
-  ADD CONSTRAINT `FK_LINK_CHAPTER1` FOREIGN KEY (`CHA_ID_1`) REFERENCES `CHAPTER` (`CHA_ID`);
+ALTER TABLE `link`
+  ADD CONSTRAINT `FK_LINK_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `chapter` (`CHA_ID`),
+  ADD CONSTRAINT `FK_LINK_CHAPTER1` FOREIGN KEY (`CHA_ID_1`) REFERENCES `chapter` (`CHA_ID`);
 
 --
--- Contraintes pour la table `MONSTER`
+-- Constraints for table `monster`
 --
-ALTER TABLE `MONSTER`
-  ADD CONSTRAINT `FK_MONSTER_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `LOOT` (`LOO_ID`);
-
---
--- Contraintes pour la table `QUEST`
---
-ALTER TABLE `QUEST`
-  ADD CONSTRAINT `FK_QUEST_CHAPTER` FOREIGN KEY (`CHA_ID`) REFERENCES `CHAPTER` (`CHA_ID`),
-  ADD CONSTRAINT `FK_QUEST_HERO` FOREIGN KEY (`HER_ID`) REFERENCES `HERO` (`HER_ID`);
+ALTER TABLE `monster`
+  ADD CONSTRAINT `FK_MONSTER_LOOT` FOREIGN KEY (`LOO_ID`) REFERENCES `loot` (`LOO_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

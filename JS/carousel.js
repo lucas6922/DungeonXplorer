@@ -1,4 +1,4 @@
-let slideIndex = 1; 
+/*let slideIndex = 1; 
 
 document.addEventListener("DOMContentLoaded", () => {
     showSlides(slideIndex); 
@@ -37,4 +37,4 @@ function updateSelectedImage() {
 
     document.getElementById("image").value = imageName;
     //console.log(imageName);
-}
+}*/

@@ -43,6 +43,59 @@ class Hero
     {
         $this->her_biography = $biographie;
     }
+    public function setClaId($cla_id)
+    {
+        $this->cla_id = $cla_id;
+    }
+    public function setId($id)
+    {
+        $this->her_id = $id;
+    }
+    public function setPV($pv)
+    {
+        $this->her_pv = $pv;
+    }
+    public function setMana($mana)
+    {
+        $this->her_mana = $mana;
+    }
+    public function setStrength($strength)
+    {
+        $this->her_strength = $strength;
+    }
+    public function setInitiative($initiative)
+    {
+        $this->her_initiative = $initiative;
+    }
+    public function setArmor($armor)
+    {
+        $this->her_armor = $armor;
+    }
+    public function setPrimWeapon($weapon)
+    {
+        $this->her_prim_weapon = $weapon;
+    }
+    public function setSecWeapon($weapon)
+    {
+        $this->her_sec_weapon = $weapon;
+    }
+    public function setShield($shield)
+    {
+        $this->her_shield = $shield;
+    }
+    public function setSpellList($spellList)
+    {
+        $this->her_spell_list = $spellList;
+    }
+    public function setXP($xp)
+    {
+        $this->her_xp = $xp;
+    }
+    public function setCurrentLevel($level)
+    {
+        $this->her_current_level = $level;
+    }
+
 
 
     public function getName()

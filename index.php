@@ -108,7 +108,7 @@ $router->addRoute('traitement_creation_personnage', 'PersonnageController@creer'
 $router->addRoute('personnages', 'PersonnageController@afficherPersonnages');
 
 //route pour le combat
-$router->addRoute('combat', 'fenetreCombatController@combat');
+$router->addRoute('combat/{herId}', 'fenetreCombatController@combat');
 
 
 

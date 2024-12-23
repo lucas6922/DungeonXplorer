@@ -98,6 +98,7 @@ $router->addRoute('infos_compte', 'CompteController@infos');
 $router->addRoute('supprimer_compte', 'CompteController@delete');
 //vue d'un chapitre
 $router->addRoute('chapitre', 'ChapterController@show');
+$router->addRoute('chapitre/{id}', 'ChapterController@showID');
 //$router->addRoute('chapitre', 'ChapterController@show');
 //routes pour la création d'un perso
 $router->addRoute('creation_personnage', 'PersonnageController@nouveau');

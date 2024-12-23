@@ -11,19 +11,50 @@ class ChapterController
     private $chapter = null;
 
 
-    public function chargeChap()
-    {
+    public function chargeChap($chapId){
+        
+        $conn = connect_db();
+
+        $sql = "SELECT * FROM CHAPTER cha 
+                LEFT JOIN LINK lin ON cha.CHA_ID = lin.CHA_ID 
+                WHERE cha.CHA_ID = :chapterId";
+
+        $cur = $conn->prepare($sql);
+        $cur->execute([':chapterId' => $chapId]);
+        $tab = $cur->fetchAll();
+        /*
+        echo "<pre>";
+        print_r($tab);
+        echo "</pre>";
+        */
+        if (!empty($tab)) {
+            $next = [];
+            foreach ($tab as $next_chap) {
+                $next[$next_chap['CHA_ID_1']] = $next_chap['LIN_CONTENT'];
+            }
+            /*
+            echo "<pre>";
+            print_r($next);
+            echo "</pre>";
+            */
+
+            $this->chapter = new Chapter(
+                $tab[0]['CHA_ID'],
+                $tab[0]['CHA_NAME'],
+                $tab[0]['CHA_CONTENT'],
+                $tab[0]['CHA_IMAGE'],
+                $next
+            );
+        }
+        
+    }
+
+    public function show(){
+        //print_r($id);
         if(isset($_SESSION['pla_id'])){
             $conn = connect_db();
 
             $play = $_SESSION['pla_id'];
-            if(isset($_SESSION['supp'])){
-                $sqlSupp = "UPDATE hero SET cha_id = cha_id + 1 
-                WHERE pla_id = :play";
-                $curSupp = $conn->prepare($sqlSupp);
-                $curSupp->execute([':play' => $play]);
-            }
-            $_SESSION['supp'] = true;
 
             $sql1 = "SELECT cha_id FROM hero her 
             JOIN player pla ON her.PLA_ID = pla.PLA_ID
@@ -36,48 +67,24 @@ class ChapterController
             print_r($tab1);
 
             $chapId = $tab1[0]['cha_id'];
+            $this->chargeChap($chapId);
 
-            $sql = "SELECT * FROM CHAPTER cha 
-                    LEFT JOIN LINK lin ON cha.CHA_ID = lin.CHA_ID 
-                    WHERE cha.CHA_ID = :chapterId";
+            if ($this->chapter !== null) {
+                $chapter = $this->getChapter();
+                $next = $chapter->getNext();
 
-            $cur = $conn->prepare($sql);
-            $cur->execute([':chapterId' => $chapId]);
-            $tab = $cur->fetchAll();
-            /*
-            echo "<pre>";
-            print_r($tab);
-            echo "</pre>";
-            */
-            if (!empty($tab)) {
-                $next = [];
-                foreach ($tab as $next_chap) {
-                    $next[$next_chap['CHA_ID_1']] = $next_chap['LIN_CONTENT'];
-                }
-                /*
-                echo "<pre>";
-                print_r($next);
-                echo "</pre>";
-                */
-
-                $this->chapter = new Chapter(
-                    $tab[0]['CHA_ID'],
-                    $tab[0]['CHA_NAME'],
-                    $tab[0]['CHA_CONTENT'],
-                    $tab[0]['CHA_IMAGE'],
-                    $next
-                );
+                include 'views/chapitre.php';
+            } else {
+                header('HTTP/1.0 404 Not Found');
+                echo "Chapitre non trouvé!";
             }
-        }
-        else{
-            echo "<p>paS connecté</p>";
         }
     }
 
-    public function show()
+    public function showID($id)
     {
         //print_r($id);
-        $this->chargeChap();
+        $this->chargeChap($id);
 
         if ($this->chapter !== null) {
             $chapter = $this->getChapter();

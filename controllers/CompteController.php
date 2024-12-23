@@ -9,9 +9,16 @@ class CompteController
         require_once 'views/creation_compte.php';
     }
 
-    public function create($id)
+    public function create($isAdmin)
     {
-        $isAdmin = (bool)$id;
+
+        /*
+        var_dump($id);
+        $isAdmin = ($id == 1) ? true : false;
+
+        var_dump($isAdmin);
+        */
+
 
         $connexion = connect_db();
         //verifie que tout est bien set
@@ -19,6 +26,8 @@ class CompteController
             isset($_POST['nom'], $_POST['prenom'], $_POST['pseudo'], $_POST['email'], $_POST['password']) &&
             !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])
         ) {
+
+
             //enleve les espaces
             $nom = trim(strip_tags($_POST['nom']));
             $prenom = trim(strip_tags($_POST['prenom']));
@@ -53,6 +62,7 @@ class CompteController
                     }
                 }
 
+
                 //vérifie unicite  pseudo
                 $rqp = $connexion->prepare("SELECT 1 FROM PLAYER WHERE pla_pseudo = :pseudo");
                 $rqp->execute(['pseudo' => $pseudo]);
@@ -69,12 +79,16 @@ class CompteController
 
                 //hahsh mdp
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
+                echo $hashed;
 
                 //recupère l'id max
                 $rqp = $connexion->query("SELECT MAX(pla_id) AS maxi FROM PLAYER");
                 $result = $rqp->fetch(PDO::FETCH_OBJ);
                 //id + 1 pour le nouveau joueur
                 $id = $result->maxi + 1;
+
+
+                echo $id, $prenom, $nom, $email, $pseudo, $hashed, $isAdmin;
 
                 //insert le joueur
                 $rqp = $connexion->prepare("
@@ -91,7 +105,7 @@ class CompteController
                 ]);
 
                 //redirection vers la page d'accueil en etant connecte si creation compte réussi
-                // Créer la session pour l'utilisateur et le connecter
+                //cree la session pour l'utilisateur et le connecter
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
@@ -134,8 +148,11 @@ class CompteController
             }
         }
 
+
         $connexion = null;
     }
+
+
 
 
 
@@ -175,6 +192,7 @@ class CompteController
 
                     $select = $connexion->query("select pla_id, pla_firstname, pla_surname, pla_mail, pla_pseudo, pla_passwd, isadmin from PLAYER where pla_mail = '$pseudoOuEmail' or pla_pseudo = '$pseudoOuEmail'");
                     $enregistrement = $select->fetch(PDO::FETCH_OBJ);
+                    echo "OK";
                     if ($enregistrement) {
                         // Le compte existe
                         if (password_verify($password, $enregistrement->pla_passwd)) {

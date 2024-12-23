@@ -1,6 +1,6 @@
 <?php include 'includes/header.php'; ?>
 
-<h2>Bienvenue sur DungeonXplorer !</h2>
+<h1>Bienvenue sur DungeonXplorer !</h1>
 
 <div class="button-accueil">
     <button><a href="creation_personnage">Créer un nouveau personnage</a></button>

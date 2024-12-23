@@ -1,0 +1,171 @@
+/* Style pour le header */
+header {
+    background-color: #1a1a1a; 
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);  
+}
+
+header h1 {
+    font-family: 'Georgia', serif; 
+    font-size: 2.5em;
+    color: #f4e3b2; 
+    margin: 0;
+    text-transform: uppercase;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: inherit; 
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header h1 a:hover {
+    color: #f1d24f; 
+}
+
+/*------------------------------------------------------------------------------------------*/
+/* Style pour la barre de navigation */
+nav {
+    margin-top: 20px;
+}
+
+nav a {
+    font-family: 'Georgia', serif; 
+    color: #b5b5b5; 
+    font-size: 1.1em;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #444; 
+    color: #f1f1f1; 
+}
+
+
+nav a.active {
+    background-color: #2a2a2a; 
+    color: #f1d24f; 
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em; 
+    }
+
+    nav {
+        text-align: center;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 10px 0;
+    }
+}
+
+
+/*------------------------------------------------------------------------------------------*/
+
+/* Style pour le footer */
+footer {
+    background-color: #1a1a1a; 
+    color: #b5b5b5;
+    padding: 20px 0;
+    text-align: center;
+    font-family: 'Merriweather', serif; 
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.5); 
+    border-top: 1px solid #444; 
+}
+
+footer p {
+    font-size: 1em;
+    margin: 0;
+    color: #ccc; 
+}
+
+
+
+
+
+
+/*------------------------------------------------------------------------------------------*/
+/* 
+style général, toutes les pages
+*/
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Georgia', serif; 
+    color: #f1f1f1; 
+    background-color: #1a1a1a; 
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+}
+
+main {
+    flex: 1; 
+    padding: 30px 20px;
+    background-color: #2a2a2a; 
+    border-top: 1px solid #444; 
+    border-bottom: 1px solid #444;
+}
+
+h1, h2 {
+    color: #f1d24f; 
+    font-family: 'Georgia', serif; 
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+
+h2 {
+    color: #b5b5b5; 
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.button-accueil button {
+    background-color: #f1d24f; 
+    color: #333;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.button-accueil button:hover {
+    background-color: #d1b133; 
+    transform: translateY(-2px); 
+}
+
+.button-accueil button a {
+    text-decoration: none;
+    color: inherit;
+}
+

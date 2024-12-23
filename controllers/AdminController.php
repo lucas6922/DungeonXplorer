@@ -14,21 +14,37 @@ class AdminController
 
         $select = $connexion->query("SELECT * FROM PLAYER");
         $joueurs = $select->fetchAll(PDO::FETCH_ASSOC);
+        if (!$joueurs) {
+            $joueurs = [];  //si aucun joueur trouvé
+        }
 
         require_once 'views/pannel_admin/joueurs.php';
+        $connexion = null;
     }
 
     public function supprimerJoueur()
     {
         $connexion = connect_db();
 
+        //si formulaire envoyé avec l'id d'un joueur pour le supp
         if (isset($_POST['pla_id'])) {
-            $pla_id = $_POST['pla_id'];
 
+            $pla_id = $_POST['pla_id'];
+            //supp le joueur
             $rqp = $connexion->prepare("DELETE FROM PLAYER WHERE PLA_ID = ?");
             $rqp->execute([$pla_id]);
 
-            header('Location: pannel_admin/joueurs');
+            //reuper la nouvelle liste des joueurs
+            $select = $connexion->query("SELECT * FROM PLAYER");
+            $joueurs = $select->fetchAll(PDO::FETCH_ASSOC);
+            if (!$joueurs) {
+                $joueurs = [];  //si aucun joueur trouvé
+            }
+
+            require_once 'views/pannel_admin/joueurs.php';
+            $connexion = null;
+        } else {
+            echo "erreur lors de la suppression, aucun id recu";
         }
     }
 

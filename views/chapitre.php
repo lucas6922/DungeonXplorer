@@ -1,7 +1,7 @@
 <?php include 'includes/header.php'; ?>
 
 <h1><?php echo $chapter->getTitle(); ?></h1>
-<img src="<?php echo $chapter->getImage(); ?>" alt="Image de chapitre" style="max-width: 100%; height: auto;">
+<img src="<?php echo $chapter->getImage(); ?>" alt="Image de chapitre">
 <p><?php echo $chapter->getDescription(); ?></p>
 
 <h2>Choisissez votre chemin:</h2>
@@ -13,9 +13,8 @@
         print_r($liContent);
         */
     ?>
-
         <li>
-            <a href="?cha_id=<?php echo $nextChapId; ?>">
+            <a href="chapitre/<?php echo $nextChapId; ?>">
                 <?php echo $liContent; ?>
             </a>
         </li>

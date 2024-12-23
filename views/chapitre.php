@@ -6,14 +6,19 @@
 
 <h2>Choisissez votre chemin:</h2>
 <ul>
-    <?php foreach ($next as $next_chap):
-        print_r($next_chap); ?>
-        <!--
+    <?php foreach ($next as $nextChapId => $liContent):
+        /*
+        print_r($next);
+        print_r($nextChapId);
+        print_r($liContent);
+        */
+    ?>
+
         <li>
-            <a href="<?php echo $choice['chapter']; ?>">
-                <?php echo $choice['text']; ?>
+            <a href="?cha_id=<?php echo $nextChapId; ?>">
+                <?php echo $liContent; ?>
             </a>
-        </li>-->
+        </li>
     <?php endforeach; ?>
 </ul>
 

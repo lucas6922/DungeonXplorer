@@ -89,7 +89,7 @@ $router->addRoute('/', 'AccueilController@index');
 //route pour la vue de cration d'un compte
 $router->addRoute('creation_compte', 'CompteController@form_create');
 //traitement du formulaire de la creatio nd'un compte
-$router->addRoute('traitement_creation_compte', 'CompteController@create');
+$router->addRoute('traitement_creation_compte/{id}', 'CompteController@create');
 
 $router->addRoute('connexion', 'CompteController@form_login');
 $router->addRoute('traitement_connexion', 'CompteController@login');
@@ -122,6 +122,8 @@ $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
 //route pour le formulaire de suppresion d'un joueur
 $router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
+//route pour le formulaire d'ajout d'un compte admin'
+$router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@sajoutCompteAdmin');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

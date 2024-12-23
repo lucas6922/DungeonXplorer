@@ -2,7 +2,7 @@
 
 <h1>Création de compte</h1>
 
-<form action="traitement_creation_compte/0" method="POST" enctype="multipart/form-data">
+<form action="<?php echo $baseUrl; ?>/traitement_creation_compte/1" method="POST" enctype="multipart/form-data">
 
 
     <label for="nom">Votre nom</label>

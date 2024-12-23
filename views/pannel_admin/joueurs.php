@@ -32,4 +32,8 @@
         </tbody>
     </table>
 <?php endif ?>
+
+<div>
+    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_compte_admin">Créer un compte admin</button>
+</div>
 <?php include 'includes/footer.php'; ?>

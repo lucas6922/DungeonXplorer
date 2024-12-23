@@ -248,10 +248,10 @@ function tour(heros, ennemi){
 
 function actualiseAffichagePV(combattant, estHeros){
     if(estHeros){
-        herosDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
+        herosDiv.innerHTML = combattant.nom + " :<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
     }
     else{
-        ennemiDiv.innerHTML = combattant.nom + "<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax;
+        ennemiDiv.innerHTML = combattant.nom + " :<br>&nbsp;&nbsp;&nbsp;PV : " + combattant.pv + "/" + combattant.pvMax + "<br>&nbsp;&nbsp;&nbsp;Mana : " + combattant.mana + "/" + combattant.manaMax;
     }
 }
 

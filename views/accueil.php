@@ -13,7 +13,7 @@
     </pre>
 -->
 <?php if ($_SESSION['is_admin'] == 1): ?>
-    <button><a href="pannel_admin/pannel_admin.php">Pannel Admin</a></button>
+    <button><a href="pannel_admin/pannel_admin_accueil">Pannel Admin</a></button>
 <?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>

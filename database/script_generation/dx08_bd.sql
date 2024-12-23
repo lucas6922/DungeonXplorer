@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 23, 2024 at 02:09 PM
+-- Generation Time: Dec 23, 2024 at 02:31 PM
 -- Server version: 8.0.36
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dx08`
+-- Database: `dx08_bd`
 --
 
 -- --------------------------------------------------------
@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `chapter` (
   `CHA_ID` int NOT NULL,
   `LOO_ID` int DEFAULT NULL,
-  `CHA_NAME` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
-  `CHA_CONTENT` text COLLATE utf8mb4_general_ci NOT NULL,
-  `CHA_IMAGE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `CHA_NAME` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CHA_CONTENT` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CHA_IMAGE` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -60,8 +60,8 @@ INSERT INTO `chapter` (`CHA_ID`, `LOO_ID`, `CHA_NAME`, `CHA_CONTENT`, `CHA_IMAGE
 
 CREATE TABLE `class` (
   `CLA_ID` int NOT NULL,
-  `CLA_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `CLA_DESCRIPTION` char(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CLA_NAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `CLA_DESCRIPTION` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `CLA_BASE_PV` int NOT NULL,
   `CLA_BASE_MANA` int NOT NULL,
   `CLA_STRENGTH` int NOT NULL,
@@ -175,18 +175,18 @@ CREATE TABLE `hero` (
   `CLA_ID` int NOT NULL,
   `PLA_ID` int NOT NULL,
   `CHA_ID` int DEFAULT NULL,
-  `HER_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `HER_IMAGE` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `HER_BIOGRAPHY` char(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_NAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `HER_IMAGE` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_BIOGRAPHY` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `HER_PV` int NOT NULL,
   `HER_MANA` int NOT NULL,
   `HER_STRENGTH` int NOT NULL,
   `HER_INITIATIVE` int NOT NULL,
-  `HER_ARMOR` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `HER_PRIM_WEAPON` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `HER_SEC_WEAPON` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `HER_SHIELD` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `HER_SPELL_LIST` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_ARMOR` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_PRIM_WEAPON` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SEC_WEAPON` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SHIELD` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `HER_SPELL_LIST` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `HER_XP` int NOT NULL,
   `HER_CURRENT_LEVEL` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -219,7 +219,7 @@ INSERT INTO `hero` (`HER_ID`, `CLA_ID`, `PLA_ID`, `CHA_ID`, `HER_NAME`, `HER_IMA
 CREATE TABLE `inventory` (
   `ITE_ID` int NOT NULL,
   `HER_ID` int NOT NULL,
-  `INV_QTE` char(32) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `INV_QTE` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -231,8 +231,8 @@ CREATE TABLE `inventory` (
 CREATE TABLE `items` (
   `ITE_ID` int NOT NULL,
   `TYP_ID` int NOT NULL,
-  `ITE_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `ITE_DESCRIPTION` text COLLATE utf8mb4_general_ci,
+  `ITE_NAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ITE_DESCRIPTION` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `ITE_POIDS` int DEFAULT NULL,
   `ITE_VALUE` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -300,7 +300,7 @@ INSERT INTO `level` (`LEV_ID`, `CLA_ID`, `LEV_NUM`, `LEV_REQUIRED_XP`, `LEV_PV_B
 CREATE TABLE `link` (
   `CHA_ID` int NOT NULL,
   `CHA_ID_1` int NOT NULL,
-  `LIN_CONTENT` varchar(128) COLLATE utf8mb4_general_ci NOT NULL
+  `LIN_CONTENT` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -333,7 +333,7 @@ INSERT INTO `link` (`CHA_ID`, `CHA_ID_1`, `LIN_CONTENT`) VALUES
 
 CREATE TABLE `loot` (
   `LOO_ID` int NOT NULL,
-  `LOO_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `LOO_NAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `LOO_QUANTITY` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -376,12 +376,12 @@ INSERT INTO `loot` (`LOO_ID`, `LOO_NAME`, `LOO_QUANTITY`) VALUES
 CREATE TABLE `monster` (
   `MON_ID` int NOT NULL,
   `LOO_ID` int NOT NULL,
-  `MON_NAME` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `MON_NAME` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `MON_PV` int NOT NULL,
   `MON_MANA` int DEFAULT NULL,
   `MON_INITIATIVE` int NOT NULL,
   `MON_STRENGTH` int NOT NULL,
-  `MON_ATTACK` char(32) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `MON_ATTACK` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `MON_XP` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -414,25 +414,27 @@ INSERT INTO `monster` (`MON_ID`, `LOO_ID`, `MON_NAME`, `MON_PV`, `MON_MANA`, `MO
 
 CREATE TABLE `player` (
   `PLA_ID` int NOT NULL,
-  `PLA_FIRSTNAME` char(32) COLLATE utf8mb4_general_ci NOT NULL,
-  `PLA_SURNAME` char(32) COLLATE utf8mb4_general_ci NOT NULL,
-  `PLA_MAIL` char(32) COLLATE utf8mb4_general_ci NOT NULL,
-  `PLA_PSEUDO` char(32) COLLATE utf8mb4_general_ci NOT NULL,
-  `PLA_PASSWD` varchar(256) COLLATE utf8mb4_general_ci NOT NULL
+  `PLA_FIRSTNAME` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_SURNAME` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_MAIL` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_PSEUDO` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PLA_PASSWD` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ISADMIN` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA_PSEUDO`, `PLA_PASSWD`) VALUES
-(2, 'moi', 'moi', 'moi@mail.com', 'moi', '$2y$10$27lcdTFM2mr3OY4FmHSQDuVrqnfNmvlucQQcx16PheT3TyeuA41.a'),
-(3, 'zsq', 'zs', 'ezs@s.c', 'ends', '$2y$10$EQWDxv8VhfZmpHVEDxhkQuaK.GODtDOHlqzHTAJ7WZ/ljf2APBMWi'),
-(4, 'ds', 'ze', 'ds@mail.com', 'sd', '$2y$10$4NQhmV7CTqEgNq1PxOZesuOaD8Dr0I4J/emqJw4I3A6dyXWsKEKEy'),
-(5, 'qs', 'dz', 'lu@lkn.com', 'q', '$2y$10$PVsXBUFcQWallDcTFkRD/ed00/bU/guFYqmh96Ssx5iVm242hTVX6'),
-(6, 'qs', 'za', 'dqs@m.c', 'qd', '$2y$10$lJEyNisVtMQ/fG9gqA3hdO5ZhAaH5yRlUzCeXoekXWuokmmptEfC2'),
-(7, 'ds', 'ez', 'ds@s.c', 'ds', '$2y$10$LAvwIk1mPMRzGJdxqMfgf.6KSEhN1my26pTy35FK3mO45AgzMSU5C'),
-(8, 'fezcds', 'redczs', 'edcs@m.c', 'efdc', '$2y$10$Y65TzKojCkxva3U8Chl5s.qzZvz2/hHxoch50mLamueDpPgSE.7uO');
+INSERT INTO `player` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA_PSEUDO`, `PLA_PASSWD`, `ISADMIN`) VALUES
+(2, 'moi', 'moi', 'moi@mail.com', 'moi', '$2y$10$27lcdTFM2mr3OY4FmHSQDuVrqnfNmvlucQQcx16PheT3TyeuA41.a', 0),
+(3, 'zsq', 'zs', 'ezs@s.c', 'ends', '$2y$10$EQWDxv8VhfZmpHVEDxhkQuaK.GODtDOHlqzHTAJ7WZ/ljf2APBMWi', 0),
+(4, 'ds', 'ze', 'ds@mail.com', 'sd', '$2y$10$4NQhmV7CTqEgNq1PxOZesuOaD8Dr0I4J/emqJw4I3A6dyXWsKEKEy', 0),
+(5, 'qs', 'dz', 'lu@lkn.com', 'q', '$2y$10$PVsXBUFcQWallDcTFkRD/ed00/bU/guFYqmh96Ssx5iVm242hTVX6', 0),
+(6, 'qs', 'za', 'dqs@m.c', 'qd', '$2y$10$lJEyNisVtMQ/fG9gqA3hdO5ZhAaH5yRlUzCeXoekXWuokmmptEfC2', 0),
+(7, 'ds', 'ez', 'ds@s.c', 'ds', '$2y$10$LAvwIk1mPMRzGJdxqMfgf.6KSEhN1my26pTy35FK3mO45AgzMSU5C', 0),
+(8, 'fezcds', 'redczs', 'edcs@m.c', 'efdc', '$2y$10$Y65TzKojCkxva3U8Chl5s.qzZvz2/hHxoch50mLamueDpPgSE.7uO', 0),
+(9, 'Amine', 'Admin', 'admin@mail.com', 'Admin', 'admin1', 1);
 
 -- --------------------------------------------------------
 
@@ -442,7 +444,7 @@ INSERT INTO `player` (`PLA_ID`, `PLA_FIRSTNAME`, `PLA_SURNAME`, `PLA_MAIL`, `PLA
 
 CREATE TABLE `type_item` (
   `TYP_ID` int NOT NULL,
-  `TYP_LIBELLE` varchar(64) COLLATE utf8mb4_general_ci NOT NULL
+  `TYP_LIBELLE` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

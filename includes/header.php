@@ -17,6 +17,7 @@ $baseUrl = '/DungeonXplorer';
     <link rel="stylesheet" href="<?php echo $baseUrl; ?>/CSS/carousel.css">
     <link rel="stylesheet" href="<?php echo $baseUrl; ?>/CSS/formulaire.css">
     <link rel="stylesheet" href="<?php echo $baseUrl; ?>/CSS/hero_card.css">
+    <link rel="stylesheet" href="<?php echo $baseUrl; ?>/CSS/admin.css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo $baseUrl; ?>/JS/notif_erreur.js"></script>

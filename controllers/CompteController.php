@@ -83,6 +83,7 @@ class CompteController
 
                 session_regenerate_id(true);
 
+                $_SESSION['is_admin'] = 0;
                 $_SESSION['pla_id'] = $id;
                 $_SESSION['pla_firstname'] = $prenom;
                 $_SESSION['pla_surname'] = $nom;
@@ -146,14 +147,12 @@ class CompteController
                     // Vérifier que la paire (email, password) OU (pseudo, password)
                     // est présente dans la base de données
 
-                    $select = $connexion->query("select pla_id, pla_firstname, pla_surname, pla_mail, pla_pseudo, pla_passwd from PLAYER where pla_mail = '$pseudoOuEmail' or pla_pseudo = '$pseudoOuEmail'");
+                    $select = $connexion->query("select pla_id, pla_firstname, pla_surname, pla_mail, pla_pseudo, pla_passwd, isadmin from PLAYER where pla_mail = '$pseudoOuEmail' or pla_pseudo = '$pseudoOuEmail'");
                     $enregistrement = $select->fetch(PDO::FETCH_OBJ);
-                    print_r($select);
-                    print_r($enregistrement);
                     if ($enregistrement) {
                         // Le compte existe
                         if (password_verify($password, $enregistrement->pla_passwd)) {
-
+                            $_SESSION['is_admin'] = $enregistrement->isadmin;
                             $_SESSION['pla_id'] = $enregistrement->pla_id;
                             $_SESSION['pla_firstname'] = $enregistrement->pla_firstname;
                             $_SESSION['pla_surname'] = $enregistrement->pla_surname;

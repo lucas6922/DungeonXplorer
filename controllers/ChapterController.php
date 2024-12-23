@@ -12,18 +12,34 @@ class ChapterController
     public function __construct()
     {
         $conn = connect_db();
-        $sql = "select * from CHAPTER where CHA_ID = 1;";
+        $sql = "select * from 
+        CHAPTER cha join LINK lin on cha.cha_id = lin.cha_id 
+        where cha.CHA_ID = 2;";
         $cur = $conn->prepare($sql);
         $res = $cur->execute();
         $tab = $cur->fetchAll();
-        //print_r($tab);
-        $this->chapter = new Chapter($tab[0]['CHA_ID'], $tab[0]['CHA_NAME'], $tab[0]['CHA_CONTENT'], $tab[0]['CHA_IMAGE'], [1,2]);
+        /*
+        echo "<pre>";
+        print_r($tab);
+        echo "</pre>";
+        */
+        $next = array();
+        foreach ($tab as $next_chap) {
+            $next[] = $next_chap['CHA_ID_1'];
+        }
+
+        /*
+        echo "<pre>";
+        print_r($next);
+        echo "</pre>";
+        */
+        $this->chapter = new Chapter($tab[0]['CHA_ID'], $tab[0]['CHA_NAME'], $tab[0]['CHA_CONTENT'], $tab[0]['CHA_IMAGE'], $next);
     }
 
     public function show()
     {
         $chapter = $this->getChapter();
-
+        $next = $chapter->getNext();
         if ($chapter != null) {
             include 'views/chapitre.php'; // Charge la vue pour le chapitre
         } else {
@@ -35,6 +51,6 @@ class ChapterController
 
     public function getChapter()
     {
-        return $this->chapter; 
+        return $this->chapter;
     }
 }

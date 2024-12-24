@@ -120,16 +120,22 @@ $router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
 $router->addRoute('pannel_admin/tresors', 'AdminController@gererTresors');
 $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
+
 //route pour le formulaire de suppresion d'un joueur
 $router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
+$router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@ajoutCompteAdmin');
 
-//route pour la suppresion d'un chapitre depuis le pannel admin
+/*----------------------*/
+/*routes pour le pannel admin*/
+//suppresion d'un chapitre depuis le pannel admin
 $router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');
-
-//route pour le formulaire d'ajout d'un chapitre
-$router->addRoute('pannel_admin/creation_chapitre_admin', 'AdminController@formAjoutChapitre');
+//formulaire d'ajout d'un chapitre
+$router->addRoute('pannel_admin/creation_chapitre', 'AdminController@formAjoutChapitre');
 //traitement formulaire d'ajout d'un chapitre
 $router->addRoute('pannel_admin/ajoutChapitre', 'AdminController@ajoutChapitre');
+
+//formulaire de modification d'un chapitre
+$router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@formModifChap');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

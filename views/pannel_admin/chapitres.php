@@ -9,6 +9,7 @@
                 <th scope="col">CHA_CONTENT</th>
                 <th scope="col">CHA_IMAGE</th>
                 <th scope="col">SUPRESSION</th>
+                <th scope="col">MODIFICATION</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,12 @@
                             <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce chapitre ?');">Supprimer</button>
                         </form>
                     </td>
+                    <td>
+                        <form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_chapitre" method="post" class="form-supp-pannel-panadm">
+                            <input type="hidden" name="cha_id" value="<?php echo $chapitre['CHA_ID']; ?>">
+                            <button type="submit">modifier</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -37,7 +44,7 @@
 <?php endif ?>
 
 <div>
-    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_chapitre_admin">Créer un chapitre</a></button>
+    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_chapitre">Créer un chapitre</a></button>
 </div>
 
 <?php include 'includes/footer.php'; ?>

@@ -9,6 +9,8 @@
                 <th scope="col">ITE_DESCRIPTION</th>
                 <th scope="col">ITE_POIDS</th>
                 <th scope="col">ITE_VALUE</th>
+                <th scope="col">SUPPRESSION</th>
+                <th scope="col">MODIFICATION</th>
             </tr>
         </thead>
         <tbody>
@@ -22,13 +24,13 @@
                     <td><?php echo $item['ITE_VALUE']; ?></td>
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_monstre" method="post" class="form-supp-pannel-panadm">
-                            <input type="hidden" name="mon_id" value="<?php echo $monster['MON_ID']; ?>">
+                            <input type="hidden" name="ite_id" value="<?php echo $monster['ITE_ID']; ?>">
                             <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce monstre ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_monstre" method="post" class="form-supp-pannel-panadm">
-                            <input type="hidden" name="mon_id" value="<?php echo $monster['MON_ID']; ?>">
+                            <input type="hidden" name="ite_id" value="<?php echo $monster['ITE_ID']; ?>">
                             <button type="submit">Modifier</button>
                         </form>
                     </td>
@@ -39,7 +41,7 @@
 <?php endif ?>
 
 <div>
-    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_monstre">Créer un monstre</button>
+    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_item">Créer un item</button>
 </div>
 
 <?php

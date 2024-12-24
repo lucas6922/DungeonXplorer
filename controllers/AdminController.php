@@ -453,10 +453,23 @@ class AdminController
         $select = $connexion->query("SELECT * FROM ITEMS");
         $items = $select->fetchAll(PDO::FETCH_ASSOC);
         if (!$items) {
-            $items = [];  //si aucun joueur trouvé
+            $items = [];
         }
         require_once 'views/pannel_admin/tresors.php';
         $connexion = null;
+    }
+
+    public function ajoutItem()
+    {
+        $connexion = connect_db();
+
+        $rq = $connexion->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
+        $rq->execute();
+
+        $types = $rq->fetchAll(PDO::FETCH_ASSOC);
+
+        $connexion = null;
+        require_once 'views/pannel_admin/creation_item.php';
     }
 
     public function gererImages()

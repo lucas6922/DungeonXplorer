@@ -153,6 +153,7 @@ class AdminController
         }
 
         header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+        $connexion = null;
     }
 
     public function formModifChap()
@@ -184,6 +185,7 @@ class AdminController
             header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
             exit();
         }
+        $connexion = null;
     }
 
     public function ModifChap()
@@ -227,13 +229,49 @@ class AdminController
             header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
         }
         header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+        $connexion = null;
     }
 
 
 
     public function gererMonstres()
     {
+        $connexion = connect_db();
+
+        $select = $connexion->query("SELECT * FROM MONSTER");
+        $monsters = $select->fetchAll(PDO::FETCH_ASSOC);
+        if (!$monsters) {
+            $monsters = [];  //si aucun joueur trouvé
+        }
+
         require_once 'views/pannel_admin/monstres.php';
+        $connexion = null;
+    }
+
+    public function supprimerMonstre()
+    {
+        $connexion = connect_db();
+
+        //si formulaire envoyé avec l'id d'un monstre pour le supp
+        if (isset($_POST['mon_id'])) {
+
+            $mon_id = $_POST['mon_id'];
+            //supp le joueur
+            $rqp = $connexion->prepare("DELETE FROM MONSTRE WHERE MON_ID = ?");
+            $rqp->execute([$mon_id]);
+
+            //reuper la nouvelle liste des monstres
+            $select = $connexion->query("SELECT * FROM MONSTRE");
+            $monstres = $select->fetchAll(PDO::FETCH_ASSOC);
+            if (!$monstres) {
+                $monstres = [];  //si aucun joueur trouvé
+            }
+        } else {
+            echo "erreur lors de la suppression, aucun id recu";
+        }
+        header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+        exit();
+        $connexion = null;
     }
 
     public function gererTresors()

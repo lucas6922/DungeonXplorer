@@ -124,8 +124,6 @@ $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 $router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
 $router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@ajoutCompteAdmin');
 
-/*----------------------*/
-/*routes pour le pannel admin*/
 //suppresion d'un chapitre depuis le pannel admin
 $router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');
 //formulaire d'ajout d'un chapitre
@@ -137,6 +135,14 @@ $router->addRoute('pannel_admin/ajoutChapitre', 'AdminController@ajoutChapitre')
 $router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@formModifChap');
 //traitement modif chapitre
 $router->addRoute('pannel_admin/modifier_chapitre_traitement', 'AdminController@ModifChap');
+
+//formulaire de modification d'un chapitre
+$router->addRoute('pannel_admin/supprimer_monstre', 'AdminController@supprimerMonstre');
+//traitement modif chapitre
+$router->addRoute('pannel_admin/modifier_chapitre_traitement', 'AdminController@ModifChap');
+
+
+
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
 

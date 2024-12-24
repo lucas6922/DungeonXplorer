@@ -51,7 +51,9 @@ class ChapterController
 
     public function show(){
         //print_r($id);
-        if(isset($_SESSION['pla_id'])){
+        $playerId = $_SESSION['pla_id'] ?? null;
+
+        if ($playerId) {
             $conn = connect_db();
             $play = $_SESSION['pla_id'];
 
@@ -63,7 +65,7 @@ class ChapterController
                 $cur1->execute([':play' => $play]);
             $tab1 = $cur1->fetchAll();
 
-            print_r($tab1);
+            //print_r($tab1);
 
             $chapId = $tab1[0]['cha_id'];
             $this->chargeChap($chapId);
@@ -73,10 +75,15 @@ class ChapterController
                 $next = $chapter->getNext();
 
                 include 'views/chapitre.php';
+                $this->show_inventory();
+                $this->show_treasure($chapId);
             } else {
                 header('HTTP/1.0 404 Not Found');
                 echo "Chapitre non trouvé!";
             }
+        }
+        else{
+            $this->afficherErreurAuth("Vous devez être connecté pour accéder à l'aventure.");
         }
     }
 
@@ -111,19 +118,40 @@ class ChapterController
     }
 
     function show_inventory(){
+        $conn = connect_db();
         $play = $_SESSION['pla_id'];
         $sql = "SELECT ite_name, ite_poids, ite_value FROM items it
                 JOIN inventory inv ON it.ite_id = inv.ite_id
                 JOIN hero her ON her.her_id = inv.her_id
                 JOIN player pla ON pla.pla_id = her.pla_id
                 WHERE pla.pla_id = :playId
-                ORDER BY her_id
-                FETCH FIRST 1 ROW ONLY";
+                ORDER BY her.her_id
+                LIMIT 1";
 
         $cur = $conn->prepare($sql);
         $cur->execute([':playId' => $play]);
         $tab = $cur->fetchAll();
+        //print_r($tab);
+    }
+
+    function show_treasure($id){
+        $conn = connect_db();
+        $play = $_SESSION['pla_id'];
+        $sql = "SELECT ite_name, ite_poids, ite_value FROM items it
+                JOIN contains con ON it.ite_id = con.ite_id
+                JOIN loot loo ON loo.loo_id = con.loo_id
+                JOIN chapter cha ON cha.loo_id = loo.loo_id
+                WHERE cha.cha_id = :id";
+
+        $cur = $conn->prepare($sql);
+        $cur->execute([':id' => $id]);
+        $tab = $cur->fetchAll();
         print_r($tab);
+        
+    }
+
+    private function afficherErreurAuth($message){
+        require 'views/auth_error.php';
     }
 }
 

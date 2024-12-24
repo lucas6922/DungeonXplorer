@@ -448,7 +448,15 @@ class AdminController
 
     public function gererTresors()
     {
+        $connexion = connect_db();
+
+        $select = $connexion->query("SELECT * FROM ITEMS");
+        $items = $select->fetchAll(PDO::FETCH_ASSOC);
+        if (!$items) {
+            $items = [];  //si aucun joueur trouvé
+        }
         require_once 'views/pannel_admin/tresors.php';
+        $connexion = null;
     }
 
     public function gererImages()

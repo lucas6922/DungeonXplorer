@@ -37,7 +37,7 @@ if (isset($_SESSION['account_creation_error']) || !empty($_SESSION['account_crea
 ?>
 
     <script>
-        afficherErreur("<?= htmlspecialchars($_SESSION['account_creation_error'], ENT_QUOTES) ?>");
+        afficherErreur("<?= $_SESSION['account_creation_error'] ?>");
     </script>
 <?php
     unset($_SESSION['account_creation_error']);

@@ -33,7 +33,7 @@ if (isset($_SESSION['chap_creation_error']) || !empty($_SESSION['chap_creation_e
 ?>
 
     <script>
-        afficherErreur("<?= htmlspecialchars($_SESSION['chap_creation_error'], ENT_QUOTES) ?>");
+        afficherErreur("<?= $_SESSION['chap_creation_error'] ?>");
     </script>
 <?php
     unset($_SESSION['chap_creation_error']);

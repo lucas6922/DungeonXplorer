@@ -142,7 +142,7 @@ $router->addRoute('pannel_admin/supprimer_monstre', 'AdminController@supprimerMo
 //form nouveau monstre
 $router->addRoute('pannel_admin/creation_monstre', 'AdminController@formAjoutMonstre');
 //traitement ajout monstre
-$router->addRoute('pannel_admin/creation_monstre', 'AdminController@ajoutMonstre');
+$router->addRoute('pannel_admin/ajoutMonstre', 'AdminController@ajoutMonstre');
 
 
 

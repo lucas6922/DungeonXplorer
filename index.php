@@ -124,6 +124,10 @@ $router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJou
 //route pour le formulaire d'ajout d'un compte admin'
 $router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@sajoutCompteAdmin');
 
+
+//route pour la suppresion d'un chapitre depuis le pannel admin
+$router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');
+
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
 

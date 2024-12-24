@@ -22,7 +22,7 @@
                     <td><?php echo $joueur['PLA_PSEUDO']; ?></td>
                     <td><?php echo $joueur['ISADMIN']; ?></td>
                     <td>
-                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_joueur" method="post" id="form-supp-compte-panadm">
+                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_joueur" method="post" class="form-supp-pannel-panadm">
                             <input type="hidden" name="pla_id" value="<?php echo $joueur['PLA_ID']; ?>">
                             <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce joueur ?');">Supprimer</button>
                         </form>

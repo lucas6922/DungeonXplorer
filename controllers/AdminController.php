@@ -66,6 +66,32 @@ class AdminController
         $connexion = null;
     }
 
+    public function supprimerChapitre()
+    {
+        $connexion = connect_db();
+
+        //si formulaire envoyé avec l'id d'un chapitre pour le supp
+        if (isset($_POST['CHA_ID'])) {
+
+            $cha_id = $_POST['CHA_ID'];
+            //supp le joueur
+            $rqp = $connexion->prepare("DELETE FROM CHAPTER WHERE CHA_ID = ?");
+            $rqp->execute([$cha_id]);
+
+            //reuper la nouvelle liste des chapitres
+            $select = $connexion->query("SELECT * FROM CHAPTER");
+            $chapitres = $select->fetchAll(PDO::FETCH_ASSOC);
+            if (!$chapitres) {
+                $chapitres = [];  //si aucun joueur trouvé
+            }
+
+            require_once 'views/pannel_admin/chapitres.php';
+        } else {
+            echo "erreur lors de la suppression, aucun id recu";
+        }
+        $connexion = null;
+    }
+
     public function gererMonstres()
     {
         require_once 'views/pannel_admin/monstres.php';

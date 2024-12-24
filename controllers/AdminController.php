@@ -279,6 +279,83 @@ class AdminController
         require_once 'views/pannel_admin/creation_monstre.php';
     }
 
+    public function ajoutMonstre()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $connexion = connect_db();
+
+        if (
+            isset($_POST['loo_id'], $_POST['mon_name'], $_POST['mon_pv'], $_POST['mon_initiative'], $_POST['mon_strength'], $_POST['mon_xp']) &&
+            !empty($_POST['loo_id']) && !empty($_POST['mon_name']) && !empty($_POST['mon_pv'])
+            && !empty($_POST['mon_initiative']) && !empty($_POST['mon_strength'] && !empty($_POST['mon_xp']))
+        ) {
+            $loo_id = trim(strip_tags($_POST['loo_id']));
+            $mon_name = trim(strip_tags($_POST['mon_name']));
+            $mon_pv = intval($_POST['mon_pv']);
+            $mon_mana = isset($_POST['mon_mana']) ? intval($_POST['mon_mana']) : null;
+            $mon_initiative = intval($_POST['mon_initiative']);
+            $mon_strength = intval($_POST['mon_strength']);
+            $mon_attack = isset($_POST['mon_attack']) ? trim(strip_tags($_POST['mon_attack'])) : null;
+            $mon_xp = isset($_POST['mon_xp']) ? intval($_POST['mon_xp']) : null;
+
+
+            try {
+                //unicite d'un monstre
+                $rqp = $connexion->prepare("SELECT 1 FROM MONSTER WHERE mon_name = :nom");
+                $rqp->execute(['nom' => $mon_name]);
+
+                if ($rqp->fetch()) {
+                    //existe deja
+                    $_SESSION['mon_creation_error'] = "Un monstre existe déjà avec ce nom.";
+                    header("Location: " . $this->baseUrl . "/pannel_admin/creation_monstre");
+                    exit();
+                }
+
+                //calcul l'id max
+                $rqp = $connexion->query("SELECT MAX(MON_ID) AS maxi FROM MONSTER");
+                $result = $rqp->fetch(PDO::FETCH_OBJ);
+                //id + 1 pour le nouveau joueur
+                $id = $result->maxi + 1;
+
+
+                //insert le monstre
+                $rqp = $connexion->prepare("
+                INSERT INTO MONSTER (MON_ID, LOO_ID, MON_NAME, MON_PV, MON_MANA, MON_INITIATIVE, MON_STRENGTH, MON_ATTACK, MON_XP)
+                VALUES ($id, :loot, :name, :pv, :mana, :initiative, :strength, :attack, :xp)
+            ");
+                $rqp->execute([
+                    'loot' => $loo_id,
+                    'name' => $mon_name,
+                    'pv' => $mon_pv,
+                    'mana' => $mon_mana,
+                    'initiative' => $mon_initiative,
+                    'strength' => $mon_strength,
+                    'attack' => $mon_attack,
+                    'xp' => $mon_xp,
+                ]);
+
+                header("Location: " . $this->baseUrl . "/pannel_admin/monstres");
+                exit();
+            } catch (Exception $e) {
+                //erreur pendant l'insertion
+                $_SESSION['mon_creation_error'] = "Une erreur est survenue lors de l'insertion : " . $e->getMessage();
+                header("Location: " . $this->baseUrl . "/pannel_admin/creation_monstre");
+                exit();
+            }
+        } else {
+            //rous les champs ne sont pas renseigné
+            $_SESSION['mon_creation_error'] = "Le nom, les points de vie, l'initiative et la force du monstre sont obligatoires.";
+            header("Location: " . $this->baseUrl . "/pannel_admin/creation_monstre");
+            exit();
+        }
+        $connexion = null;
+    }
+
+
+
 
 
     public function gererTresors()

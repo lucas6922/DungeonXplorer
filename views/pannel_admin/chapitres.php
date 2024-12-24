@@ -53,7 +53,7 @@ if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 ?>
 
     <script>
-        afficherErreur("<?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES) ?>");
+        afficherErreur("<?= $_SESSION['error_message'] ?>");
     </script>
 <?php
     unset($_SESSION['error_message']);

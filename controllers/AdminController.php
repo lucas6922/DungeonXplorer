@@ -89,11 +89,11 @@ class AdminController
             if (!$chapitres) {
                 $chapitres = [];  //si aucun joueur trouvé
             }
-
-            require_once 'views/pannel_admin/chapitres.php';
         } else {
             echo "erreur lors de la suppression, aucun id recu";
         }
+        header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+        exit();
         $connexion = null;
     }
 

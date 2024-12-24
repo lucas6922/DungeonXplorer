@@ -147,6 +147,9 @@ class AdminController
                 $_SESSION['chap_creation_error'] = "Erreur est survenu lors de l'insert : " . $e->getMessage();
                 header(sprintf("Location: %s/pannel_admin/creation_chapitre", $this->baseUrl));
             }
+        } else {
+            $_SESSION['chap_creation_error'] = "le titre et la description du chapitre sont obligatoire";
+            header(sprintf("Location: %s/pannel_admin/creation_chapitre", $this->baseUrl));
         }
 
         header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
@@ -182,6 +185,50 @@ class AdminController
             exit();
         }
     }
+
+    public function ModifChap()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (
+            isset($_POST['cha_id'], $_POST['cha_name'], $_POST['cha_content']) &&
+            !empty($_POST['cha_id']) && !empty($_POST['cha_name']) && !empty($_POST['cha_content'])
+        ) {
+
+            $cha_id = intval($_POST['cha_id']);
+            $cha_name = trim(strip_tags($_POST['cha_name']));
+            $cha_content = trim(strip_tags($_POST['cha_content']));
+            $cha_image = trim(strip_tags($_POST['cha_image']));
+
+
+            $connexion = connect_db();
+
+            // Mise à jour dans la base de données
+            try {
+                $query = $connexion->prepare("
+                    UPDATE CHAPTER 
+                    SET CHA_NAME = :cha_name, CHA_CONTENT = :cha_content, CHA_IMAGE = :cha_image
+                    WHERE CHA_ID = :cha_id
+                ");
+                $query->execute([
+                    'cha_name' => $cha_name,
+                    'cha_content' => $cha_content,
+                    'cha_id' => $cha_id,
+                    'cha_image' => $cha_image
+                ]);
+            } catch (Exception $e) {
+                $_SESSION['chap_creation_error'] = "Erreur lors de la modification : " . $e->getMessage();
+                header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+            }
+        } else {
+            $_SESSION['chap_creation_error'] = "le titre et la description du chapitre sont obligatoire";
+            header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+        }
+        header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+    }
+
 
 
     public function gererMonstres()

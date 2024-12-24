@@ -5,7 +5,7 @@ include 'includes/header.php';
 
 <h1>Modifier le chapitre</h1>
 
-<form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_chapitre" method="POST" enctype="multipart/form-data">
+<form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_chapitre_traitement" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="cha_id" value="<?php echo $chapitre['CHA_ID']; ?>">
 
     <div>

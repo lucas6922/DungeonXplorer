@@ -76,9 +76,9 @@ class AdminController
         $connexion = connect_db();
 
         //si formulaire envoyé avec l'id d'un chapitre pour le supp
-        if (isset($_POST['CHA_ID'])) {
+        if (isset($_POST['cha_id'])) {
 
-            $cha_id = $_POST['CHA_ID'];
+            $cha_id = $_POST['cha_id'];
             //supp le joueur
             $rqp = $connexion->prepare("DELETE FROM CHAPTER WHERE CHA_ID = ?");
             $rqp->execute([$cha_id]);

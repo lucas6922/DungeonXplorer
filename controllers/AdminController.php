@@ -154,8 +154,35 @@ class AdminController
 
     public function formModifChap()
     {
-        require_once 'views/pannel_admin/modifier_chapitre.php';
+        if (!isset($_POST['cha_id']) || empty($_POST['cha_id'])) {
+            $_SESSION['error_message'] = "Aucun chapitre spécifié.";
+            header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+            exit();
+        }
+
+        $cha_id = intval($_POST['cha_id']);
+        $connexion = connect_db();
+
+        //recup données du chapitre
+        try {
+            $query = $connexion->prepare("SELECT * FROM CHAPTER WHERE CHA_ID = :cha_id");
+            $query->execute(['cha_id' => $cha_id]);
+            $chapitre = $query->fetch();
+
+            if (!$chapitre) {
+                $_SESSION['error_message'] = "Chapitre introuvable.";
+                header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+                exit();
+            }
+            //affiche le formulaire de modification
+            require_once 'views/pannel_admin/modifier_chapitre.php';
+        } catch (Exception $e) {
+            $_SESSION['error_message'] = "Erreur lors de la récupération du chapitre : " . $e->getMessage();
+            header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+            exit();
+        }
     }
+
 
     public function gererMonstres()
     {

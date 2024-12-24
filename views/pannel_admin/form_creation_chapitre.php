@@ -29,7 +29,7 @@
 
 <?php
 if (isset($_SESSION['chap_creation_error']) || !empty($_SESSION['chap_creation_error'])) :
-    print_r($_SESSION['chap_creation_error']);
+    //print_r($_SESSION['chap_creation_error']);
 ?>
 
     <script>

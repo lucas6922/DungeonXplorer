@@ -113,21 +113,44 @@ class AdminController
             isset($_POST['cha_name'], $_POST['cha_content']) &&
             !empty($_POST['cha_name']) && !empty($_POST['cha_content'])
         ) {
-            $loo_id = trim(strip_tags($_POST['loo_id'])) ?? null;
+            $loo_id = isset($_POST['loo_id']) && !empty($_POST['loo_id']) ? intval($_POST['loo_id']) : null;
             $cha_name = trim(strip_tags($_POST['cha_name']));
             $cha_content = trim(strip_tags($_POST['cha_content']));
-            $cha_image = trim(strip_tags($_POST['cha_image'])) ?? null;
+            $cha_image = trim(strip_tags($_POST['cha_image']));
+
+            print_r("loo: " . $loo_id . " name: " . $cha_name);
+            print_r(" cha_content: " . $cha_content . " cha_image: " . $cha_image);
 
             //vérifie unicite titre de chapitre
             $rqp = $connexion->prepare("SELECT 1 FROM CHAPTER WHERE cha_name = :nom");
             $rqp->execute(['nom' => $cha_name]);
             if ($rqp->fetch()) {
-                echo "ok";
                 $_SESSION['chap_creation_error'] = "Un chapitre existe déjà avec ce titre";
                 header(sprintf("Location: %s/pannel_admin/creation_chapitre_admin", $this->baseUrl));
                 exit();
             }
+
+            //insert le chapitre
+            try {
+
+                $rqp = $connexion->prepare("
+                INSERT INTO CHAPTER (LOO_ID, CHA_NAME, CHA_CONTENT, CHA_IMAGE)
+                VALUES (:loot, :titre, :content, :image)
+            ");
+                $rqp->execute([
+                    'loot' => $loo_id,
+                    'titre' => $cha_name,
+                    'content' => $cha_content,
+                    'image' => $cha_image,
+                ]);
+            } catch (Exception $e) {
+
+                $_SESSION['chap_creation_error'] = "Erreur est survenu lors de l'insert : " . $e->getMessage();
+                header(sprintf("Location: %s/pannel_admin/creation_chapitre_admin", $this->baseUrl));
+            }
         }
+
+        header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
     }
 
     public function gererMonstres()

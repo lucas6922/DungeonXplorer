@@ -207,7 +207,7 @@ class AdminController
 
             $connexion = connect_db();
 
-            // Mise à jour dans la base de données
+            //mise à jour du chapitre
             try {
                 $rq = $connexion->prepare("
                     UPDATE CHAPTER 
@@ -410,10 +410,9 @@ class AdminController
             $mon_attack = isset($_POST['mon_attack']) ? trim(strip_tags($_POST['mon_attack'])) : null;
             $mon_xp = isset($_POST['mon_xp']) ? intval($_POST['mon_xp']) : null;
 
-            // Connexion à la base de données
             $connexion = connect_db();
 
-            // Mise à jour dans la base de données
+            //mise à jour du monstre
             try {
                 $rq = $connexion->prepare("
                 UPDATE MONSTER 
@@ -441,8 +440,7 @@ class AdminController
             header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
             exit();
         }
-
-        // Redirection vers la page des monstres après la modification
+        //redirige vers la page des monstres apres update
         header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
         $connexion = null;
     }

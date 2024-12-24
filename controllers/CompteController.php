@@ -88,7 +88,7 @@ class CompteController
                 $id = $result->maxi + 1;
 
 
-                echo $id, $prenom, $nom, $email, $pseudo, $hashed, $isAdmin;
+                //echo $id, $prenom, $nom, $email, $pseudo, $hashed, $isAdmin;
 
                 //insert le joueur
                 $rqp = $connexion->prepare("

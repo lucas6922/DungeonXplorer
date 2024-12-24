@@ -26,7 +26,7 @@
                     </td>
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_chapitre" method="post" class="form-supp-pannel-panadm">
-                            <input type="hiden" name="cha_id" value="<?php echo $chapitre['CHA_ID']; ?>">
+                            <input type="hidden" name="cha_id" value="<?php echo $chapitre['CHA_ID']; ?>">
                             <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce chapitre ?');">Supprimer</button>
                         </form>
                     </td>

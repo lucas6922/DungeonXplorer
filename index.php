@@ -122,9 +122,6 @@ $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
 //route pour le formulaire de suppresion d'un joueur
 $router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
-//route pour le formulaire d'ajout d'un compte admin'
-//$router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@sajoutCompteAdmin');
-
 
 //route pour la suppresion d'un chapitre depuis le pannel admin
 $router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');

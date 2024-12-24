@@ -169,9 +169,9 @@ class AdminController
 
         //recup données du chapitre
         try {
-            $query = $connexion->prepare("SELECT * FROM CHAPTER WHERE CHA_ID = :cha_id");
-            $query->execute(['cha_id' => $cha_id]);
-            $chapitre = $query->fetch();
+            $rq = $connexion->prepare("SELECT * FROM CHAPTER WHERE CHA_ID = :cha_id");
+            $rq->execute(['cha_id' => $cha_id]);
+            $chapitre = $rq->fetch();
 
             if (!$chapitre) {
                 $_SESSION['error_message'] = "Chapitre introuvable.";
@@ -209,12 +209,12 @@ class AdminController
 
             // Mise à jour dans la base de données
             try {
-                $query = $connexion->prepare("
+                $rq = $connexion->prepare("
                     UPDATE CHAPTER 
                     SET CHA_NAME = :cha_name, CHA_CONTENT = :cha_content, CHA_IMAGE = :cha_image
                     WHERE CHA_ID = :cha_id
                 ");
-                $query->execute([
+                $rq->execute([
                     'cha_name' => $cha_name,
                     'cha_content' => $cha_content,
                     'cha_id' => $cha_id,
@@ -355,7 +355,97 @@ class AdminController
     }
 
 
+    public function formModifierMonstre()
+    {
 
+        if (!isset($_POST['mon_id']) || empty($_POST['mon_id'])) {
+            $_SESSION['error_message'] = "Aucun monstre spécifié.";
+            header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+            exit();
+        }
+
+        $mon_id = intval($_POST['mon_id']);
+        $connexion = connect_db();
+
+        //recup données du chapitre
+        try {
+            $rq = $connexion->prepare("SELECT * FROM MONSTER WHERE MON_ID = :mon_id");
+            $rq->execute(['mon_id' => $mon_id]);
+            $monstre = $rq->fetch();
+
+            if (!$monstre) {
+                $_SESSION['error_message'] = "Monstre introuvable.";
+                header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+                exit();
+            }
+            //affiche le formulaire de modification
+            require_once 'views/pannel_admin/modifier_monstre.php';
+        } catch (Exception $e) {
+            $_SESSION['error_message'] = "Erreur lors de la récupération du monstre : " . $e->getMessage();
+            header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+            exit();
+        }
+        $connexion = null;
+
+        require_once 'views/pannel_admin/modifier_monstre.php';
+    }
+
+    public function modifierMonstre()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        //verifie les champs
+        if (
+            isset($_POST['mon_id'], $_POST['mon_name'], $_POST['mon_pv'], $_POST['mon_initiative'], $_POST['mon_strength']) &&
+            !empty($_POST['mon_id']) && !empty($_POST['mon_name']) && !empty($_POST['mon_pv']) && !empty($_POST['mon_initiative']) && !empty($_POST['mon_strength'])
+        ) {
+
+            $mon_id = intval($_POST['mon_id']);
+            $mon_name = trim(strip_tags($_POST['mon_name']));
+            $mon_pv = intval($_POST['mon_pv']);
+            $mon_mana = isset($_POST['mon_mana']) ? intval($_POST['mon_mana']) : null;
+            $mon_initiative = intval($_POST['mon_initiative']);
+            $mon_strength = intval($_POST['mon_strength']);
+            $mon_attack = isset($_POST['mon_attack']) ? trim(strip_tags($_POST['mon_attack'])) : null;
+            $mon_xp = isset($_POST['mon_xp']) ? intval($_POST['mon_xp']) : null;
+
+            // Connexion à la base de données
+            $connexion = connect_db();
+
+            // Mise à jour dans la base de données
+            try {
+                $rq = $connexion->prepare("
+                UPDATE MONSTER 
+                SET MON_NAME = :mon_name, MON_PV = :mon_pv, MON_MANA = :mon_mana, MON_INITIATIVE = :mon_initiative, 
+                    MON_STRENGTH = :mon_strength, MON_ATTACK = :mon_attack, MON_XP = :mon_xp
+                WHERE MON_ID = :mon_id
+            ");
+                $rq->execute([
+                    'mon_name' => $mon_name,
+                    'mon_pv' => $mon_pv,
+                    'mon_mana' => $mon_mana,
+                    'mon_initiative' => $mon_initiative,
+                    'mon_strength' => $mon_strength,
+                    'mon_attack' => $mon_attack,
+                    'mon_xp' => $mon_xp,
+                    'mon_id' => $mon_id
+                ]);
+            } catch (Exception $e) {
+                $_SESSION['mon_creation_error'] = "Erreur lors de la modification du monstre : " . $e->getMessage();
+                header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+                exit();
+            }
+        } else {
+            $_SESSION['mon_creation_error'] = "Tous les champs obligatoires sont requis.";
+            header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+            exit();
+        }
+
+        // Redirection vers la page des monstres après la modification
+        header(sprintf("Location: %s/pannel_admin/monstres", $this->baseUrl));
+        $connexion = null;
+    }
 
 
     public function gererTresors()

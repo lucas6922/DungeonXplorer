@@ -145,6 +145,12 @@ $router->addRoute('pannel_admin/creation_monstre', 'AdminController@formAjoutMon
 $router->addRoute('pannel_admin/ajoutMonstre', 'AdminController@ajoutMonstre');
 
 
+//form modifier monstre
+$router->addRoute('pannel_admin/modifier_monstre', 'AdminController@formModifierMonstre');
+//traitement modification
+$router->addRoute('pannel_admin/modifier_monstre_traitement', 'AdminController@modifierMonstre');
+
+
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

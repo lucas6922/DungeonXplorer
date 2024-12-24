@@ -3,6 +3,8 @@ require_once 'database/connexion_db.php';
 class AdminController
 {
 
+    private $baseUrl = '/DungeonXplorer';
+
     public function showPannelAdmin()
     {
         require_once 'views/pannel_admin/pannel_admin_accueil.php';
@@ -47,10 +49,13 @@ class AdminController
         }
         $connexion = null;
     }
+
+    //inutile car ajout avec la m^me méthode que l'ajout d'un cmpte normal
+    /*
     public function sajoutCompteAdmin()
     {
         require_once 'views/pannel_admin/cration_compte_admin.php';
-    }
+    }*/
 
 
     public function gererChapitres()
@@ -90,6 +95,16 @@ class AdminController
             echo "erreur lors de la suppression, aucun id recu";
         }
         $connexion = null;
+    }
+
+    public function formAjoutChapitre()
+    {
+        require_once 'views/pannel_admin/form_creation_chapitre.php';
+    }
+
+    public function ajoutChapitre()
+    {
+        echo "ok";
     }
 
     public function gererMonstres()

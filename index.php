@@ -137,10 +137,12 @@ $router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@formModifCh
 //traitement modif chapitre
 $router->addRoute('pannel_admin/modifier_chapitre_traitement', 'AdminController@ModifChap');
 
-//formulaire de modification d'un chapitre
+//supprime monstre
 $router->addRoute('pannel_admin/supprimer_monstre', 'AdminController@supprimerMonstre');
-//traitement modif chapitre
-$router->addRoute('pannel_admin/modifier_chapitre_traitement', 'AdminController@ModifChap');
+//form nouveau monstre
+$router->addRoute('pannel_admin/creation_monstre', 'AdminController@formAjoutMonstre');
+//traitement ajout monstre
+$router->addRoute('pannel_admin/creation_monstre', 'AdminController@ajoutMonstre');
 
 
 

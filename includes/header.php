@@ -44,11 +44,8 @@ $baseUrl = '/DungeonXplorer';
         </nav>
     </header>
     <main>
-        <!--
-        <pre>
-                <?php
-                print_r($_SESSION);
-                print_r($_COOKIE);
-                ?>
-            </pre>
-            -->
+        <?php
+        print_r($_SESSION);
+        print_r($_COOKIE);
+        ?>
+        </pre>

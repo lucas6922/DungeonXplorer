@@ -6,10 +6,10 @@ include 'includes/header.php';
 <h1>Créer un personnage</h1>
 <form action="traitement_creation_personnage" method="POST" enctype="multipart/form-data">
 
-    <label for="nom" class="form-txt">Nom :</label>
+    <label for="nom">Nom :</label>
     <input type="text" id="nom" name="nom" required>
 
-    <label for="classe" class="form-txt">Classe :</label>
+    <label for="classe">Classe :</label>
     <select id="classe" name="classe">
         <?php
         foreach ($classes as $classe):
@@ -20,10 +20,10 @@ include 'includes/header.php';
         <?php endforeach; ?>
     </select>
 
-    <label for="biographie" class="form-txt">Biographie :</label>
+    <label for="biographie">Biographie :</label>
     <textarea id="biographie" name="biographie"></textarea>
 
-    <label for="image" class="form-txt">Image :</label>
+    <label for="image">Image :</label>
     <input type="hidden" id="image" name="image">
 
     <!-- carousel issue de W3School -->

@@ -104,7 +104,30 @@ class AdminController
 
     public function ajoutChapitre()
     {
-        echo "ok";
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $connexion = connect_db();
+        //verifie que tout est bien set
+        if (
+            isset($_POST['cha_name'], $_POST['cha_content']) &&
+            !empty($_POST['cha_name']) && !empty($_POST['cha_content'])
+        ) {
+            $loo_id = trim(strip_tags($_POST['loo_id'])) ?? null;
+            $cha_name = trim(strip_tags($_POST['cha_name']));
+            $cha_content = trim(strip_tags($_POST['cha_content']));
+            $cha_image = trim(strip_tags($_POST['cha_image'])) ?? null;
+
+            //vérifie unicite titre de chapitre
+            $rqp = $connexion->prepare("SELECT 1 FROM CHAPTER WHERE cha_name = :nom");
+            $rqp->execute(['nom' => $cha_name]);
+            if ($rqp->fetch()) {
+                echo "ok";
+                $_SESSION['chap_creation_error'] = "Un chapitre existe déjà avec ce titre";
+                header(sprintf("Location: %s/pannel_admin/creation_chapitre_admin", $this->baseUrl));
+                exit();
+            }
+        }
     }
 
     public function gererMonstres()

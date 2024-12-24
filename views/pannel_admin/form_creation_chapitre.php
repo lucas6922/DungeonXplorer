@@ -1,32 +1,27 @@
 <?php include 'includes/header.php'; ?>
 
-<h1>Création de compte</h1>
+<h1>Création d'un chapitre</h1>
 
 <form action="<?php echo $baseUrl; ?>/pannel_admin/ajoutChapitre" method="POST" enctype="multipart/form-data">
 
 
-    <label for="nom">Votreziube nom</label>
+    <label for="loo_id">Numero du loot</label>
 
-    <input type="text" name="nom" size="17" placeholder="Saisissez votre nom" required>
+    <input type="number" name="loo_id" placeholder="Saisissez le numero du loot">
 
-    <label for="prenom">Votre prénom</label>
+    <label for="cha_name">Titre du chapitre</label>
 
-    <input type="text" name="prenom" size="17" placeholder="Saisissez votre prénom" required>
-
-
-    <label for="pseudo">Votre pseudo</label>
-
-    <input type="text" name="pseudo" size="17" placeholder="Saisissez votre pseudo" required>
+    <input type="text" name="cha_name" placeholder="Saisissez le titre du chapitre" required>
 
 
-    <label for="email">Votre email</label>
+    <label for="cha_content">Contenu du chapitre</label>
 
-    <input type="email" name="email" size="30" placeholder="Saisissez votre adresse email" required>
+    <textarea id="cha_content" name="cha_content" placeholder="Saisissez la description du chapitre" required></textarea>
 
 
-    <label for="password">Votre mot de passe</label>
+    <label for="cha_image">Image du chapitre</label>
 
-    <input type="password" name="password" size="30" placeholder="Saisissez votre mot de passe" required>
+    <input type="text" name="cha_image" placeholder="Saisissez le nom de l'image du chapitre">
 
 
     <button type="submit" class="form-btn">Valider</button>
@@ -34,6 +29,7 @@
 
 <?php
 if (isset($_SESSION['chap_creation_error']) || !empty($_SESSION['chap_creation_error'])) :
+    print_r($_SESSION['chap_creation_error']);
 ?>
 
     <script>

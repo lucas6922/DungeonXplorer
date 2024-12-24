@@ -257,11 +257,11 @@ class AdminController
 
             $mon_id = $_POST['mon_id'];
             //supp le joueur
-            $rqp = $connexion->prepare("DELETE FROM MONSTRE WHERE MON_ID = ?");
+            $rqp = $connexion->prepare("DELETE FROM MONSTER WHERE MON_ID = ?");
             $rqp->execute([$mon_id]);
 
             //reuper la nouvelle liste des monstres
-            $select = $connexion->query("SELECT * FROM MONSTRE");
+            $select = $connexion->query("SELECT * FROM MONSTER");
             $monstres = $select->fetchAll(PDO::FETCH_ASSOC);
             if (!$monstres) {
                 $monstres = [];  //si aucun joueur trouvé

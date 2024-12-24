@@ -50,12 +50,11 @@ class AdminController
         $connexion = null;
     }
 
-    //inutile car ajout avec la m^me méthode que l'ajout d'un cmpte normal
-    /*
-    public function sajoutCompteAdmin()
+
+    public function ajoutCompteAdmin()
     {
-        require_once 'views/pannel_admin/cration_compte_admin.php';
-    }*/
+        require_once 'views/pannel_admin/creation_compte_admin.php';
+    }
 
 
     public function gererChapitres()
@@ -99,7 +98,7 @@ class AdminController
 
     public function formAjoutChapitre()
     {
-        require_once 'views/pannel_admin/form_creation_chapitre.php';
+        require_once 'views/pannel_admin/creation_chapitre.php';
     }
 
     public function ajoutChapitre()
@@ -126,7 +125,7 @@ class AdminController
             $rqp->execute(['nom' => $cha_name]);
             if ($rqp->fetch()) {
                 $_SESSION['chap_creation_error'] = "Un chapitre existe déjà avec ce titre";
-                header(sprintf("Location: %s/pannel_admin/creation_chapitre_admin", $this->baseUrl));
+                header(sprintf("Location: %s/pannel_admin/creation_chapitre", $this->baseUrl));
                 exit();
             }
 
@@ -146,11 +145,16 @@ class AdminController
             } catch (Exception $e) {
 
                 $_SESSION['chap_creation_error'] = "Erreur est survenu lors de l'insert : " . $e->getMessage();
-                header(sprintf("Location: %s/pannel_admin/creation_chapitre_admin", $this->baseUrl));
+                header(sprintf("Location: %s/pannel_admin/creation_chapitre", $this->baseUrl));
             }
         }
 
         header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));
+    }
+
+    public function formModifChap()
+    {
+        require_once 'views/pannel_admin/modifier_chapitre.php';
     }
 
     public function gererMonstres()

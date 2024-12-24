@@ -136,7 +136,8 @@ $router->addRoute('pannel_admin/ajoutChapitre', 'AdminController@ajoutChapitre')
 
 //formulaire de modification d'un chapitre
 $router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@formModifChap');
-
+//traitement modif chapitre
+$router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@ModifChap');
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));
 

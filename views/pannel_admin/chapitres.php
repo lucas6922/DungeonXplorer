@@ -47,4 +47,17 @@
     <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_chapitre">Créer un chapitre</a></button>
 </div>
 
+
+<?php
+if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
+?>
+
+    <script>
+        afficherErreur("<?= htmlspecialchars($_SESSION['error_message'], ENT_QUOTES) ?>");
+    </script>
+<?php
+    unset($_SESSION['error_message']);
+endif;
+?>
+
 <?php include 'includes/footer.php'; ?>

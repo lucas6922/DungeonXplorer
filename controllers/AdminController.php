@@ -274,6 +274,13 @@ class AdminController
         $connexion = null;
     }
 
+    public function formAjoutMonstre()
+    {
+        require_once 'views/pannel_admin/creation_monstre.php';
+    }
+
+
+
     public function gererTresors()
     {
         require_once 'views/pannel_admin/tresors.php';

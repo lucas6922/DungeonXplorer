@@ -3,8 +3,8 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">LOO_ID</th>
                 <th scope="col">MON_NAME</th>
+                <th scope="col">LOOT</th>
                 <th scope="col">MON_PV</th>
                 <th scope="col">MON_MANA</th>
                 <th scope="col">MON_INITIATIVE</th>
@@ -18,8 +18,8 @@
         <tbody>
             <?php foreach ($monsters as $monster): ?>
                 <tr>
-                    <td><?php echo $monster['LOO_ID']; ?></td>
                     <td><?php echo $monster['MON_NAME']; ?></td>
+                    <td><?php echo $monster['LOO_NAME']; ?></td>
                     <td><?php echo $monster['MON_PV']; ?></td>
                     <td><?php echo $monster['MON_MANA']; ?></td>
                     <td><?php echo $monster['MON_INITIATIVE']; ?></td>

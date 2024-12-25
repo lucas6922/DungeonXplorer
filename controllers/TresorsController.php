@@ -147,6 +147,11 @@ class TresorsController
 
         //recup données de l'item
         try {
+            $rq = $connexion->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
+            $rq->execute();
+
+            $types = $rq->fetchAll(PDO::FETCH_ASSOC);
+
             $rq = $connexion->prepare("SELECT * FROM ITEMS WHERE ITE_ID = :ite_id");
             $rq->execute(['ite_id' => $ite_id]);
             $item = $rq->fetch();

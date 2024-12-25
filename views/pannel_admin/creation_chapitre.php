@@ -5,13 +5,20 @@
 <form action="<?php echo $baseUrl; ?>/pannel_admin/ajoutChapitre" method="POST" enctype="multipart/form-data">
 
 
-    <label for="loo_id">Numero du loot</label>
 
-    <input type="number" name="loo_id" placeholder="Saisissez le numero du loot">
 
     <label for="cha_name">Titre du chapitre</label>
 
     <input type="text" name="cha_name" placeholder="Saisissez le titre du chapitre" required>
+
+
+    <label for="loo_id">Nom du loot:</label>
+    <select name="loo_id" id="loo_id">
+        <option value="">Sélectionnez un loot</option>
+        <?php foreach ($loots as $loot): ?>
+            <option value="<?php echo $loot['LOO_ID']; ?>"><?php echo $loot['LOO_NAME']; ?></option>
+        <?php endforeach; ?>
+    </select>
 
 
     <label for="cha_content">Contenu du chapitre</label>

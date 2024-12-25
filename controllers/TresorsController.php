@@ -72,7 +72,7 @@ class TresorsController
 
                     if ($rqp->fetch()) {
                         //existe deja
-                        $_SESSION['ite_creation_error'] = "Un item existe déjà avec ce nom.";
+                        $_SESSION['error_message'] = "Un item existe déjà avec ce nom.";
                         header("Location: " . $this->baseUrl . "/pannel_admin/creation_item");
                         exit();
                     }
@@ -101,13 +101,13 @@ class TresorsController
                     exit();
                 } catch (Exception $e) {
                     //erreur pendant l'insertion
-                    $_SESSION['ite_creation_error'] = "Une erreur est survenue lors de l'insertion : " . $e->getMessage();
-                    header("Location: " . $this->baseUrl . "/pannel_admin/creation_monstre");
+                    $_SESSION['error_message'] = "Une erreur est survenue lors de l'insertion : " . $e->getMessage();
+                    header("Location: " . $this->baseUrl . "/pannel_admin/creation_item");
                     exit();
                 }
             } else {
                 //rous les champs ne sont pas renseigné
-                $_SESSION['ite_creation_error'] = "Le nom de l'item esy obligatoire.";
+                $_SESSION['error_message'] = "Le nom de l'item esy obligatoire.";
                 header("Location: " . $this->baseUrl . "/pannel_admin/creation_item");
                 exit();
             }
@@ -144,6 +144,10 @@ class TresorsController
 
     public function formModifierItem()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_POST['ite_id']) || empty($_POST['ite_id'])) {
             $_SESSION['error_message'] = "Aucun item spécifié.";
             header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
@@ -183,5 +187,62 @@ class TresorsController
     public function formAjoutLoot()
     {
         require_once 'views/pannel_admin/creation_loot.php';
+    }
+
+    public function ajoutLoot()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $connexion = connect_db();
+
+        print_r($_POST);
+
+
+        if (
+            isset($_POST['loo_name']) && !empty($_POST['loo_name'])
+        ) {
+            $loo_name = trim(strip_tags($_POST['loo_name']));
+            $loo_quantity = isset($_POST['loo_quantity']) ? intval($_POST['loo_quantity']) : null;
+
+
+            try {
+                //unicite d'un loot
+                $rqp = $connexion->prepare("SELECT 1 FROM LOOT WHERE loo_name = :nom");
+                $rqp->execute(['nom' => $loo_name]);
+
+                if ($rqp->fetch()) {
+                    //existe deja
+                    $_SESSION['error_message'] = "Un loot existe déjà avec ce nom.";
+                    header("Location: " . $this->baseUrl . "/pannel_admin/creation_loot");
+                    exit();
+                }
+
+
+                //insert le monstre
+                $rqp = $connexion->prepare("
+            INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
+            VALUES (:name, :quantity)");
+                $rqp->execute([
+                    'name' => $loo_name,
+                    'quantity' => $loo_quantity,
+                ]);
+
+                header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
+                exit();
+            } catch (Exception $e) {
+                //erreur pendant l'insertion
+                $_SESSION['error_message'] = "Une erreur est survenue lors de l'insertion : " . $e->getMessage();
+                header("Location: " . $this->baseUrl . "/pannel_admin/creation_loot");
+                exit();
+            }
+        } else {
+            //rous les champs ne sont pas renseigné
+            $_SESSION['error_message'] = "Le nom du loot est obligatoire.";
+            header("Location: " . $this->baseUrl . "/pannel_admin/creation_loot");
+            exit();
+        }
+        $connexion = null;
     }
 }

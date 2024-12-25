@@ -153,8 +153,8 @@ $router->addRoute('pannel_admin/modifier_monstre_traitement', 'AdminController@m
 $router->addRoute('pannel_admin/creation_item', 'AdminController@formAjoutItem');
 //traitement ajout item
 $router->addRoute('pannel_admin/ajoutItem', 'AdminController@ajoutItem');
-
-
+//suppresion d'un item
+$router->addRoute('pannel_admin/supprimer_item', 'AdminController@supprimerItem');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

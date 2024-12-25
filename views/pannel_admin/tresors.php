@@ -23,9 +23,9 @@
                     <td><?php echo $item['ITE_POIDS']; ?></td>
                     <td><?php echo $item['ITE_VALUE']; ?></td>
                     <td>
-                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_monstre" method="post" class="form-supp-pannel-panadm">
-                            <input type="hidden" name="ite_id" value="<?php echo $monster['ITE_ID']; ?>">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce monstre ?');">Supprimer</button>
+                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_item" method="post" class="form-supp-pannel-panadm">
+                            <input type="hidden" name="ite_id" value="<?php echo $item['ITE_ID']; ?>">
+                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet item ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>

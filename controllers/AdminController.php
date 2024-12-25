@@ -553,6 +553,33 @@ class AdminController
         }
     }
 
+    public function supprimerItem()
+    {
+        $connexion = connect_db();
+
+        //si formulaire envoyé avec l'id d'un item pour le supp
+        if (isset($_POST['ite_id'])) {
+
+            $ite_id = $_POST['ite_id'];
+            //supp le joueur
+            $rqp = $connexion->prepare("DELETE FROM ITEMS WHERE ITE_ID = ?");
+            $rqp->execute([$ite_id]);
+
+            //reuper la nouvelle liste des items
+            $select = $connexion->query("SELECT * FROM ITEMS");
+            $items = $select->fetchAll(PDO::FETCH_ASSOC);
+            if (!$items) {
+                $items = [];  //si aucun item trouvé
+            }
+
+            header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
+            exit();
+        } else {
+            echo "erreur lors de la suppression, aucun id recu";
+        }
+        $connexion = null;
+    }
+
     public function gererImages()
     {
         require_once 'views/pannel_admin/images.php';

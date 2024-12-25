@@ -74,7 +74,7 @@ class AdminController
     {
         $connexion = connect_db();
 
-        $select = $connexion->query("SELECT * FROM CHAPTER");
+        $select = $connexion->query("SELECT * FROM CHAPTER JOIN LOOT USING(LOO_ID)");
         $chapitres = $select->fetchAll(PDO::FETCH_ASSOC);
         if (!$chapitres) {
             $chapitres = [];  //si aucun joueur trouvé
@@ -271,7 +271,7 @@ class AdminController
     {
         $connexion = connect_db();
 
-        $select = $connexion->query("SELECT * FROM MONSTER");
+        $select = $connexion->query("SELECT * FROM MONSTER JOIN LOOT USING(LOO_ID)");
         $monsters = $select->fetchAll(PDO::FETCH_ASSOC);
         if (!$monsters) {
             $monsters = [];  //si aucun joueur trouvé

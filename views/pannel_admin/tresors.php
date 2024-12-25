@@ -75,7 +75,7 @@
                     </td>
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_loot" method="post" class="form-supp-pannel-panadm">
-                            <input type="hidden" name="ite_id" value="<?php echo $item['ITE_ID']; ?>">
+                            <input type="hidden" name="loo_id" value="<?php echo $loot['LOO_ID']; ?>">
                             <button type="submit">Modifier</button>
                         </form>
                     </td>

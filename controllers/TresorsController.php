@@ -178,4 +178,10 @@ class TresorsController
         }
         $connexion = null;
     }
+
+
+    public function formAjoutLoot()
+    {
+        require_once 'views/pannel_admin/creation_loot.php';
+    }
 }

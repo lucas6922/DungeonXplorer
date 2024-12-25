@@ -375,9 +375,14 @@ class AdminController
         $mon_id = intval($_POST['mon_id']);
         $connexion = connect_db();
 
-        //recup données du chapitre
+        //recup données du monstre
         try {
-            $rq = $connexion->prepare("SELECT * FROM MONSTER WHERE MON_ID = :mon_id");
+            $rq = $connexion->prepare("SELECT LOO_ID, LOO_NAME FROM LOOT");
+            $rq->execute();
+
+            $loots = $rq->fetchAll(PDO::FETCH_ASSOC);
+
+            $rq = $connexion->prepare("SELECT * FROM MONSTER JOIN LOOT USING(LOO_ID) WHERE MON_ID = :mon_id");
             $rq->execute(['mon_id' => $mon_id]);
             $monstre = $rq->fetch();
 

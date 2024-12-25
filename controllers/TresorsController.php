@@ -150,7 +150,7 @@ class TresorsController
 
         if (!isset($_POST['ite_id']) || empty($_POST['ite_id'])) {
             $_SESSION['error_message'] = "Aucun item spécifié.";
-            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+            header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
             exit();
         }
 
@@ -164,25 +164,74 @@ class TresorsController
 
             $types = $rq->fetchAll(PDO::FETCH_ASSOC);
 
-            $rq = $connexion->prepare("SELECT * FROM ITEMS WHERE ITE_ID = :ite_id");
+            $rq = $connexion->prepare("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID) WHERE ITE_ID = :ite_id");
             $rq->execute(['ite_id' => $ite_id]);
             $item = $rq->fetch();
 
             if (!$item) {
                 $_SESSION['error_message'] = "Item introuvable.";
-                header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+                header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
                 exit();
             }
             //affiche le formulaire de modification
             require_once 'views/pannel_admin/modifier_item.php';
         } catch (Exception $e) {
             $_SESSION['error_message'] = "Erreur lors de la récupération de l'item : " . $e->getMessage();
-            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+            header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
             exit();
         }
         $connexion = null;
     }
 
+    public function modifierItem()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        //verifie les champs
+        if (
+            isset($_POST['ite_name'], $_POST['ite_id']) && !empty($_POST['ite_name']) && !empty($_POST['ite_id'])
+        ) {
+
+            $ite_id = intval($_POST['ite_id']);
+            $ite_name = trim(strip_tags($_POST['ite_name']));
+            $ite_description = trim(strip_tags($_POST['ite_description']));
+            $ite_poids = isset($_POST['ite_poids']) ? intval($_POST['ite_poids']) : null;
+            $ite_value = isset($_POST['ite_value']) ? intval($_POST['ite_value']) : null;
+            $typ_id = isset($_POST['typ_id']) ? intval($_POST['typ_id']) : null;
+
+            $connexion = connect_db();
+
+            //mise à jour de l'item
+            try {
+                $rq = $connexion->prepare("
+                UPDATE ITEMS 
+                SET ITE_NAME = :ite_name, ITE_DESCRIPTION = :ite_description, ITE_POIDS = :ite_poids, ITE_VALUE = :ite_value, 
+                    TYP_ID = :typ_id
+                WHERE ITE_ID = :ite_id
+            ");
+                $rq->execute([
+                    'ite_name' => $ite_name,
+                    'ite_description' => $ite_description,
+                    'ite_poids' => $ite_poids,
+                    'ite_value' => $ite_value,
+                    'typ_id' => $typ_id,
+                    'ite_id' => $ite_id
+                ]);
+            } catch (Exception $e) {
+                $_SESSION['error_message'] = "Erreur lors de la modification de l'item : " . $e->getMessage();
+                header(sprintf("Location: %s/pannel_admin/tresors/modifier_item", $this->baseUrl));
+                exit();
+            }
+        } else {
+            $_SESSION['error_message'] = "Tous les champs obligatoires sont requis.";
+            header(sprintf("Location: %s/pannel_admin/tresors/modifier_item", $this->baseUrl));
+            exit();
+        }
+        //redirige vers la page des monstres apres update
+        header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+        $connexion = null;
+    }
 
     public function formAjoutLoot()
     {
@@ -274,4 +323,6 @@ class TresorsController
         }
         $connexion = null;
     }
+
+    public function formModifierLoot() {}
 }

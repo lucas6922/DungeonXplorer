@@ -17,10 +17,18 @@ class TresorsController
     {
         $connexion = connect_db();
 
+        //récupère les items
         $select = $connexion->query("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID)");
         $items = $select->fetchAll(PDO::FETCH_ASSOC);
         if (!$items) {
             $items = [];
+        }
+
+        //récupère les loots
+        $select = $connexion->query("SELECT * FROM LOOT");
+        $loots = $select->fetchAll(PDO::FETCH_ASSOC);
+        if (!$loots) {
+            $loots = [];
         }
         require_once 'views/pannel_admin/tresors.php';
         $connexion = null;

@@ -1,4 +1,5 @@
 <?php include 'includes/header.php'; ?>
+<h1>MONSTRES</h1>
 <?php if (!empty($monsters)): ?>
     <table>
         <thead>

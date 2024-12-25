@@ -31,13 +31,14 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/*css pour le tableau des joueurs*/
+/*css pour les tableau*/
 table {
     border-collapse: collapse;
     border: 2px solid rgb(140 140 140);
     font-family: sans-serif;
     font-size: 0.8rem;
     letter-spacing: 1px;
+    width: 100%;
 }
   
 th,
@@ -45,6 +46,15 @@ td {
     border: 1px solid rgb(160 160 160);
     padding: 8px 10px;
 }
+tbody tr:nth-child(odd) {
+    background-color: rgb(50, 50, 50); 
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgb(70, 70, 70); 
+}
+
+
 
 .form-supp-pannel-panadm{
     padding: 0;
@@ -52,6 +62,7 @@ td {
     border: none;
     text-align: center;  
     margin: auto;
+    background-color: transparent;
 }
   
   

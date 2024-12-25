@@ -1,4 +1,5 @@
 <?php include 'includes/header.php'; ?>
+<h1>JOUEURS</h1>
 <?php if (!empty($joueurs)): ?>
     <table>
         <thead>

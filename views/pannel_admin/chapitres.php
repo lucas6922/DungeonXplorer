@@ -1,5 +1,6 @@
 <?php include 'includes/header.php'; ?>
 
+<h1>CHAPITRES</h1>
 <?php if (!empty($chapitres)): ?>
     <table>
         <thead>

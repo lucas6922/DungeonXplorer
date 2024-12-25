@@ -3,8 +3,8 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">TYP_ID</th>
                 <th scope="col">ITE_NAME</th>
+                <th scope="col">TYPE</th>
                 <th scope="col">ITE_DESCRIPTION</th>
                 <th scope="col">ITE_POIDS</th>
                 <th scope="col">ITE_VALUE</th>
@@ -15,8 +15,8 @@
         <tbody>
             <?php foreach ($items as $item): ?>
                 <tr>
-                    <td><?php echo $item['TYP_ID']; ?></td>
                     <td><?php echo $item['ITE_NAME']; ?></td>
+                    <td><?php echo $item['TYP_LIBELLE']; ?></td>
                     <td><?php echo $item['ITE_DESCRIPTION']; ?></td>
                     <td><?php echo $item['ITE_POIDS']; ?></td>
                     <td><?php echo $item['ITE_VALUE']; ?></td>

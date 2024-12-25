@@ -3,7 +3,6 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">PLA_ID</th>
                 <th scope="col">PLA_FIRSTNAME</th>
                 <th scope="col">PLA_SURNAME</th>
                 <th scope="col">PLA_MAIL</th>
@@ -15,7 +14,6 @@
         <tbody>
             <?php foreach ($joueurs as $joueur): ?>
                 <tr>
-                    <td><?php echo $joueur['PLA_ID']; ?></td>
                     <td><?php echo $joueur['PLA_FIRSTNAME']; ?></td>
                     <td><?php echo $joueur['PLA_SURNAME']; ?></td>
                     <td><?php echo $joueur['PLA_MAIL']; ?></td>

@@ -4,8 +4,8 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">CHA_ID</th>
                 <th scope="col">CHA_NAME</th>
+                <th scope="col">LOOT</th>
                 <th scope="col">CHA_CONTENT</th>
                 <th scope="col">CHA_IMAGE</th>
                 <th scope="col">SUPRESSION</th>
@@ -15,8 +15,8 @@
         <tbody>
             <?php foreach ($chapitres as $chapitre): ?>
                 <tr>
-                    <td><?php echo $chapitre['CHA_ID']; ?></td>
                     <td><?php echo $chapitre['CHA_NAME']; ?></td>
+                    <td><?php echo $chapitre['LOO_NAME']; ?></td>
                     <td><?php echo $chapitre['CHA_CONTENT']; ?></td>
                     <td>
                         <?php if (!empty($chapitre['CHA_IMAGE'])): ?>

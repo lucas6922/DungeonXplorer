@@ -3,7 +3,6 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">MON_ID</th>
                 <th scope="col">LOO_ID</th>
                 <th scope="col">MON_NAME</th>
                 <th scope="col">MON_PV</th>
@@ -19,7 +18,6 @@
         <tbody>
             <?php foreach ($monsters as $monster): ?>
                 <tr>
-                    <td><?php echo $monster['MON_ID']; ?></td>
                     <td><?php echo $monster['LOO_ID']; ?></td>
                     <td><?php echo $monster['MON_NAME']; ?></td>
                     <td><?php echo $monster['MON_PV']; ?></td>

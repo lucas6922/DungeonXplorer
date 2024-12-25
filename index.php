@@ -166,6 +166,7 @@ $router->addRoute('pannel_admin/modifier_item', 'TresorsController@formModifierI
 $router->addRoute('pannel_admin/modifier_item_traitement', 'TresorsController@modifierItem');
 //formulaire ajout d'un loot
 $router->addRoute('pannel_admin/creation_loot', 'TresorsController@formAjoutLoot');
+$router->addRoute('pannel_admin/ajoutLoot', 'TresorsController@ajoutLoot');
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

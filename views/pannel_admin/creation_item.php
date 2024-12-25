@@ -38,13 +38,13 @@
 </form>
 
 <?php
-if (isset($_SESSION['ite_creation_error']) || !empty($_SESSION['ite_creation_error'])) :
+if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 ?>
     <script>
-        afficherErreur("<?= $_SESSION['ite_creation_error'] ?>");
+        afficherErreur("<?= $_SESSION['error_message'] ?>");
     </script>
 <?php
-    unset($_SESSION['ite_creation_error']);
+    unset($_SESSION['error_message']);
 endif;
 ?>
 

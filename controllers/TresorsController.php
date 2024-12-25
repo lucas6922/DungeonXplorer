@@ -17,7 +17,7 @@ class TresorsController
     {
         $connexion = connect_db();
 
-        $select = $connexion->query("SELECT * FROM ITEMS");
+        $select = $connexion->query("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID)");
         $items = $select->fetchAll(PDO::FETCH_ASSOC);
         if (!$items) {
             $items = [];

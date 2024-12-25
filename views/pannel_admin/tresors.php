@@ -52,7 +52,7 @@
 <!--affichage des loots-->
 
 <h2>LOOTS</h2>
-<?php if (!empty($items)): ?>
+<?php if (!empty($loots)): ?>
     <table>
         <thead>
             <tr>
@@ -68,9 +68,9 @@
                     <td><?php echo $loot['LOO_NAME']; ?></td>
                     <td><?php echo $loot['LOO_QUANTITY']; ?></td>
                     <td>
-                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_item" method="post" class="form-supp-pannel-panadm">
-                            <input type="hidden" name="ite_id" value="<?php echo $item['ITE_ID']; ?>">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet item ?');">Supprimer</button>
+                        <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_loot" method="post" class="form-supp-pannel-panadm">
+                            <input type="hidden" name="loo_id" value="<?php echo $loot['LOO_ID']; ?>">
+                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce loot ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>

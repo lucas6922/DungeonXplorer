@@ -245,4 +245,33 @@ class TresorsController
         }
         $connexion = null;
     }
+
+
+    public function supprimerLoot()
+    {
+        $connexion = connect_db();
+
+        print_r($_POST);
+        //si formulaire envoyé avec l'id d'un loot pour le supp
+        if (isset($_POST['loo_id'])) {
+
+            $loo_id = $_POST['loo_id'];
+            //supp le joueur
+            $rqp = $connexion->prepare("DELETE FROM LOOT WHERE LOO_ID = ?");
+            $rqp->execute([$loo_id]);
+
+            //reuper la nouvelle liste des items
+            $select = $connexion->query("SELECT * FROM LOOT");
+            $loots = $select->fetchAll(PDO::FETCH_ASSOC);
+            if (!$loots) {
+                $loots = [];  //si aucun loot trouvé
+            }
+
+            header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
+            exit();
+        } else {
+            echo "erreur lors de la suppression, aucun id recu";
+        }
+        $connexion = null;
+    }
 }

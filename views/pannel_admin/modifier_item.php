@@ -8,10 +8,8 @@
     <label for="ite_name">Nom de l'item *:</label>
     <input type="text" id="ite_name" name="ite_name" value="<?php echo $item['ITE_NAME']; ?>" required>
 
-
-
     <label for="ite_description">Description de l'item :</label>
-    <textarea id="ite_description" name="ite_description" value="<?php echo $item['ITE_DESCRIPTION']; ?>"></textarea>
+    <textarea id="ite_description" name="ite_description"><?php echo $item['ITE_DESCRIPTION']; ?></textarea>
 
 
 

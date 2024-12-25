@@ -150,7 +150,7 @@ class TresorsController
 
         if (!isset($_POST['ite_id']) || empty($_POST['ite_id'])) {
             $_SESSION['error_message'] = "Aucun item spécifié.";
-            header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
+            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
             exit();
         }
 
@@ -170,14 +170,14 @@ class TresorsController
 
             if (!$item) {
                 $_SESSION['error_message'] = "Item introuvable.";
-                header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
+                header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
                 exit();
             }
             //affiche le formulaire de modification
             require_once 'views/pannel_admin/modifier_item.php';
         } catch (Exception $e) {
             $_SESSION['error_message'] = "Erreur lors de la récupération de l'item : " . $e->getMessage();
-            header(sprintf("Location: %s/pannel_admin/modifier_item", $this->baseUrl));
+            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
             exit();
         }
         $connexion = null;
@@ -228,7 +228,7 @@ class TresorsController
             header(sprintf("Location: %s/pannel_admin/tresors/modifier_item", $this->baseUrl));
             exit();
         }
-        //redirige vers la page des monstres apres update
+        //redirige vers la page des tresors apres update
         header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
         $connexion = null;
     }
@@ -324,5 +324,40 @@ class TresorsController
         $connexion = null;
     }
 
-    public function formModifierLoot() {}
+    public function formModifierLoot()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_POST['loo_id']) || empty($_POST['loo_id'])) {
+            $_SESSION['error_message'] = "Aucun loot spécifié.";
+            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+            exit();
+        }
+
+        $loo_id = intval($_POST['loo_id']);
+        $connexion = connect_db();
+
+        //recup données du loot
+        try {
+
+            $rq = $connexion->prepare("SELECT * FROM LOOT WHERE LOO_ID = :loo_id");
+            $rq->execute(['loo_id' => $loo_id]);
+            $loot = $rq->fetch();
+
+            if (!$loot) {
+                $_SESSION['error_message'] = "Loot introuvable.";
+                header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+                exit();
+            }
+            //affiche le formulaire de modification
+            require_once 'views/pannel_admin/modifier_loot.php';
+        } catch (Exception $e) {
+            $_SESSION['error_message'] = "Erreur lors de la récupération du loot : " . $e->getMessage();
+            header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
+            exit();
+        }
+        $connexion = null;
+    }
 }

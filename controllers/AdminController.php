@@ -111,6 +111,14 @@ class AdminController
 
     public function formAjoutChapitre()
     {
+        $connexion = connect_db();
+
+        $rq = $connexion->prepare("SELECT LOO_ID, LOO_NAME FROM LOOT");
+        $rq->execute();
+
+        $loots = $rq->fetchAll(PDO::FETCH_ASSOC);
+
+        $connexion = null;
         require_once 'views/pannel_admin/creation_chapitre.php';
     }
 
@@ -182,7 +190,14 @@ class AdminController
 
         //recup données du chapitre
         try {
-            $rq = $connexion->prepare("SELECT * FROM CHAPTER WHERE CHA_ID = :cha_id");
+            //recupère les loots pour la selection
+            $rq = $connexion->prepare("SELECT LOO_ID, LOO_NAME FROM LOOT");
+            $rq->execute();
+
+            $loots = $rq->fetchAll(PDO::FETCH_ASSOC);
+
+            //recupère les données du chapitre (avec celle du loot associé)
+            $rq = $connexion->prepare("SELECT * FROM CHAPTER JOIN LOOT USING(LOO_ID) WHERE CHA_ID = :cha_id");
             $rq->execute(['cha_id' => $cha_id]);
             $chapitre = $rq->fetch();
 

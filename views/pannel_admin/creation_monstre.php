@@ -4,6 +4,10 @@
 
 <form action="<?php echo $baseUrl; ?>/pannel_admin/ajoutMonstre" method="POST" enctype="multipart/form-data">
 
+    <label for="mon_name">Nom du Monstre</label>
+    <input type="text" name="mon_name" id="mon_name" placeholder="Saisissez le nom du monstre" required>
+
+
     <label for="loo_id">Nom du loot:</label>
     <select name="loo_id" id="loo_id">
         <option value="">Sélectionnez un loot</option>
@@ -11,9 +15,6 @@
             <option value="<?php echo $loot['LOO_ID']; ?>"><?php echo $loot['LOO_NAME']; ?></option>
         <?php endforeach; ?>
     </select>
-
-    <label for="mon_name">Nom du Monstre</label>
-    <input type="text" name="mon_name" id="mon_name" placeholder="Saisissez le nom du monstre" required>
 
     <label for="mon_pv">Points de Vie (PV)</label>
     <input type="number" name="mon_pv" id="mon_pv" placeholder="Saisissez les points de vie du monstre" required>

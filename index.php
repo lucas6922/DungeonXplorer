@@ -151,7 +151,9 @@ $router->addRoute('pannel_admin/modifier_monstre', 'AdminController@formModifier
 $router->addRoute('pannel_admin/modifier_monstre_traitement', 'AdminController@modifierMonstre');
 
 //form creation item
-$router->addRoute('pannel_admin/creation_item', 'AdminController@ajoutItem');
+$router->addRoute('pannel_admin/creation_item', 'AdminController@formAjoutItem');
+//traitement ajout item
+$router->addRoute('pannel_admin/ajoutItem', 'AdminController@ajoutItem');
 
 
 

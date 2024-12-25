@@ -276,6 +276,14 @@ class AdminController
 
     public function formAjoutMonstre()
     {
+        $connexion = connect_db();
+
+        $rq = $connexion->prepare("SELECT LOO_ID, LOO_NAME FROM LOOT");
+        $rq->execute();
+
+        $loots = $rq->fetchAll(PDO::FETCH_ASSOC);
+
+        $connexion = null;
         require_once 'views/pannel_admin/creation_monstre.php';
     }
 

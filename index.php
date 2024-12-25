@@ -117,7 +117,7 @@ $router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPann
 $router->addRoute('pannel_admin/joueurs', 'AdminController@gererJoueurs');
 $router->addRoute('pannel_admin/chapitres', 'AdminController@gererChapitres');
 $router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
-$router->addRoute('pannel_admin/tresors', 'AdminController@gererTresors');
+$router->addRoute('pannel_admin/tresors', 'TresorsController@gererTresors');
 $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
 
@@ -150,12 +150,21 @@ $router->addRoute('pannel_admin/modifier_monstre', 'AdminController@formModifier
 //traitement modification
 $router->addRoute('pannel_admin/modifier_monstre_traitement', 'AdminController@modifierMonstre');
 
+
+//-----------------------//
+//        TRESORS        //
+//-----------------------//
 //form creation item
-$router->addRoute('pannel_admin/creation_item', 'AdminController@formAjoutItem');
+$router->addRoute('pannel_admin/creation_item', 'TresorsController@formAjoutItem');
 //traitement ajout item
-$router->addRoute('pannel_admin/ajoutItem', 'AdminController@ajoutItem');
+$router->addRoute('pannel_admin/ajoutItem', 'TresorsController@ajoutItem');
 //suppresion d'un item
-$router->addRoute('pannel_admin/supprimer_item', 'AdminController@supprimerItem');
+$router->addRoute('pannel_admin/supprimer_item', 'TresorsController@supprimerItem');
+//form modifier item
+$router->addRoute('pannel_admin/modifier_item', 'TresorsController@formModifierItem');
+//traitement modif item
+$router->addRoute('pannel_admin/modifier_item_traitement', 'TresorsController@modifierItem');
+
 
 // Appel de la méthode route
 $router->route(trim($_SERVER['REQUEST_URI'], '/'));

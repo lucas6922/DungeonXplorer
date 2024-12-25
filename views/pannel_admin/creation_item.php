@@ -5,7 +5,7 @@
 <form action="<?php echo $baseUrl; ?>/pannel_admin/ajoutItem" method="POST" enctype="multipart/form-data">
 
 
-    <label for="ite_name">Nom de l'item :</label>
+    <label for="ite_name">Nom de l'item *:</label>
     <input type="text" id="ite_name" name="ite_name" placeholder="Saisissez le nom de l'item" required>
 
 
@@ -21,12 +21,12 @@
 
 
     <label for="ite_value">Valeur de l'item :</label>
-    <input type="number" id="ite_value" name="ite_value" placeholder="Saisissez la valeur de l'item" required>
+    <input type="number" id="ite_value" name="ite_value" placeholder="Saisissez la valeur de l'item">
 
 
 
     <label for="typ_id">Type de l'item :</label>
-    <select name="typ_id" id="typ_id" required>
+    <select name="typ_id" id="typ_id">
         <option value="">Sélectionnez un type</option>
         <?php foreach ($types as $type): ?>
             <option value="<?php echo $type['TYP_ID']; ?>"><?php echo $type['TYP_LIBELLE']; ?></option>
@@ -39,7 +39,6 @@
 
 <?php
 if (isset($_SESSION['ite_creation_error']) || !empty($_SESSION['ite_creation_error'])) :
-    // Si une erreur de création existe, afficher un message d'erreur
 ?>
     <script>
         afficherErreur("<?= htmlspecialchars($_SESSION['ite_creation_error'], ENT_QUOTES) ?>");

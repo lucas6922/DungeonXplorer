@@ -2,8 +2,9 @@
 
 <h1>Modifier l'item <?php echo $item['ITE_NAME']; ?></h1>
 
-<form action="<?php echo $baseUrl; ?>/pannel_admin/ajoutItem" method="POST" enctype="multipart/form-data">
+<form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_item_traitement" method="POST" enctype="multipart/form-data">
 
+    <input type="hidden" name="ite_id" value="<?php echo $item['ITE_ID']; ?>">
 
     <label for="ite_name">Nom de l'item *:</label>
     <input type="text" id="ite_name" name="ite_name" value="<?php echo $item['ITE_NAME']; ?>" required>
@@ -25,14 +26,16 @@
 
     <label for="typ_id">Type de l'item :</label>
     <select name="typ_id" id="typ_id">
-        <option value=" <?php echo $item['ITE_ID']; ?>"><?php echo $item['ITE_NAME']; ?></option>
+        <option value=" <?php echo $item['TYP_ID']; ?>"><?php echo $item['TYP_LIBELLE']; ?></option>
         <?php foreach ($types as $type): ?>
-            <option value="<?php echo $type['TYP_ID']; ?>"><?php echo $type['TYP_LIBELLE']; ?></option>
+            <?php if ($type['TYP_ID'] != $item['TYP_ID']): ?>
+                <option value="<?php echo $type['TYP_ID']; ?>"><?php echo $type['TYP_LIBELLE']; ?></option>
+            <?php endif; ?>
         <?php endforeach; ?>
     </select>
 
 
-    <button type="submit">Créer l'item</button>
+    <button type="submit">Modifier l'item</button>
 </form>
 
 <?php

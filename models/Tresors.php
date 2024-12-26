@@ -78,6 +78,13 @@ class Tresors
      */
     public function insertLoot($loo_name, $loo_quantity, $items)
     {
+        // echo "<pre>";
+        // echo $loo_name . "\n";
+        // echo $loo_quantity . "\n";
+        // print_r($items);
+        // echo "<pre>";
+
+
         //insert le nom et la quantite du loot
         $rqp = $this->conn->prepare("
             INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
@@ -87,6 +94,7 @@ class Tresors
             'quantity' => $loo_quantity,
         ]);
 
+        /*
         //récupère l'id du loot
         $lootId = $this->conn->lastInsertId();
 
@@ -104,6 +112,6 @@ class Tresors
                     'quantity' => $item['ite_qte'],
                 ]);
             }
-        }
+        }*/
     }
 }

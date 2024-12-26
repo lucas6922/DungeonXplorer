@@ -1,20 +1,25 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let itemIndex = 1;
-
-    const addItemButton = document.getElementById('add-item-btn');
+document.addEventListener('DOMContentLoaded', function () {
+    let itemIndex = 1;  // Index pour identifier chaque nouvel item ajouté
+    const addItemBtn = document.getElementById('add-item-btn');
     const itemsContainer = document.getElementById('items-container');
 
-    addItemButton.addEventListener('click', function () {
-        const newItem = document.createElement('div');
-        newItem.classList.add('item-entry');
-        newItem.innerHTML = `
-            <label for="item_name_${itemIndex}">Nom de l'item :</label>
-            <input type="text" id="item_name_${itemIndex}" name="items[${itemIndex}][name]" placeholder="Nom de l'item" >
+    addItemBtn.addEventListener('click', function () {
+        // Cloner la première entrée d'item
+        const newItem = document.querySelector('.item-entry').cloneNode(true);
 
-            <label for="item_quantity_${itemIndex}">Quantité de l'item :</label>
-            <input type="number" id="item_quantity_${itemIndex}" name="items[${itemIndex}][quantity]" placeholder="Quantité de l'item" >
-        `;
+        // Mettre à jour les attributs des nouveaux champs de formulaire
+        newItem.querySelector('label[for="item_name_1"]').setAttribute('for', `item_name_${itemIndex}`);
+        newItem.querySelector('select[id="item_name_1"]').setAttribute('id', `item_name_${itemIndex}`);
+        newItem.querySelector('select[name="items[0][name]"]').setAttribute('name', `items[${itemIndex}][name]`);
+
+        newItem.querySelector('label[for="item_quantity_1"]').setAttribute('for', `item_quantity_${itemIndex}`);
+        newItem.querySelector('input[id="item_quantity_1"]').setAttribute('id', `item_quantity_${itemIndex}`);
+        newItem.querySelector('input[name="items[0][quantity]"]').setAttribute('name', `items[${itemIndex}][quantity]`);
+
+        // Ajouter le nouvel item dans le conteneur
         itemsContainer.appendChild(newItem);
+
+        // Incrémenter l'index pour le prochain item
         itemIndex++;
     });
 });

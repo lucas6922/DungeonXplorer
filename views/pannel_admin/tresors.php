@@ -43,9 +43,9 @@
     </table>
 <?php endif ?>
 
-<div>
-    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_item">Créer un item</button>
-</div>
+
+<button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_item">Créer un item</a></button>
+
 
 
 
@@ -58,6 +58,7 @@
             <tr>
                 <th scope="col">LOO_NAME</th>
                 <th scope="col">LOO_QUANTITY</th>
+                <th scope="col">ITEMS</th>
                 <th scope="col">SUPPRESSION</th>
                 <th scope="col">MODIFICATION</th>
             </tr>
@@ -67,6 +68,19 @@
                 <tr>
                     <td><?php echo $loot['LOO_NAME']; ?></td>
                     <td><?php echo $loot['LOO_QUANTITY']; ?></td>
+                    <td>
+                        <?php if (isset($loot['ITEMS']) && is_array($loot['ITEMS'])): ?>
+                            <ul>
+                                <?php foreach ($loot['ITEMS'] as $item): ?>
+                                    <?php if (isset($item['ITE_NAME'], $item['CON_QTE'])): ?>
+                                        <li><?php echo $item['ITE_NAME']; ?> (Quantité : <?php echo $item['CON_QTE']; ?>)</li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            Aucun item
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_loot" method="post" class="form-supp-pannel-panadm">
                             <input type="hidden" name="loo_id" value="<?php echo $loot['LOO_ID']; ?>">
@@ -86,10 +100,10 @@
 <?php endif ?>
 
 <div>
-    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_loot">Créer un loot</button>
+    <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_loot">Créer un loot</a></button>
 </div>
 
-
+<pre><?php print_r($loots); ?></pre>
 <?php
 if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 ?>

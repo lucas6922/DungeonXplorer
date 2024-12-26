@@ -62,6 +62,20 @@ class Tresors
         return $nLoot;
     }
 
+    /**
+     * supprime un loot et les items qui y sont associé
+     */
+    public function suppLoot($id)
+    {
+        //suppression de l'associatoin des items au loot
+        $del = $this->conn->prepare("DELETE FROM CONTAINS WHERE LOO_ID = ?");
+        $del->execute([$id]);
+
+        //suppression du loot en lui même
+        $del = $this->conn->prepare("DELETE FROM LOOT WHERE LOO_ID = ?");
+        $del->execute([$id]);
+    }
+
 
     /**
      * revoi si oui ou non un loot existe avec le nom

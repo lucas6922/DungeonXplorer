@@ -33,6 +33,10 @@ class Tresors
         LEFT JOIN ITEMS USING(ITE_ID)");
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * met en forme le resultat de la récupération des loots
+     */
     public function transformLoot($loots)
     {
         $nLoot = [];
@@ -56,5 +60,50 @@ class Tresors
         }
 
         return $nLoot;
+    }
+
+
+    /**
+     * revoi si oui ou non un loot existe avec le nom
+     */
+    public function isUniqueLoot($nom)
+    {
+        $rqp = $this->conn->prepare("SELECT 1 FROM LOOT WHERE loo_name = :nom");
+        $rqp->execute(['nom' => $nom]);
+        return $rqp->fetch();
+    }
+
+    /**
+     * insert le loot avec ses items
+     */
+    public function insertLoot($loo_name, $loo_quantity, $items)
+    {
+        //insert le nom et la quantite du loot
+        $rqp = $this->conn->prepare("
+            INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
+            VALUES (:name, :quantity)");
+        $rqp->execute([
+            'name' => $loo_name,
+            'quantity' => $loo_quantity,
+        ]);
+
+        //récupère l'id du loot
+        $lootId = $this->conn->lastInsertId();
+
+        // Insérer les items et les associer au loot
+        foreach ($items as $item) {
+            //si item récupéré
+            if (!empty($item['name']) && !empty($item['quantity'])) {
+                $stmt = $this->conn->prepare("
+                    INSERT INTO CONTAINS (LOO_ID, ITE_ID, CON_QTE) 
+                    VALUES (:lootId, :itemId, :qte)
+                ");
+                $stmt->execute([
+                    'lootId' => $lootId,
+                    'itemId' => $item['ite_id'],
+                    'quantity' => $item['ite_qte'],
+                ]);
+            }
+        }
     }
 }

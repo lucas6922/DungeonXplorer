@@ -229,24 +229,20 @@ class TresorsController
 
     public function formAjoutLoot()
     {
+        $tresors = new Tresors(connect_db());
+        $items = $tresors->getAllItems();
         require_once 'views/pannel_admin/creation_loot.php';
     }
 
     public function ajoutLoot()
     {
 
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        /*
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
         $connexion = connect_db();
-
-        print_r($_POST);
-
+        $tresors = new Tresors($connexion);
 
         if (
             isset($_POST['loo_name']) && !empty($_POST['loo_name'])
@@ -256,19 +252,15 @@ class TresorsController
 
 
             try {
-                //unicite d'un loot
-                $rqp = $connexion->prepare("SELECT 1 FROM LOOT WHERE loo_name = :nom");
-                $rqp->execute(['nom' => $loo_name]);
-
-                if ($rqp->fetch()) {
-                    //existe deja
+                //un loot existe deja avec de nom
+                if ($tresors->isUniqueLoot($_POST['loo_name'])) {
                     $_SESSION['error_message'] = "Un loot existe déjà avec ce nom.";
                     header("Location: " . $this->baseUrl . "/pannel_admin/creation_loot");
                     exit();
                 }
 
 
-                //insert le monstre
+                //insert le loot
                 $rqp = $connexion->prepare("
             INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
             VALUES (:name, :quantity)");
@@ -292,7 +284,6 @@ class TresorsController
             exit();
         }
         $connexion = null;
-        */
     }
 
 

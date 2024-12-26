@@ -234,6 +234,11 @@ class TresorsController
 
     public function ajoutLoot()
     {
+
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        /*
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -287,6 +292,7 @@ class TresorsController
             exit();
         }
         $connexion = null;
+        */
     }
 
 

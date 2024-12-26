@@ -17,19 +17,13 @@ class TresorsController
     {
         $connexion = connect_db();
 
-        //récupère les items
-        $select = $connexion->query("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID)");
-        $items = $select->fetchAll(PDO::FETCH_ASSOC);
-        if (!$items) {
-            $items = [];
-        }
+        $Tresors = new Tresors($connexion);
 
+        //récupère les items
+        $items = $Tresors->getAllItems();
         //récupère les loots
-        $select = $connexion->query("SELECT * FROM LOOT");
-        $loots = $select->fetchAll(PDO::FETCH_ASSOC);
-        if (!$loots) {
-            $loots = [];
-        }
+        $loots = $Tresors->transformLoot($Tresors->getAllLoots());
+
         require_once 'views/pannel_admin/tresors.php';
         $connexion = null;
     }
@@ -341,15 +335,36 @@ class TresorsController
 
         //recup données du loot
         try {
+            $rq = $connexion->prepare("SELECT LOOT.LOO_ID, LOOT.LOO_NAME, LOOT.LOO_QUANTITY, 
+                CONTAINS.ITE_ID, CONTAINS.CON_QTE, ITEMS.ITE_NAME
+                FROM LOOT
+                LEFT JOIN CONTAINS ON LOOT.LOO_ID = CONTAINS.LOO_ID
+                LEFT JOIN ITEMS ON CONTAINS.ITE_ID = ITEMS.ITE_ID
+                WHERE LOOT.LOO_ID = :loo_id");
 
-            $rq = $connexion->prepare("SELECT * FROM LOOT WHERE LOO_ID = :loo_id");
             $rq->execute(['loo_id' => $loo_id]);
-            $loot = $rq->fetch();
+            $lootItems = $rq->fetchAll();
 
-            if (!$loot) {
+            if (!$lootItems) {
                 $_SESSION['error_message'] = "Loot introuvable.";
                 header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
                 exit();
+            }
+            //print_r($lootItems);
+            $loot = [
+                'LOO_ID' => $lootItems[0]['LOO_ID'],
+                'LOO_NAME' => $lootItems[0]['LOO_NAME'],
+                'LOO_QUANTITY' => $lootItems[0]['LOO_QUANTITY'],
+                'ITEMS' => []
+            ];
+            foreach ($lootItems as $item) {
+                if (!empty($item['ITE_ID'])) {
+                    $loot['ITEMS'][] = [
+                        'ITE_ID' => $item['ITE_ID'],
+                        'ITE_NAME' => $item['ITE_NAME'],
+                        'CON_QTE' => $item['CON_QTE']
+                    ];
+                }
             }
             //affiche le formulaire de modification
             require_once 'views/pannel_admin/modifier_loot.php';

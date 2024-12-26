@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Mettre à jour les attributs des nouveaux champs de formulaire
         newItem.querySelector('label[for="item_name_1"]').setAttribute('for', `item_name_${itemIndex}`);
         newItem.querySelector('select[id="item_name_1"]').setAttribute('id', `item_name_${itemIndex}`);
-        newItem.querySelector('select[name="items[0][name]"]').setAttribute('name', `items[${itemIndex}][name]`);
+        newItem.querySelector('select[name="items[0][ite_id]"]').setAttribute('name', `items[${itemIndex}][ite_id]`);  // Mettre ite_id
 
         newItem.querySelector('label[for="item_quantity_1"]').setAttribute('for', `item_quantity_${itemIndex}`);
         newItem.querySelector('input[id="item_quantity_1"]').setAttribute('id', `item_quantity_${itemIndex}`);

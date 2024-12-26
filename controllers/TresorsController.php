@@ -237,6 +237,7 @@ class TresorsController
     public function ajoutLoot()
     {
 
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -248,8 +249,8 @@ class TresorsController
             isset($_POST['loo_name']) && !empty($_POST['loo_name'])
         ) {
             $loo_name = trim(strip_tags($_POST['loo_name']));
+            //a voir si on laisse null ou si on met 1
             $loo_quantity = isset($_POST['loo_quantity']) ? intval($_POST['loo_quantity']) : null;
-
 
             try {
                 //un loot existe deja avec de nom
@@ -259,15 +260,8 @@ class TresorsController
                     exit();
                 }
 
-
-                //insert le loot
-                $rqp = $connexion->prepare("
-            INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
-            VALUES (:name, :quantity)");
-                $rqp->execute([
-                    'name' => $loo_name,
-                    'quantity' => $loo_quantity,
-                ]);
+                //insert le loot avec ses items
+                $tresors->insertLoot($loo_name, $loo_quantity, $_POST['items']);
 
                 header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
                 exit();

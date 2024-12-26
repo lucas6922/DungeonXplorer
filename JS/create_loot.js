@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
         newItem.querySelector('label[for="item_quantity_1"]').setAttribute('for', `item_quantity_${itemIndex}`);
         newItem.querySelector('input[id="item_quantity_1"]').setAttribute('id', `item_quantity_${itemIndex}`);
         newItem.querySelector('input[name="items[0][quantity]"]').setAttribute('name', `items[${itemIndex}][quantity]`);
-
         // Ajouter le nouvel item dans le conteneur
         itemsContainer.appendChild(newItem);
 

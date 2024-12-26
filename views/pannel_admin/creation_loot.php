@@ -23,7 +23,7 @@
             </select>
 
             <label for="item_quantity_1">Quantité de l'item :</label>
-            <input type="number" id="item_quantity_1" name="items[0][quantity]" placeholder="Quantité de l'item">
+            <input type="number" id="item_quantity_1" name="items[0][quantity]" placeholder="Quantité de l'item" value=1>
         </div>
     </div>
 

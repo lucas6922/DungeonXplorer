@@ -89,29 +89,37 @@ class Tresors
         $rqp = $this->conn->prepare("
             INSERT INTO LOOT (LOO_NAME,LOO_QUANTITY) 
             VALUES (:name, :quantity)");
+
         $rqp->execute([
             'name' => $loo_name,
             'quantity' => $loo_quantity,
         ]);
 
-        /*
+
         //récupère l'id du loot
         $lootId = $this->conn->lastInsertId();
+        // $_SESSION['debug'] = $lootId;
 
         // Insérer les items et les associer au loot
+        $_SESSION['debug'] = $items;
+
         foreach ($items as $item) {
-            //si item récupéré
-            if (!empty($item['name']) && !empty($item['quantity'])) {
-                $stmt = $this->conn->prepare("
+            //     $_SESSION['IDTAH'] = $lootId;
+            //     $_SESSION['ID'] = $item['ite_id'];
+            //     $_SESSION['QTE'] = $item['quantity'];
+
+            //si item récupéré faire le lien entre le loot et l'item
+            if (!empty($item['ite_id']) && !empty($item['quantity'])) {
+                $rqp = $this->conn->prepare("
                     INSERT INTO CONTAINS (LOO_ID, ITE_ID, CON_QTE) 
                     VALUES (:lootId, :itemId, :qte)
                 ");
-                $stmt->execute([
+                $rqp->execute([
                     'lootId' => $lootId,
                     'itemId' => $item['ite_id'],
-                    'quantity' => $item['ite_qte'],
+                    'qte' => $item['quantity'],
                 ]);
             }
-        }*/
+        }
     }
 }

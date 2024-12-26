@@ -1,11 +1,13 @@
 <?php
     require_once 'models/Hero.php';
+    require_once 'models/Monster.php';
     require_once 'database/connexion_db.php';
     
     class fenetreCombatController {
         private $hero = null;
+        private $monster = null;
 
-        public function chargeHeros($herId){
+        public function chargeHero($herId){
 
             $conn = connect_db();
             $sql = "select * from HERO where HER_ID = :herId;";
@@ -33,21 +35,39 @@
 
         }
 
+        public function chargeMonster($herId){
+
+            $conn = connect_db();
+            $sql = "select * from MONSTER JOIN ENCOUNTER USING(mon_id) JOIN HERO USING(cha_id) where HER_ID = :herId;";
+            $cur = $conn->prepare($sql);
+            $cur->execute([':herId' => $herId]);
+            $tab = $cur->fetchAll();
+            $this->monster = new Monster($tab[0]['MON_ID'], $tab[0]['MON_NAME'], $tab[0]['MON_PV'], $tab[0]['MON_MANA'], $tab[0]['MON_INITIATIVE'], $tab[0]['MON_STRENGTH'], $tab[0]['MON_XP'], $tab[0]['LOO_ID']);
+
+        }
+
         public function getHero()
         {
             return $this->hero; 
         }
+
+        public function getMonster()
+        {
+            return $this->monster; 
+        }
         
 
         public function combat($herId) {
-            $this->chargeHeros($herId);
+            $this->chargeHero($herId);
+            $this->chargeMonster($herId);
             $hero = $this->getHero();
-            if ($hero != null) {
+            $monster = $this->getMonster();
+            if ($hero != null && $monster != null) {
                 include 'views/fenetreCombat.php'; // Charge la vue pour le hero
             } else {
                 // Si le chapitre n'existe pas, redirige vers un chapitre par défaut ou affiche une erreur
                 header('HTTP/1.0 404 Not Found');
-                echo "Héros non trouvé!";
+                echo "Héros ou monstre non trouvé !";
             }
         }
     }

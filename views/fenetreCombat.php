@@ -9,6 +9,7 @@
 
 <body>
     <script>
+        //passe les données du héros et du monstre au js.
         let personnage = [<?php echo json_encode($hero->getName()); ?>,
             <?php echo json_encode($hero->getClaId()); ?>,
             <?php echo json_encode($hero->getPV()); ?>,
@@ -20,6 +21,12 @@
             <?php echo json_encode($hero->getSecWeapon()); ?>,
             <?php echo json_encode($hero->getShield()); ?>,
             <?php echo json_encode($hero->getSpellList()); ?>
+        ];
+        let monstre = [<?php echo json_encode($monster->getName()); ?>,
+            <?php echo json_encode($monster->getHealth()); ?>,
+            <?php echo json_encode($monster->getMana()); ?>,
+            <?php echo json_encode($monster->getStrength()); ?>,
+            <?php echo json_encode($monster->getInitiative()); ?>,
         ];
     </script>
     <?php include 'includes/header.php'; ?>
@@ -34,7 +41,6 @@
     <script src="<?php echo $baseUrl; ?>/JS/systemeCombat.js"></script>
     <?php include 'includes/footer.php'; ?>
 
-    <!--passe les données du héros au js.-->
     
 
 </body>

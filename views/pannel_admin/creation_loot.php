@@ -13,9 +13,19 @@
     <label for="loo_quantity">Quantite du loot :</label>
     <input type="number" id="loo_quantity" name="loo_quantity" placeholder="Saisissez la description du loot"></textarea>
 
+    <h2>Ajouter des items au loot</h2>
+    <div id="items-container">
+        <div class="item-entry">
+            <label for="item_name_1">Nom de l'item :</label>
+            <input type="text" id="item_name_1" name="items[0][name]" placeholder="Nom de l'item">
 
+            <label for="item_quantity_1">Quantité de l'item :</label>
+            <input type="number" id="item_quantity_1" name="items[0][quantity]" placeholder="Quantité de l'item">
+        </div>
+    </div>
 
-    <button type="submit">Créer l'item</button>
+    <button type="button" id="add-item-btn">Ajouter un item</button>
+    <button type="submit">Créer le loot</button>
 </form>
 
 <?php
@@ -29,4 +39,6 @@ if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 endif;
 ?>
 
+
+<script src="<?php echo $baseUrl; ?>/JS/create_loot.js"></script>
 <?php include 'includes/footer.php'; ?>

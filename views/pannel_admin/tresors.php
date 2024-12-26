@@ -103,7 +103,7 @@
     <button><a href="<?php echo $baseUrl; ?>/pannel_admin/creation_loot">Créer un loot</a></button>
 </div>
 
-<pre><?php print_r($loots); ?></pre>
+<!-- <pre><?php print_r($loots); ?></pre> -->
 <?php
 if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 ?>

@@ -28,12 +28,8 @@ include 'includes/header.php';
     <textarea id="cha_content" name="cha_content" required><?php echo $chapitre['CHA_CONTENT']; ?></textarea>
 
 
-
     <label for="cha_image">Image :</label>
     <input type="text" id="cha_image" name="cha_image" value="<?php echo $chapitre['CHA_IMAGE']; ?>">
-
-
-
 
     <button type="submit" class="form-btn">Enregistrer les modifications</button>
 </form>

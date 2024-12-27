@@ -115,7 +115,7 @@ $router->addRoute('combat', 'fenetreCombatController@combat');
 $router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPannelAdmin');
 $router->addRoute('pannel_admin/joueurs', 'JoueursController@gererJoueurs');
 $router->addRoute('pannel_admin/chapitres', 'ChapitresController@gererChapitres');
-$router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
+$router->addRoute('pannel_admin/monstres', 'MonstresController@gererMonstres');
 $router->addRoute('pannel_admin/tresors', 'TresorsController@gererTresors');
 $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
@@ -139,19 +139,20 @@ $router->addRoute('pannel_admin/modifier_chapitre', 'ChapitresController@formMod
 $router->addRoute('pannel_admin/modifier_chapitre_traitement', 'ChapitresController@ModifChap');
 
 
+//-----------------------//
+//       MONSTRES        //
+//-----------------------//
 
 //supprime monstre
-$router->addRoute('pannel_admin/supprimer_monstre', 'AdminController@supprimerMonstre');
+$router->addRoute('pannel_admin/supprimer_monstre', 'MonstresController@supprimerMonstre');
 //form nouveau monstre
-$router->addRoute('pannel_admin/creation_monstre', 'AdminController@formAjoutMonstre');
+$router->addRoute('pannel_admin/creation_monstre', 'MonstresController@formAjoutMonstre');
 //traitement ajout monstre
-$router->addRoute('pannel_admin/ajoutMonstre', 'AdminController@ajoutMonstre');
-
-
+$router->addRoute('pannel_admin/ajoutMonstre', 'MonstresController@ajoutMonstre');
 //form modifier monstre
-$router->addRoute('pannel_admin/modifier_monstre', 'AdminController@formModifierMonstre');
+$router->addRoute('pannel_admin/modifier_monstre', 'MonstresController@formModifierMonstre');
 //traitement modification
-$router->addRoute('pannel_admin/modifier_monstre_traitement', 'AdminController@modifierMonstre');
+$router->addRoute('pannel_admin/modifier_monstre_traitement', 'MonstresController@modifierMonstre');
 
 
 //-----------------------//

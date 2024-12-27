@@ -15,7 +15,9 @@ include 'includes/header.php';
     <select name="loo_id" id="loo_id">
         <option value="<?php echo $monstre['LOO_ID']; ?>"><?php echo $monstre['LOO_NAME']; ?></option>
         <?php foreach ($loots as $loot): ?>
-            <option value="<?php echo $loot['LOO_ID']; ?>"><?php echo $loot['LOO_NAME']; ?></option>
+            <?php if ($loot['LOO_NAME'] != $monstre['LOO_NAME']): ?>
+                <option value="<?php echo $loot['LOO_ID']; ?>"><?php echo $loot['LOO_NAME']; ?></option>
+            <?php endif; ?>
         <?php endforeach; ?>
     </select>
 

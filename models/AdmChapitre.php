@@ -35,7 +35,9 @@ class AdmChapitre
     public function isNotUniqueChap($name)
     {
         $rqp = $this->conn->prepare("SELECT 1 FROM CHAPTER WHERE cha_name = :nom");
-        return $rqp->execute(['nom' => $name]);
+        $rqp->execute(['nom' => $name]);
+
+        return $rqp->fetch() != false;
     }
 
 

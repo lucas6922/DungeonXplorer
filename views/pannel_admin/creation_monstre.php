@@ -37,6 +37,8 @@
     <button type="submit" class="form-btn">Créer Monstre</button>
 </form>
 
+<a href="<?php echo $baseUrl; ?>/pannel_admin/monstres">Retour à la liste des monstres</a>
+
 <?php
 if (isset($_SESSION['mon_creation_error']) && !empty($_SESSION['mon_creation_error'])) :
 ?>

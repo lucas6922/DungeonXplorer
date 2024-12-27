@@ -38,6 +38,9 @@
     <button type="submit" class="form-btn">Modifier l'item</button>
 </form>
 
+<a href="<?php echo $baseUrl; ?>/pannel_admin/tresors">Retour à la liste des tresors</a>
+
+
 <?php
 if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 ?>

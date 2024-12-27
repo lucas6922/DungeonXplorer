@@ -34,6 +34,8 @@
     <button type="submit" class="form-btn">Valider</button>
 </form>
 
+<a href="<?php echo $baseUrl; ?>/pannel_admin/chapitres">Retour à la liste des chapitres</a>
+
 <?php
 if (isset($_SESSION['chap_creation_error']) || !empty($_SESSION['chap_creation_error'])) :
     //print_r($_SESSION['chap_creation_error']);

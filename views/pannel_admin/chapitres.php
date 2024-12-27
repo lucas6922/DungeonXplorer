@@ -5,10 +5,10 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">CHA_NAME</th>
+                <th scope="col">NAME</th>
                 <th scope="col">LOOT</th>
-                <th scope="col">CHA_CONTENT</th>
-                <th scope="col">CHA_IMAGE</th>
+                <th scope="col">CONTENT</th>
+                <th scope="col">IMAGE</th>
                 <th scope="col">SUPRESSION</th>
                 <th scope="col">MODIFICATION</th>
             </tr>

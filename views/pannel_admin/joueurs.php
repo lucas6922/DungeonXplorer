@@ -4,10 +4,10 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">PLA_FIRSTNAME</th>
-                <th scope="col">PLA_SURNAME</th>
-                <th scope="col">PLA_MAIL</th>
-                <th scope="col">PLA_PSEUDO</th>
+                <th scope="col">FIRSTNAME</th>
+                <th scope="col">SURNAME</th>
+                <th scope="col">MAIL</th>
+                <th scope="col">PSEUDO</th>
                 <th scope="col">ISADMIN</th>
                 <th scope="col">SUPRESSION</th>
             </tr>

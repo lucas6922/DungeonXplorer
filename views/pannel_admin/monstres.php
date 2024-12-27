@@ -4,14 +4,14 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">MON_NAME</th>
+                <th scope="col">NAME</th>
                 <th scope="col">LOOT</th>
-                <th scope="col">MON_PV</th>
-                <th scope="col">MON_MANA</th>
-                <th scope="col">MON_INITIATIVE</th>
-                <th scope="col">MON_STRENGTH</th>
-                <th scope="col">MON_ATTACK</th>
-                <th scope="col">MON_XP</th>
+                <th scope="col">PV</th>
+                <th scope="col">MANA</th>
+                <th scope="col">INITIATIVE</th>
+                <th scope="col">STRENGTH</th>
+                <th scope="col">ATTACK</th>
+                <th scope="col">XP</th>
                 <th scope="col">SUPPRESSION</th>
                 <th scope="col">MODIFICATION</th>
             </tr>

@@ -57,30 +57,37 @@ class ChapterController
         if ($playerId) {
             $conn = connect_db();
             $play = $_SESSION['pla_id'];
+            $rqp = $conn->prepare("SELECT 1 FROM HERO JOIN PLAYER USING(PLA_ID) WHERE PLA_ID = :pla_id");
+            $rqp->execute(['pla_id' => $playerId]);
 
-            $sql1 = "SELECT cha_id FROM hero her 
+            if ($rqp->fetch()) {
+                $sql1 = "SELECT cha_id FROM hero her 
             JOIN player pla ON her.PLA_ID = pla.PLA_ID
             WHERE pla.PLA_ID = :play";
 
-            $cur1 = $conn->prepare($sql1);
-            $cur1->execute([':play' => $play]);
-            $tab1 = $cur1->fetchAll();
+                $cur1 = $conn->prepare($sql1);
+                $cur1->execute([':play' => $play]);
+                $tab1 = $cur1->fetchAll();
 
-            // var_dump($play);
-            // print_r($tab1);
-            $chapId = $tab1[0]['cha_id'];
-            $this->chargeChap($chapId);
+                // var_dump($play);
+                // print_r($tab1);
+                $chapId = $tab1[0]['cha_id'];
+                $this->chargeChap($chapId);
 
-            if ($this->chapter !== null) {
-                $chapter = $this->getChapter();
-                $next = $chapter->getNext();
+                if ($this->chapter !== null) {
+                    $chapter = $this->getChapter();
+                    $next = $chapter->getNext();
 
-                include 'views/chapitre.php';
-                $this->show_inventory();
-                $this->show_treasure($chapId);
+                    include 'views/chapitre.php';
+                    $this->show_inventory();
+                    $this->show_treasure($chapId);
+                } else {
+                    header('HTTP/1.0 404 Not Found');
+                    echo "Chapitre non trouvé!";
+                }
             } else {
-                header('HTTP/1.0 404 Not Found');
-                echo "Chapitre non trouvé!";
+                $_SESSION['error_message'] = "Vous devez avoir un hero pour commencer une aventure";
+                header("Location: ./");
             }
         } else {
             $this->afficherErreurAuth("Vous devez être connecté pour accéder à l'aventure.");

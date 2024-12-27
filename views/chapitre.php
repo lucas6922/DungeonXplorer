@@ -4,7 +4,13 @@
 <img src="<?php echo $chapter->getImage(); ?>" alt="Image de chapitre">
 <p><?php echo $chapter->getDescription(); ?></p>
 
+
 <h2>Choisissez votre chemin:</h2>
+<?php if($combat != -1){
+    echo '<a href="' . $baseUrl . '/combat/' . $combat . '"> COMBAT ! </a><br>';
+}
+?>
+
 <ul>
     <?php foreach ($next as $nextChapId => $liContent):
         /*

@@ -77,6 +77,7 @@ class ChapterController
                 if ($this->chapter !== null) {
                     $chapter = $this->getChapter();
                     $next = $chapter->getNext();
+                    $combat = $this->get_battle($chapId);
 
                     include 'views/chapitre.php';
                     $this->show_inventory();
@@ -111,6 +112,7 @@ class ChapterController
         if ($this->chapter !== null) {
             $chapter = $this->getChapter();
             $next = $chapter->getNext();
+            $combat = $this->get_battle($id);
 
             include 'views/chapitre.php';
         } else {
@@ -156,6 +158,27 @@ class ChapterController
         $cur->execute([':id' => $id]);
         $tab = $cur->fetchAll();
         print_r($tab);
+    }
+
+    function get_battle($chap_id){
+        $conn = connect_db();
+        $play = $_SESSION['pla_id'];
+        $sql = "SELECT * FROM chapter JOIN encounter USING(cha_id)
+                WHERE cha_id = :id";
+
+        $cur = $conn->prepare($sql);
+        $cur->execute([':id' => $chap_id]);
+        $tab = $cur->fetchAll();
+        if ($tab != []){
+            $sql1 = "SELECT her_id FROM hero her 
+            JOIN player pla ON her.PLA_ID = pla.PLA_ID
+            WHERE pla.PLA_ID = :play";
+            $cur1 = $conn->prepare($sql1);
+            $cur1->execute([':play' => $play]);
+            $tab1 = $cur1->fetchAll();
+            return $tab1[0]['her_id'];
+        }
+        return -1;
     }
 
     private function afficherErreurAuth($message)

@@ -32,6 +32,8 @@
     <button type="submit" class="form-btn">Valider</button>
 </form>
 
+<a href="<?php echo $baseUrl; ?>/pannel_admin/joueurs">Retour à la liste des joueurs</a>
+
 <?php
 if (isset($_SESSION['account_creation_error']) || !empty($_SESSION['account_creation_error'])) :
 ?>

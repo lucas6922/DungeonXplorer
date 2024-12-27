@@ -12,7 +12,8 @@ class ChapterController
     private $chapter = null;
 
 
-    public function chargeChap($chapId){
+    public function chargeChap($chapId)
+    {
         $conn = connect_db();
 
         $sql = "SELECT * FROM CHAPTER cha 
@@ -46,10 +47,10 @@ class ChapterController
                 $next
             );
         }
-        
     }
 
-    public function show(){
+    public function show()
+    {
         //print_r($id);
         $playerId = $_SESSION['pla_id'] ?? null;
 
@@ -62,11 +63,12 @@ class ChapterController
             WHERE pla.PLA_ID = :play";
 
             $cur1 = $conn->prepare($sql1);
-                $cur1->execute([':play' => $play]);
+            $cur1->execute([':play' => $play]);
             $tab1 = $cur1->fetchAll();
 
             //print_r($tab1);
-
+            var_dump($play);
+            print_r($tab1);
             $chapId = $tab1[0]['cha_id'];
             $this->chargeChap($chapId);
 
@@ -81,8 +83,7 @@ class ChapterController
                 header('HTTP/1.0 404 Not Found');
                 echo "Chapitre non trouvé!";
             }
-        }
-        else{
+        } else {
             $this->afficherErreurAuth("Vous devez être connecté pour accéder à l'aventure.");
         }
     }
@@ -117,7 +118,8 @@ class ChapterController
         return $this->chapter;
     }
 
-    function show_inventory(){
+    function show_inventory()
+    {
         $conn = connect_db();
         $play = $_SESSION['pla_id'];
         $sql = "SELECT ite_name, ite_poids, ite_value FROM items it
@@ -134,7 +136,8 @@ class ChapterController
         //print_r($tab);
     }
 
-    function show_treasure($id){
+    function show_treasure($id)
+    {
         $conn = connect_db();
         $play = $_SESSION['pla_id'];
         $sql = "SELECT ite_name, ite_poids, ite_value FROM items it
@@ -147,11 +150,10 @@ class ChapterController
         $cur->execute([':id' => $id]);
         $tab = $cur->fetchAll();
         print_r($tab);
-        
     }
 
-    private function afficherErreurAuth($message){
+    private function afficherErreurAuth($message)
+    {
         require 'views/auth_error.php';
     }
 }
-

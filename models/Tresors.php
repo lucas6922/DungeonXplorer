@@ -189,6 +189,80 @@ class Tresors
         }
     }
 
+    /**
+     * récupère les valeurs d'un item
+     */
+    public function getItem($id)
+    {
+        $rq = $this->conn->prepare("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID) WHERE ITE_ID = :ite_id");
+        $rq->execute(['ite_id' => $id]);
+        return $rq->fetch();
+    }
+
+    /**
+     * récupère les valeurs d'un loot
+     */
+    private function getLoot($id)
+    {
+        $rq = $this->conn->prepare("SELECT LOOT.LOO_ID, LOOT.LOO_NAME, LOOT.LOO_QUANTITY, 
+                CONTAINS.ITE_ID, CONTAINS.CON_QTE, ITEMS.ITE_NAME
+                FROM LOOT
+                LEFT JOIN CONTAINS ON LOOT.LOO_ID = CONTAINS.LOO_ID
+                LEFT JOIN ITEMS ON CONTAINS.ITE_ID = ITEMS.ITE_ID
+                WHERE LOOT.LOO_ID = :loo_id");
+
+        $rq->execute(['loo_id' => $id]);
+        return $rq->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getStructLoot($id)
+    {
+
+        //récupère toutes les données
+        $lootItems = $this->getLoot($id);
+        //si aucun loot
+        if (!$lootItems) {
+            return null;
+        }
+        $loot = [
+            'LOO_ID' => $lootItems[0]['LOO_ID'],
+            'LOO_NAME' => $lootItems[0]['LOO_NAME'],
+            'LOO_QUANTITY' => $lootItems[0]['LOO_QUANTITY'],
+            'ITEMS' => []
+        ];
+        //met en forme
+        foreach ($lootItems as $item) {
+            if (!empty($item['ITE_ID'])) {
+                $loot['ITEMS'][] = [
+                    'ITE_ID' => $item['ITE_ID'],
+                    'ITE_NAME' => $item['ITE_NAME'],
+                    'CON_QTE' => $item['CON_QTE']
+                ];
+            }
+        }
+        return $loot;
+    }
+
+    /**
+     * mise à jour de l'item
+     */
+    public function updateItem($ite_name, $ite_description, $ite_poids, $ite_value, $typ_id, $ite_id)
+    {
+        $rq = $this->conn->prepare("
+        UPDATE ITEMS 
+        SET ITE_NAME = :ite_name, ITE_DESCRIPTION = :ite_description, ITE_POIDS = :ite_poids, ITE_VALUE = :ite_value, 
+            TYP_ID = :typ_id
+        WHERE ITE_ID = :ite_id
+    ");
+        $rq->execute([
+            'ite_name' => $ite_name,
+            'ite_description' => $ite_description,
+            'ite_poids' => $ite_poids,
+            'ite_value' => $ite_value,
+            'typ_id' => $typ_id,
+            'ite_id' => $ite_id
+        ]);
+    }
 
     /**
      * mise à jour d'un loot

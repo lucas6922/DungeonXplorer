@@ -237,6 +237,7 @@ function tour(heros, ennemi){
                 }
                 actualiseAffichagePV(ennemi, 0);
                 actualiseAffichagePV(heros, 1);
+                boutonsSorts.innerHTML = "";
                 nTour++;
             })
 

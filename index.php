@@ -115,7 +115,7 @@ $router->addRoute('combat', 'fenetreCombatController@combat');
 //route pour acceder au pannel admin
 $router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPannelAdmin');
 $router->addRoute('pannel_admin/joueurs', 'JoueursController@gererJoueurs');
-$router->addRoute('pannel_admin/chapitres', 'AdminController@gererChapitres');
+$router->addRoute('pannel_admin/chapitres', 'ChapitresController@gererChapitres');
 $router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
 $router->addRoute('pannel_admin/tresors', 'TresorsController@gererTresors');
 $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
@@ -125,17 +125,21 @@ $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 $router->addRoute('pannel_admin/supprimer_joueur', 'JoueursController@supprimerJoueur');
 $router->addRoute('pannel_admin/creation_compte_admin', 'JoueursController@ajoutCompteAdmin');
 
+//-----------------------//
+//       CHAPITRES       //
+//-----------------------//
 //suppresion d'un chapitre depuis le pannel admin
-$router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');
+$router->addRoute('pannel_admin/supprimer_chapitre', 'ChapitresController@supprimerChapitre');
 //formulaire d'ajout d'un chapitre
-$router->addRoute('pannel_admin/creation_chapitre', 'AdminController@formAjoutChapitre');
+$router->addRoute('pannel_admin/creation_chapitre', 'ChapitresController@formAjoutChapitre');
 //traitement formulaire d'ajout d'un chapitre
-$router->addRoute('pannel_admin/ajoutChapitre', 'AdminController@ajoutChapitre');
-
+$router->addRoute('pannel_admin/ajoutChapitre', 'ChapitresController@ajoutChapitre');
 //formulaire de modification d'un chapitre
-$router->addRoute('pannel_admin/modifier_chapitre', 'AdminController@formModifChap');
+$router->addRoute('pannel_admin/modifier_chapitre', 'ChapitresController@formModifChap');
 //traitement modif chapitre
-$router->addRoute('pannel_admin/modifier_chapitre_traitement', 'AdminController@ModifChap');
+$router->addRoute('pannel_admin/modifier_chapitre_traitement', 'ChapitresController@ModifChap');
+
+
 
 //supprime monstre
 $router->addRoute('pannel_admin/supprimer_monstre', 'AdminController@supprimerMonstre');

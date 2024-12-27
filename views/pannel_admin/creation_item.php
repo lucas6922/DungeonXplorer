@@ -34,7 +34,7 @@
     </select>
 
 
-    <button type="submit">Créer l'item</button>
+    <button type="submit" class="form-btn">Créer l'item</button>
 </form>
 
 <?php

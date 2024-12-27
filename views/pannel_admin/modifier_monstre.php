@@ -48,7 +48,7 @@ include 'includes/header.php';
     <input type="number" id="mon_xp" name="mon_xp" value="<?php echo $monstre['MON_XP']; ?>">
 
 
-    <button type="submit">Enregistrer les modifications</button>
+    <button type="submit" class="form-btn">Enregistrer les modifications</button>
 </form>
 
 

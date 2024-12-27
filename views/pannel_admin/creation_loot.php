@@ -27,8 +27,8 @@
         </div>
     </div>
 
-    <button type="button" id="add-item-btn">Ajouter un item</button>
-    <button type="submit">Créer le loot</button>
+    <button type="button" id="add-item-btn" class="form-btn">Ajouter un item</button>
+    <button type="submit" class="form-btn">Créer le loot</button>
 </form>
 
 <?php

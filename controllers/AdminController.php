@@ -492,7 +492,6 @@ class AdminController
     }
 
 
-
     public function gererImages()
     {
         require_once 'views/pannel_admin/images.php';

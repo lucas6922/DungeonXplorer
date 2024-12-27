@@ -308,6 +308,8 @@ class TresorsController
             session_start();
         }
 
+        $tresors = new Tresors(connect_db());
+        $items = $tresors->getAllItems();
         if (!isset($_POST['loo_id']) || empty($_POST['loo_id'])) {
             $_SESSION['error_message'] = "Aucun loot spécifié.";
             header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
@@ -357,6 +359,44 @@ class TresorsController
             header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
             exit();
         }
+        $connexion = null;
+    }
+
+    public function modifierLoot()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $tresors = new Tresors(connect_db());
+
+        //verifie les champs
+        if (
+            isset($_POST['loo_id'], $_POST['loo_name']) && !empty($_POST['loo_id']) && !empty($_POST['loo_name'])
+        ) {
+
+            $loo_id = intval($_POST['loo_id']);
+            $loo_name = trim(strip_tags($_POST['loo_name']));
+            $loo_quantity = isset($_POST['loo_quantity']) ? intval($_POST['loo_quantity']) : null;
+            $items = isset($_POST['items']) ? $_POST['items'] : null;
+
+            $connexion = connect_db();
+
+            //mise à jour de l'item
+            try {
+                $tresors->updateLoot($loo_id, $loo_name, $loo_quantity, $items);
+            } catch (Exception $e) {
+                $_SESSION['error_message'] = "Erreur lors de la modification du loot : " . $e->getMessage();
+                header(sprintf("Location: %s/pannel_admin/tresors/modifier_loot", $this->baseUrl));
+                exit();
+            }
+        } else {
+            $_SESSION['error_message'] = "Tous les champs obligatoires sont requis.";
+            header(sprintf("Location: %s/pannel_admin/tresors/modifier_item", $this->baseUrl));
+            exit();
+        }
+        //redirige vers la page des tresors apres update
+        header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
         $connexion = null;
     }
 }

@@ -2,7 +2,7 @@
 
 <h1>Modifier l'item <?php echo $loot['LOO_NAME']; ?></h1>
 
-<form action="<?php echo $baseUrl; ?>/pannel_admin/ModifierItem" method="POST" enctype="multipart/form-data">
+<form action="<?php echo $baseUrl; ?>/pannel_admin/modifier_loot_traitement" method="POST" enctype="multipart/form-data">
 
     <input type="hidden" name="loo_id" value="<?php echo $loot['LOO_ID']; ?>">
 
@@ -18,16 +18,22 @@
     <h2>Items dans le loot :</h2>
     <?php foreach ($loot['ITEMS'] as $index => $item): ?>
         <div class="item">
-            <!-- <?php echo $index ?> -->
-            <!-- <?php print_r($item); ?> -->
-
             <input type="hidden" name="items[<?php echo $index; ?>][ite_id]" value="<?php echo $item['ITE_ID']; ?>">
-            <input type="text" id="item_<?php echo $index; ?>" value="<?php echo $item['ITE_NAME']; ?>">
+
+            <label for="item_<?php echo $index; ?>">Nom de l'item :</label>
+            <select id="item_<?php echo $index; ?>" name="items[<?php echo $index; ?>][ite_id]">
+                <?php foreach ($items as $option): ?>
+                    <option value="<?php echo $option['ITE_ID']; ?>" <?php echo $option['ITE_ID'] == $item['ITE_ID'] ? 'selected' : ''; ?>>
+                        <?php echo $option['ITE_NAME']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
             <label for="item_quantity_<?php echo $index; ?>">Quantité :</label>
             <input type="number" id="item_quantity_<?php echo $index; ?>" name="items[<?php echo $index; ?>][ite_quantity]" value="<?php echo $item['CON_QTE']; ?>">
         </div>
     <?php endforeach; ?>
+
     <button type="submit">modifier le loot</button>
 </form>
 
@@ -41,5 +47,8 @@ if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
     unset($_SESSION['error_message']);
 endif;
 ?>
+
+
+<script src="<?php echo $baseUrl; ?>/JS/create_loot.js"></script>
 
 <?php include 'includes/footer.php'; ?>

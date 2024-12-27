@@ -136,4 +136,48 @@ class Tresors
             }
         }
     }
+
+
+    /**
+     * mise à jour d'un loot
+     * mise à jour des items qui y sont associé
+     */
+    public function updateLoot($loo_id, $loo_name, $loo_quantity, $items)
+    {
+        $updtae = "
+            UPDATE LOOT 
+            SET LOO_NAME = :name, LOO_QUANTITY = :quantity 
+            WHERE LOO_ID = :lootId
+        ";
+        $rqp = $this->conn->prepare($updtae);
+        $rqp->execute([
+            'name' => $loo_name,
+            'quantity' => $loo_quantity,
+            'lootId' => $loo_id,
+        ]);
+
+        //supprime les ancien items associé
+        $del = "DELETE FROM CONTAINS WHERE LOO_ID = :lootId";
+        $rqp = $this->conn->prepare($del);
+        $rqp->execute(['lootId' => $loo_id]);
+
+        //insert les nouveaux items
+        if (!empty($items)) {
+            $insert = "
+                INSERT INTO CONTAINS (LOO_ID, ITE_ID, CON_QTE) 
+                VALUES (:lootId, :itemId, :quantity)
+            ";
+            $rqp = $this->conn->prepare($insert);
+
+            foreach ($items as $item) {
+                if (!empty($item['ite_id']) && !empty($item['ite_quantity'])) {
+                    $rqp->execute([
+                        'lootId' => $loo_id,
+                        'itemId' => $item['ite_id'],
+                        'quantity' => $item['ite_quantity'],
+                    ]);
+                }
+            }
+        }
+    }
 }

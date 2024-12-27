@@ -42,7 +42,6 @@ if (isset($_SESSION['error_message']) || !empty($_SESSION['error_message'])) :
 endif;
 ?>
 
-<div id="items-container" data-items='<?php echo json_encode($items); ?>'></div>
 <script src="<?php echo $baseUrl; ?>/JS/create_loot.js"></script>
 
 <?php include 'includes/footer.php'; ?>

@@ -171,7 +171,7 @@ $router->addRoute('pannel_admin/supprimer_loot', 'TresorsController@supprimerLoo
 //formulaire modif loot
 $router->addRoute('pannel_admin/modifier_loot', 'TresorsController@formModifierLoot');
 //traitement modif loot
-//$router->addRoute('pannel_admin/modifier_loot', 'TresorsController@formModifierLoot');
+$router->addRoute('pannel_admin/modifier_loot_traitement', 'TresorsController@modifierLoot');
 
 
 // Appel de la méthode route

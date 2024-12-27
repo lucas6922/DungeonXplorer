@@ -30,7 +30,7 @@
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_monstre" method="post" class="form-supp-pannel-panadm">
                             <input type="hidden" name="mon_id" value="<?php echo $monster['MON_ID']; ?>">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce monstre ?');">Supprimer</button>
+                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le monstre: <?php echo $monster['MON_NAME']; ?> ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>

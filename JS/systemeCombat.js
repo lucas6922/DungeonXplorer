@@ -272,7 +272,7 @@ function actualiseAffichagePV(combattant, estHeros){
 
 
 function charger(){
-    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)], 1);
+    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu",4), new sort(1,"Orage",20),new sort(2,"hein ?",0)], 1);
     let ennemi = new combattant(monstre[0], 0, monstre[1], monstre[1], monstre[2], monstre[2], monstre[3], monstre[4], 0, 0, 0, 0, 0, [], 0)
     //personnages test
     let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elixir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)], 1);

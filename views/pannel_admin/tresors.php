@@ -8,11 +8,11 @@
     <table>
         <thead>
             <tr>
-                <th scope="col">ITE_NAME</th>
+                <th scope="col">NAME</th>
                 <th scope="col">TYPE</th>
-                <th scope="col">ITE_DESCRIPTION</th>
-                <th scope="col">ITE_POIDS</th>
-                <th scope="col">ITE_VALUE</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">POIDS</th>
+                <th scope="col">VALUE</th>
                 <th scope="col">SUPPRESSION</th>
                 <th scope="col">MODIFICATION</th>
             </tr>

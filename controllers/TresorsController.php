@@ -13,6 +13,9 @@ class TresorsController
 
     //---------------------------------------------------------------------------------------------------------//
 
+    /**
+     * affiche les tresors(items et loots)
+     */
     public function gererTresors()
     {
         $connexion = connect_db();
@@ -28,26 +31,29 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * affiche le formualire de l'ajout d'item
+     */
     public function formAjoutItem()
     {
-        $connexion = connect_db();
+        //récupère les types d'item
+        $tresors = new Tresors(connect_db());
+        $types = $tresors->getAllTypes();
 
-        $rq = $connexion->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
-        $rq->execute();
-
-        $types = $rq->fetchAll(PDO::FETCH_ASSOC);
-
-        $connexion = null;
         require_once 'views/pannel_admin/creation_item.php';
+        $connexion = null;
     }
 
+    /**
+     * traitement de l'ajout d'un item
+     */
     public function ajoutItem()
     { {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
 
-            $connexion = connect_db();
+            $tresors = new Tresors(connect_db());
 
             if (
                 isset($_POST['ite_name']) && !empty($_POST['ite_name'])
@@ -58,38 +64,16 @@ class TresorsController
                 $typ_id = isset($_POST['typ_id']) ? intval($_POST['typ_id']) : null;
                 $ite_value = isset($_POST['ite_value']) ? intval($_POST['ite_value']) : null;
 
-
                 try {
-                    //unicite d'un item
-                    $rqp = $connexion->prepare("SELECT 1 FROM ITEMS WHERE ite_name = :nom");
-                    $rqp->execute(['nom' => $ite_name]);
-
-                    if ($rqp->fetch()) {
+                    if ($tresors->isNotUniqueItem($ite_name)) {
                         //existe deja
                         $_SESSION['error_message'] = "Un item existe déjà avec ce nom.";
                         header("Location: " . $this->baseUrl . "/pannel_admin/creation_item");
                         exit();
                     }
 
-                    //calcul l'id max
-                    $rqp = $connexion->query("SELECT MAX(ITE_ID) AS maxi FROM ITEMS");
-                    $result = $rqp->fetch(PDO::FETCH_OBJ);
-                    //id + 1 pour le nouveau joueur
-                    $id = $result->maxi + 1;
-
-
-                    //insert le monstre
-                    $rqp = $connexion->prepare("
-                INSERT INTO ITEMS (ITE_ID, TYP_ID, ITE_NAME, ITE_DESCRIPTION, ITE_POIDS, ITE_VALUE) 
-                VALUES ($id, :type, :name, :desc, :poid, :val)
-            ");
-                    $rqp->execute([
-                        'type' => $typ_id,
-                        'name' => $ite_name,
-                        'desc' => $ite_description,
-                        'poid' => $ite_poids,
-                        'val' => $ite_value,
-                    ]);
+                    //insertion de l'item
+                    $tresors->insertItem($ite_name, $ite_description, $ite_poids, $typ_id, $ite_value);
 
                     header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
                     exit();
@@ -109,24 +93,22 @@ class TresorsController
         }
     }
 
+    /**
+     * suppression d'un item
+     */
     public function supprimerItem()
     {
-        $connexion = connect_db();
+        $tresors = new Tresors(connect_db());
 
         //si formulaire envoyé avec l'id d'un item pour le supp
         if (isset($_POST['ite_id'])) {
 
             $ite_id = $_POST['ite_id'];
-            //supp le joueur
-            $rqp = $connexion->prepare("DELETE FROM ITEMS WHERE ITE_ID = ?");
-            $rqp->execute([$ite_id]);
+            //supp l'item
+            $tresors->suppItem($ite_id);
 
             //reuper la nouvelle liste des items
-            $select = $connexion->query("SELECT * FROM ITEMS");
-            $items = $select->fetchAll(PDO::FETCH_ASSOC);
-            if (!$items) {
-                $items = [];  //si aucun item trouvé
-            }
+            $items = $tresors->getAllItems();
 
             header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
             exit();
@@ -254,7 +236,7 @@ class TresorsController
 
             try {
                 //un loot existe deja avec de nom
-                if ($tresors->isUniqueLoot($_POST['loo_name'])) {
+                if ($tresors->isNotUniqueLoot($_POST['loo_name'])) {
                     $_SESSION['error_message'] = "Un loot existe déjà avec ce nom.";
                     header("Location: " . $this->baseUrl . "/pannel_admin/creation_loot");
                     exit();

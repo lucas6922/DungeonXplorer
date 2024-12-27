@@ -114,7 +114,7 @@ $router->addRoute('combat', 'fenetreCombatController@combat');
 
 //route pour acceder au pannel admin
 $router->addRoute('pannel_admin/pannel_admin_accueil', 'AdminController@showPannelAdmin');
-$router->addRoute('pannel_admin/joueurs', 'AdminController@gererJoueurs');
+$router->addRoute('pannel_admin/joueurs', 'JoueursController@gererJoueurs');
 $router->addRoute('pannel_admin/chapitres', 'AdminController@gererChapitres');
 $router->addRoute('pannel_admin/monstres', 'AdminController@gererMonstres');
 $router->addRoute('pannel_admin/tresors', 'TresorsController@gererTresors');
@@ -122,8 +122,8 @@ $router->addRoute('pannel_admin/images', 'AdminController@gererImages');
 
 
 //route pour le formulaire de suppresion d'un joueur
-$router->addRoute('pannel_admin/supprimer_joueur', 'AdminController@supprimerJoueur');
-$router->addRoute('pannel_admin/creation_compte_admin', 'AdminController@ajoutCompteAdmin');
+$router->addRoute('pannel_admin/supprimer_joueur', 'JoueursController@supprimerJoueur');
+$router->addRoute('pannel_admin/creation_compte_admin', 'JoueursController@ajoutCompteAdmin');
 
 //suppresion d'un chapitre depuis le pannel admin
 $router->addRoute('pannel_admin/supprimer_chapitre', 'AdminController@supprimerChapitre');

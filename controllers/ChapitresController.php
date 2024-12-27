@@ -161,13 +161,14 @@ class ChapitresController
             $cha_name = trim(strip_tags($_POST['cha_name']));
             $cha_content = trim(strip_tags($_POST['cha_content']));
             $cha_image = trim(strip_tags($_POST['cha_image']));
+            $loo_id = isset($_POST['loo_id']) ? intval($_POST['loo_id']) : null;
 
 
             $chap = new AdmChapitre(connect_db());
 
             //mise à jour du chapitre
             try {
-                $chap->updateChap($cha_name, $cha_content, $cha_id, $cha_image);
+                $chap->updateChap($cha_name, $cha_content, $cha_id, $cha_image, $loo_id);
             } catch (Exception $e) {
                 $_SESSION['chap_creation_error'] = "Erreur lors de la modification : " . $e->getMessage();
                 header(sprintf("Location: %s/pannel_admin/chapitres", $this->baseUrl));

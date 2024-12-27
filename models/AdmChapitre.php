@@ -69,13 +69,14 @@ class AdmChapitre
     /**
      * mise à jour du chapitre
      */
-    public function updateChap($cha_name, $cha_content, $cha_id, $cha_image)
+    public function updateChap($cha_name, $cha_content, $cha_id, $cha_image, $loo_id)
     {
         $rq = $this->conn->prepare("
         UPDATE CHAPTER 
-        SET CHA_NAME = :cha_name, CHA_CONTENT = :cha_content, CHA_IMAGE = :cha_image
+        SET LOO_ID = :loo_id, CHA_NAME = :cha_name, CHA_CONTENT = :cha_content, CHA_IMAGE = :cha_image
         WHERE CHA_ID = :cha_id");
         $rq->execute([
+            'loo_id' => $loo_id,
             'cha_name' => $cha_name,
             'cha_content' => $cha_content,
             'cha_id' => $cha_id,

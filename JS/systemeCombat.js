@@ -13,7 +13,7 @@ function makeStruct(keys) {
   }
 
 let combattant = new makeStruct(
-    "nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts"
+    "nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts, estHeros"
 )
 
 let potion = new makeStruct(
@@ -43,10 +43,15 @@ function calculInitiative(joueur, ennemi){
     initJoueur = tirerDe(6) + joueur.initiative;
     initEnnemi = tirerDe(6) + ennemi.initiative;
     if (initJoueur > initEnnemi){
-        return joueur
+        return joueur;
     }
-    //TODO : Les voleurs ont l'initiative en cas d'égalité
-    return ennemi
+    if (initJoueur < initEnnemi){
+        return ennemi;
+    }
+    if (joueur.id_classe == 2){
+        return joueur;
+    }
+    return ennemi;
 }
 
 function prendreDegats(combattant, degats){
@@ -99,7 +104,7 @@ function attaquerMagique(attaquant, cible, manaSort){
     }
     else{
         let degats = tirerDe(6) + tirerDe(6) + manaSort;
-        let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;//TODO Gere mana insuffisant
+        let defense = tirerDe(6) + Math.floor(cible.force / 2) + cible.armure;
         attaquant.mana -= manaSort;
         prendreDegats(cible, degats - defense);
     }
@@ -115,8 +120,16 @@ function boirePotion(cible, idPotion, val){//TODO supprimer une potion de l'inve
     }
 }
 
-function finDeCombat(combattant){
-    consoleCombat.innerHTML += "Fini !<br>" + combattant.nom + " a perdu<br>";
+//est appelée quand un combattant est à 0 pv
+function finDeCombat(combattant){ 
+    if(combattant.estHeros == 1){//si le joueur a perdu
+        consoleCombat.innerHTML += "Fini !<br>Vous avez perdu ...<br>";
+
+    }
+    else{ //si le joueur a gagné
+        consoleCombat.innerHTML += "Fini !<br>Vous avez gagné !<br>";
+    }
+
 
     boutonAttaquePhysiqueClone = boutonAttaquePhysique.cloneNode(true);
     boutonAttaquePhysique.parentNode.replaceChild(boutonAttaquePhysiqueClone, boutonAttaquePhysique);
@@ -259,14 +272,16 @@ function actualiseAffichagePV(combattant, estHeros){
 
 
 function charger(){
-    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)] );
-    let ennemi = new combattant(monstre[0], 0, monstre[1], monstre[1], monstre[2], monstre[2], monstre[3], monstre[4], 0, 0, 0, 0, 0, [])
+    let heros = new combattant(personnage[0], personnage[1], personnage[2], personnage[2], personnage[3], personnage[3], personnage[4], personnage[5], personnage[6], personnage[7], personnage[8], personnage[9], [new sort(0,"Boule de feu",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)], 1);
+    let ennemi = new combattant(monstre[0], 0, monstre[1], monstre[1], monstre[2], monstre[2], monstre[3], monstre[4], 0, 0, 0, 0, 0, [], 0)
     //personnages test
-    let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elixir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)]);
-    let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, []);//TODO Charger les persos dans la bdd
+    let  michel = new combattant('Michel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [new sort(0,"Boule de feu 4 Elixir",4), new sort(1,"orage.jpg",20),new sort(2,"hein ?",0)], 1);
+    let  darkMichel = new combattant('darkMichel', 0, 30, 30, 0, 0, 10, 5, 0, 0, 0, 0, [], 0);
+
+    //création des boutons
     tour(heros, ennemi);
 }
 
-//nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts
+//nom, id_classe, pvMax, pv, manaMax, mana, force, initiative, armure, arme_principale, arme_secondaire, bouclier, liste_sorts, estHeros
 
 charger();

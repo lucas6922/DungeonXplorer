@@ -34,6 +34,13 @@ class Tresors
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllTypes()
+    {
+        $rq = $this->conn->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
+        $rq->execute();
+        return $rq->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * met en forme le resultat de la récupération des loots
      */
@@ -76,17 +83,62 @@ class Tresors
         $del->execute([$id]);
     }
 
+    /**
+     * supprime un item
+     */
+    public function suppItem($id)
+    {
+        $rqp = $this->conn->prepare("DELETE FROM ITEMS WHERE ITE_ID = ?");
+        $rqp->execute([$id]);
+    }
+
+
+    /**
+     * revoi si oui ou non un item existe avec le nom
+     */
+    public function isNotUniqueItem($nom)
+    {
+        $rqp = $this->conn->prepare("SELECT 1 FROM ITEMS WHERE ite_name = :nom");
+        $rqp->execute(['nom' => $nom]);
+        return $rqp->fetch();
+    }
+
 
     /**
      * revoi si oui ou non un loot existe avec le nom
      */
-    public function isUniqueLoot($nom)
+    public function isNotUniqueLoot($nom)
     {
         $rqp = $this->conn->prepare("SELECT 1 FROM LOOT WHERE loo_name = :nom");
         $rqp->execute(['nom' => $nom]);
         return $rqp->fetch();
     }
 
+    /**
+     * insert l'item
+     */
+    public function insertItem($ite_name, $ite_description, $ite_poids, $typ_id, $ite_value)
+    {
+        //calcul l'id max
+        $rqp = $this->conn->query("SELECT MAX(ITE_ID) AS maxi FROM ITEMS");
+        $result = $rqp->fetch(PDO::FETCH_OBJ);
+        //id + 1 pour le nouveau joueur
+        $id = $result->maxi + 1;
+
+
+        //insert le monstre
+        $rqp = $this->conn->prepare("
+            INSERT INTO ITEMS (ITE_ID, TYP_ID, ITE_NAME, ITE_DESCRIPTION, ITE_POIDS, ITE_VALUE) 
+            VALUES ($id, :type, :name, :desc, :poid, :val)");
+
+        $rqp->execute([
+            'type' => $typ_id,
+            'name' => $ite_name,
+            'desc' => $ite_description,
+            'poid' => $ite_poids,
+            'val' => $ite_value,
+        ]);
+    }
     /**
      * insert le loot avec ses items
      */

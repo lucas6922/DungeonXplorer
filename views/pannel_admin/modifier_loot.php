@@ -34,7 +34,7 @@
         </div>
     <?php endforeach; ?>
 
-    <button type="submit">modifier le loot</button>
+    <button type="submit" class="form-btn">modifier le loot</button>
 </form>
 
 <?php

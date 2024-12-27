@@ -33,7 +33,7 @@ include 'includes/header.php';
 
 
 
-    <button type="submit">Enregistrer les modifications</button>
+    <button type="submit" class="form-btn">Enregistrer les modifications</button>
 </form>
 
 

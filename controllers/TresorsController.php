@@ -107,7 +107,7 @@ class TresorsController
             //supp l'item
             $tresors->suppItem($ite_id);
 
-            //reuper la nouvelle liste des items
+            //recupere la nouvelle liste des items
             $items = $tresors->getAllItems();
 
             header("Location: " . $this->baseUrl . "/pannel_admin/tresors");
@@ -118,6 +118,10 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * affichage du formulaire de modification d'un item
+     * récupère les donnes relative à l'item pour prérenmplir les champs
+     */
     public function formModifierItem()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -132,17 +136,13 @@ class TresorsController
 
         $ite_id = intval($_POST['ite_id']);
         $connexion = connect_db();
+        $tresors = new Tresors(connect_db());
 
-        //recup données de l'item
         try {
-            $rq = $connexion->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
-            $rq->execute();
-
-            $types = $rq->fetchAll(PDO::FETCH_ASSOC);
-
-            $rq = $connexion->prepare("SELECT * FROM ITEMS JOIN TYPE_ITEM USING(TYP_ID) WHERE ITE_ID = :ite_id");
-            $rq->execute(['ite_id' => $ite_id]);
-            $item = $rq->fetch();
+            //récupere tous les types d'item
+            $types = $tresors->getAllTypes();
+            //valeurs de l'item
+            $item = $tresors->getItem($ite_id);
 
             if (!$item) {
                 $_SESSION['error_message'] = "Item introuvable.";
@@ -159,6 +159,9 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * traitement de la modification d'un item
+     */
     public function modifierItem()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -176,24 +179,11 @@ class TresorsController
             $ite_value = isset($_POST['ite_value']) ? intval($_POST['ite_value']) : null;
             $typ_id = isset($_POST['typ_id']) ? intval($_POST['typ_id']) : null;
 
-            $connexion = connect_db();
+            $tresors = new Tresors(connect_db());
 
             //mise à jour de l'item
             try {
-                $rq = $connexion->prepare("
-                UPDATE ITEMS 
-                SET ITE_NAME = :ite_name, ITE_DESCRIPTION = :ite_description, ITE_POIDS = :ite_poids, ITE_VALUE = :ite_value, 
-                    TYP_ID = :typ_id
-                WHERE ITE_ID = :ite_id
-            ");
-                $rq->execute([
-                    'ite_name' => $ite_name,
-                    'ite_description' => $ite_description,
-                    'ite_poids' => $ite_poids,
-                    'ite_value' => $ite_value,
-                    'typ_id' => $typ_id,
-                    'ite_id' => $ite_id
-                ]);
+                $tresors->updateItem($ite_name, $ite_description, $ite_poids, $ite_value, $typ_id, $ite_id);
             } catch (Exception $e) {
                 $_SESSION['error_message'] = "Erreur lors de la modification de l'item : " . $e->getMessage();
                 header(sprintf("Location: %s/pannel_admin/tresors/modifier_item", $this->baseUrl));
@@ -209,6 +199,9 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * affichage du formulaire d'ajout d'un loot
+     */
     public function formAjoutLoot()
     {
         $tresors = new Tresors(connect_db());
@@ -216,16 +209,15 @@ class TresorsController
         require_once 'views/pannel_admin/creation_loot.php';
     }
 
+    /**
+     * traitement de l'ajout d'un loot
+     */
     public function ajoutLoot()
     {
-
-
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
-        $connexion = connect_db();
-        $tresors = new Tresors($connexion);
+        $tresors = new Tresors(connect_db());
 
         if (
             isset($_POST['loo_name']) && !empty($_POST['loo_name'])
@@ -263,6 +255,9 @@ class TresorsController
     }
 
 
+    /**
+     * suppression d'un loot
+     */
     public function supprimerLoot()
     {
         $tresors = new Tresors(connect_db());
@@ -272,7 +267,6 @@ class TresorsController
             $loo_id = $_POST['loo_id'];
             //supp le loot
             $tresors->suppLoot($loo_id);
-
 
             //reuper la nouvelle liste des items
             $loots = $tresors->getAllLoots();
@@ -284,55 +278,40 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * affichage du formulaire de modificatoin d'un loot
+     * et récupération des données d'un loot pour preremplir les champs
+     */
     public function formModifierLoot()
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        $tresors = new Tresors(connect_db());
-        $items = $tresors->getAllItems();
         if (!isset($_POST['loo_id']) || empty($_POST['loo_id'])) {
             $_SESSION['error_message'] = "Aucun loot spécifié.";
             header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
             exit();
         }
 
+        $tresors = new Tresors(connect_db());
+
+
         $loo_id = intval($_POST['loo_id']);
-        $connexion = connect_db();
 
         //recup données du loot
         try {
-            $rq = $connexion->prepare("SELECT LOOT.LOO_ID, LOOT.LOO_NAME, LOOT.LOO_QUANTITY, 
-                CONTAINS.ITE_ID, CONTAINS.CON_QTE, ITEMS.ITE_NAME
-                FROM LOOT
-                LEFT JOIN CONTAINS ON LOOT.LOO_ID = CONTAINS.LOO_ID
-                LEFT JOIN ITEMS ON CONTAINS.ITE_ID = ITEMS.ITE_ID
-                WHERE LOOT.LOO_ID = :loo_id");
+            //récupération de tous les items
+            $items = $tresors->getAllItems();
+            //récupération des donnes d'un loot
 
-            $rq->execute(['loo_id' => $loo_id]);
-            $lootItems = $rq->fetchAll();
+            // Récupération des données structurées du loot
+            $loot = $tresors->getStructLoot($loo_id);
 
-            if (!$lootItems) {
-                $_SESSION['error_message'] = "Loot introuvable.";
+            if (!$loot) {
+                $_SESSION['error_message'] = "Aucun loot trouvé";
                 header(sprintf("Location: %s/pannel_admin/tresors", $this->baseUrl));
                 exit();
-            }
-            //print_r($lootItems);
-            $loot = [
-                'LOO_ID' => $lootItems[0]['LOO_ID'],
-                'LOO_NAME' => $lootItems[0]['LOO_NAME'],
-                'LOO_QUANTITY' => $lootItems[0]['LOO_QUANTITY'],
-                'ITEMS' => []
-            ];
-            foreach ($lootItems as $item) {
-                if (!empty($item['ITE_ID'])) {
-                    $loot['ITEMS'][] = [
-                        'ITE_ID' => $item['ITE_ID'],
-                        'ITE_NAME' => $item['ITE_NAME'],
-                        'CON_QTE' => $item['CON_QTE']
-                    ];
-                }
             }
             //affiche le formulaire de modification
             require_once 'views/pannel_admin/modifier_loot.php';
@@ -344,6 +323,9 @@ class TresorsController
         $connexion = null;
     }
 
+    /**
+     * traitement de la modification d'un loot
+     */
     public function modifierLoot()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -361,8 +343,6 @@ class TresorsController
             $loo_name = trim(strip_tags($_POST['loo_name']));
             $loo_quantity = isset($_POST['loo_quantity']) ? intval($_POST['loo_quantity']) : null;
             $items = isset($_POST['items']) ? $_POST['items'] : null;
-
-            $connexion = connect_db();
 
             //mise à jour de l'item
             try {

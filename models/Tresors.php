@@ -34,10 +34,24 @@ class Tresors
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * récupère tous les types d'items
+     */
     public function getAllTypes()
     {
         $rq = $this->conn->prepare("SELECT TYP_ID, TYP_LIBELLE FROM TYPE_ITEM");
         $rq->execute();
+        return $rq->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * récupère l'id et le nom des loots
+     */
+    public function getLootIdName()
+    {
+        $rq = $this->conn->prepare("SELECT LOO_ID, LOO_NAME FROM LOOT");
+        $rq->execute();
+
         return $rq->fetchAll(PDO::FETCH_ASSOC);
     }
 

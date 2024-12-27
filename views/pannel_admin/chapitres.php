@@ -21,7 +21,7 @@
                     <td><?php echo $chapitre['CHA_CONTENT']; ?></td>
                     <td>
                         <?php if (!empty($chapitre['CHA_IMAGE'])): ?>
-                            <img src="<?php echo $chapitre['CHA_IMAGE']; ?>" alt="Image du chapitre">
+                            <img src="<?php echo $baseUrl; ?>/Images/<?php echo $chapitre['CHA_IMAGE']; ?>" alt="Image du chapitre">
                         <?php else: ?>
                             Pas d'image
                         <?php endif; ?>

@@ -28,7 +28,7 @@
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_item" method="post" class="form-supp-pannel-panadm">
                             <input type="hidden" name="ite_id" value="<?php echo $item['ITE_ID']; ?>">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet item ?');">Supprimer</button>
+                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'item: <?php echo $item['ITE_NAME']; ?>  ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>
@@ -84,7 +84,7 @@
                     <td>
                         <form action="<?php echo $baseUrl; ?>/pannel_admin/supprimer_loot" method="post" class="form-supp-pannel-panadm">
                             <input type="hidden" name="loo_id" value="<?php echo $loot['LOO_ID']; ?>">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce loot ?');">Supprimer</button>
+                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le loot : <?php echo $loot['LOO_NAME']; ?> ?');">Supprimer</button>
                         </form>
                     </td>
                     <td>

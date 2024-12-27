@@ -66,9 +66,8 @@ class ChapterController
             $cur1->execute([':play' => $play]);
             $tab1 = $cur1->fetchAll();
 
-            //print_r($tab1);
-            var_dump($play);
-            print_r($tab1);
+            // var_dump($play);
+            // print_r($tab1);
             $chapId = $tab1[0]['cha_id'];
             $this->chargeChap($chapId);
 
@@ -97,7 +96,7 @@ class ChapterController
 
         $sql = "UPDATE hero SET cha_id = :newId
         WHERE pla_id = :play";
-        print($sql);
+        //print($sql);
 
         $cur = $conn->prepare($sql);
         $cur->execute([':newId' => $id, ':play' => $play]);
